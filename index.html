@@ -4,11 +4,59 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="data:," />
   <title>Post Calendar Preview</title>
+  <!-- wordpress admin styles -->
+   
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      margin: 0;
+      padding: 2rem;
+      background: #f0f0f1;
+    }
+    .demo-container {
+      display: grid;
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .demo-section {
+      background: #fff;
+      border: 1px solid #dcdcde;
+      border-radius: 2px;
+      padding: 1.5rem;
+    }
+    .demo-section h2 {
+      margin: 0 0 1rem;
+      font-size: 16px;
+      font-weight: 600;
+    }
+    .demo-divider {
+      border: 0;
+      border-top: 1px solid #dcdcde;
+      margin: 0;
+    }
+  </style>
 </head>
 
 <body>
-  <div id="preview-root"></div>
+  <div class="demo-container">
+    <section class="demo-section">
+      <h2>Calendar Preview</h2>
+      <div id="preview-root"></div>
+    </section>
+    <hr class="demo-divider" />
+    <section class="demo-section">
+      <h2>Admin Editor</h2>
+      <div class="js-post-calendar-admin-root"></div>
+    </section>
+    <hr class="demo-divider" />
+    <section class="demo-section">
+      <h2>Settings</h2>
+      <div class="js-post-calendar-settings-root"></div>
+    </section>
+  </div>
   <script type="module" src="/src/preview/main.tsx"></script>
 </body>
 

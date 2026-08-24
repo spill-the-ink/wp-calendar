@@ -1,0 +1,543 @@
+/* Post Calendar Admin - Gutenberg-style UI */
+/* These styles are scoped to the admin editor only */
+
+:root {
+  --pc-admin-primary: #3858e9;
+  --pc-admin-primary-hover: #2145e6;
+  --pc-admin-primary-active: #183ad6;
+  --pc-admin-primary-inverted: #fff;
+  --pc-admin-border: #e0e0e0;
+  --pc-admin-border-hover: #949494;
+  --pc-admin-border-focus: #3858e9;
+  --pc-admin-border-disabled: #ddd;
+  --pc-admin-background: #fff;
+  --pc-admin-background-hover: #f9f9f9;
+  --pc-admin-background-disabled: #f0f0f0;
+  --pc-admin-text: #1e1e1e;
+  --pc-admin-text-muted: #757575;
+  --pc-admin-text-disabled: #949494;
+  --pc-admin-text-placeholder: rgba(30, 30, 30, 0.62);
+  --pc-admin-radius: 2px;
+  --pc-admin-font-family:
+    -apple-system, system-ui, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue",
+    sans-serif;
+  --pc-admin-font-size: 13px;
+  --pc-admin-font-size-small: 12px;
+  --pc-admin-font-size-large: 15px;
+  --pc-admin-font-weight-emphasis: 499;
+  --pc-admin-line-height: 20px;
+  --pc-admin-spacing-unit: 8px;
+  --pc-admin-spacing-xs: 4px;
+  --pc-admin-spacing-sm: 8px;
+  --pc-admin-spacing-md: 12px;
+  --pc-admin-spacing-lg: 16px;
+  --pc-admin-spacing-xl: 24px;
+  --pc-admin-spacing-xxl: 32px;
+  --pc-admin-input-height: 40px;
+  --pc-admin-button-height: 36px;
+  --pc-admin-button-height-sm: 32px;
+  --pc-admin-panel-header-height: 48px;
+  --pc-admin-focus-ring: 0 0 0 2px var(--pc-admin-primary);
+  --pc-admin-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+}
+
+/* Panel container */
+.pc-admin-panel {
+  background: var(--pc-admin-background);
+  border: 1px solid var(--pc-admin-border);
+  border-radius: var(--pc-admin-radius);
+  font-family: var(--pc-admin-font-family);
+  font-size: var(--pc-admin-font-size);
+  color: var(--pc-admin-text);
+  line-height: var(--pc-admin-line-height);
+}
+
+/* Panel header */
+.pc-admin-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--pc-admin-panel-header-height);
+  padding: 0 var(--pc-admin-spacing-lg);
+  border-bottom: 1px solid var(--pc-admin-border);
+  box-sizing: content-box;
+}
+
+.pc-admin-panel__header h2 {
+  margin: 0;
+  font-size: var(--pc-admin-font-size);
+  font-weight: var(--pc-admin-font-weight-emphasis);
+  color: var(--pc-admin-text);
+}
+
+/* Panel body */
+.pc-admin-panel__body {
+  padding: var(--pc-admin-spacing-lg);
+}
+
+.pc-admin-panel__body + .pc-admin-panel__body {
+  /* border-top: 1px solid var(--pc-admin-border); */
+  padding-top: 0;
+}
+
+.pc-admin-event__action_row {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  align-items: center;
+}
+
+/* Panel row */
+.pc-admin-panel__row {
+  display: flex;
+  align-items: center;
+  gap: var(--pc-admin-spacing-sm);
+  margin-top: var(--pc-admin-spacing-sm);
+  min-height: var(--pc-admin-button-height);
+}
+
+.pc-admin-panel__row:first-child {
+  margin-top: 0;
+}
+
+/* Form elements */
+.pc-admin-input,
+.pc-admin-textarea,
+.pc-admin-select {
+  width: 100%;
+  min-height: var(--pc-admin-input-height);
+  margin: 0;
+  padding: var(--pc-admin-spacing-md);
+  background: var(--pc-admin-background);
+  color: var(--pc-admin-text);
+  border: 1px solid var(--pc-admin-border);
+  border-radius: var(--pc-admin-radius);
+  font-family: var(--pc-admin-font-family);
+  font-size: var(--pc-admin-font-size);
+  line-height: normal;
+  transition: border-color 0.1s ease;
+  box-sizing: border-box;
+}
+
+.pc-admin-input::placeholder,
+.pc-admin-textarea::placeholder {
+  color: var(--pc-admin-text-placeholder);
+}
+
+.pc-admin-input:hover:not(:disabled),
+.pc-admin-textarea:hover:not(:disabled),
+.pc-admin-select:hover:not(:disabled) {
+  border-color: var(--pc-admin-border-hover);
+}
+
+.pc-admin-input:focus,
+.pc-admin-textarea:focus,
+.pc-admin-select:focus {
+  outline: none;
+  border-color: var(--pc-admin-border);
+  box-shadow: var(--pc-admin-focus-ring);
+}
+
+.pc-admin-input:disabled,
+.pc-admin-textarea:disabled,
+.pc-admin-select:disabled {
+  background: var(--pc-admin-background-disabled);
+  border-color: var(--pc-admin-border-disabled);
+  color: var(--pc-admin-text-disabled);
+  cursor: default;
+}
+
+.pc-admin-textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.pc-admin-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23757575' d='M6 8.825L1.175 4 2.238 2.938 6 6.7 9.763 2.937 10.825 4z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--pc-admin-spacing-md) center;
+  padding-right: var(--pc-admin-spacing-xxl);
+}
+
+/* Checkbox */
+.pc-admin-checkbox {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--pc-admin-text);
+  border-radius: var(--pc-admin-radius);
+  background: var(--pc-admin-background);
+  cursor: pointer;
+  transition:
+    background-color 0.1s ease,
+    border-color 0.1s ease;
+}
+
+.pc-admin-checkbox:checked {
+  background: var(--pc-admin-primary);
+  border-color: var(--pc-admin-primary);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' d='M3.5 8.5l3 3 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.pc-admin-checkbox:focus {
+  outline: none;
+  box-shadow: var(--pc-admin-focus-ring);
+}
+
+.pc-admin-checkbox:disabled {
+  background: var(--pc-admin-background-disabled);
+  border-color: var(--pc-admin-border-disabled);
+  cursor: default;
+}
+
+/* Buttons */
+.pc-admin-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--pc-admin-spacing-sm);
+  height: var(--pc-admin-button-height);
+  padding: var(--pc-admin-spacing-xs) var(--pc-admin-spacing-md);
+  border: 1px solid transparent;
+  border-radius: var(--pc-admin-radius);
+  background: none;
+  color: var(--pc-admin-text);
+  font-family: var(--pc-admin-font-family);
+  font-size: var(--pc-admin-font-size);
+  font-weight: var(--pc-admin-font-weight-emphasis);
+  cursor: pointer;
+  transition:
+    background-color 0.1s ease,
+    border-color 0.1s ease,
+    color 0.1s ease;
+  white-space: nowrap;
+}
+
+.pc-admin-button:focus {
+  outline: none;
+  box-shadow: var(--pc-admin-focus-ring);
+}
+
+.pc-admin-button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.pc-admin-button--primary {
+  background: var(--pc-admin-primary);
+  color: var(--pc-admin-primary-inverted);
+}
+
+.pc-admin-button--primary:hover:not(:disabled) {
+  background: var(--pc-admin-primary-hover);
+}
+
+.pc-admin-button--primary:active:not(:disabled) {
+  background: var(--pc-admin-primary-active);
+}
+
+.pc-admin-button--secondary {
+  border-color: var(--pc-admin-primary);
+  color: var(--pc-admin-primary);
+}
+
+.pc-admin-button--secondary:hover:not(:disabled) {
+  border-color: var(--pc-admin-primary-hover);
+  color: var(--pc-admin-primary-hover);
+}
+
+.pc-admin-button--danger {
+  color: #9f1239;
+}
+
+.pc-admin-button--danger:hover:not(:disabled) {
+  background: #fff1f2;
+}
+
+.pc-admin-button--small {
+  height: var(--pc-admin-button-height-sm);
+  font-size: var(--pc-admin-font-size-small);
+}
+
+/* Labels */
+.pc-admin-label {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pc-admin-spacing-xs);
+}
+
+.pc-admin-label--inline {
+  flex-direction: row;
+  align-items: center;
+  gap: var(--pc-admin-spacing-sm);
+}
+
+.pc-admin-label--inline .pc-admin-label__text {
+  white-space: nowrap;
+}
+
+.pc-admin-label--inline .pc-admin-input {
+  flex: 1;
+}
+
+.pc-admin-label__text {
+  font-size: var(--pc-admin-font-size);
+  font-weight: var(--pc-admin-font-weight-emphasis);
+  color: var(--pc-admin-text);
+}
+
+.pc-admin-label__help {
+  font-size: var(--pc-admin-font-size-small);
+  color: var(--pc-admin-text-muted);
+  margin: 0;
+}
+
+/* Grid layout for form fields */
+.pc-admin-grid {
+  display: grid;
+  gap: var(--pc-admin-spacing-md);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .pc-admin-grid--2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Weekday checkbox group */
+.pc-admin-weekdays {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--pc-admin-spacing-sm);
+}
+
+.pc-admin-weekday {
+  display: flex;
+  align-items: center;
+  gap: var(--pc-admin-spacing-xs);
+}
+
+.pc-admin-weekday__label {
+  font-size: var(--pc-admin-font-size);
+  color: var(--pc-admin-text);
+}
+
+/* Intro text */
+.pc-admin-intro {
+  font-size: var(--pc-admin-font-size);
+  color: var(--pc-admin-text-muted);
+  margin: 0 0 var(--pc-admin-spacing-lg) 0;
+}
+
+/* Event card */
+.pc-admin-event-card {
+  background: var(--pc-admin-background);
+  overflow: hidden;
+  border: 1px solid var(--pc-admin-border);
+}
+.pc-admin-event-card:not(:first-of-type) {
+  margin-top: var(--pc-admin-spacing-lg);
+}
+
+.pc-admin-event-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pc-admin-spacing-md);
+  padding: var(--pc-admin-spacing-md) var(--pc-admin-spacing-lg);
+  background: var(--pc-admin-background-hover);
+  border-bottom: 1px solid var(--pc-admin-border);
+}
+
+.pc-admin-event-card__title {
+  margin: 0;
+  font-size: var(--pc-admin-font-size);
+  font-weight: var(--pc-admin-font-weight-emphasis);
+  color: var(--pc-admin-text);
+  display: flex;
+  align-items: center;
+  gap: var(--pc-admin-spacing-sm);
+  flex: 1;
+  min-width: 0;
+}
+
+.pc-admin-event-card__title .pc-admin-select {
+  width: auto;
+  min-width: 160px;
+  min-height: var(--pc-admin-button-height-sm);
+}
+
+.pc-admin-event-card__title .pc-admin-input--inline {
+  width: auto;
+  min-width: 140px;
+  min-height: var(--pc-admin-button-height-sm);
+  padding: var(--pc-admin-spacing-xs) var(--pc-admin-spacing-sm);
+}
+
+.pc-admin-event-card__title .pc-admin-settings__source-meta {
+  margin-left: auto;
+}
+
+.pc-admin-event-card__title .pc-admin-settings__source-url {
+  margin-left: auto;
+}
+
+.pc-admin-event-card__body {
+  padding: var(--pc-admin-spacing-lg);
+}
+
+.pc-admin-event-card__body > * + * {
+  margin-top: var(--pc-admin-spacing-lg);
+}
+
+/* Spacer */
+.pc-admin-spacer {
+  height: var(--pc-admin-spacing-lg);
+}
+
+/* ------------------------------------------------------------------ */
+/*  Settings Page (mounted React app)                                   */
+/* ------------------------------------------------------------------ */
+
+.pc-admin-settings {
+  font-family: var(--pc-admin-font-family);
+  font-size: var(--pc-admin-font-size);
+  color: var(--pc-admin-text);
+  line-height: var(--pc-admin-line-height);
+}
+
+/* Panel */
+.pc-admin-panel--flush {
+  padding: var(--pc-admin-spacing-lg);
+}
+
+.pc-admin-panel__title {
+  margin: 0 0 var(--pc-admin-spacing-sm) 0;
+  font-size: var(--pc-admin-font-size-large);
+  font-weight: var(--pc-admin-font-weight-emphasis);
+}
+
+.pc-admin-panel__description {
+  margin: 0 0 var(--pc-admin-spacing-lg) 0;
+  color: var(--pc-admin-text-muted);
+}
+
+.pc-admin-settings__meta-badge {
+  /* display: inline-flex;
+  align-items: center;
+  padding: var(--pc-admin-spacing-xs) var(--pc-admin-spacing-md);
+  background: var(--pc-admin-background-hover);
+  border: 1px solid var(--pc-admin-border);
+  font-size: var(--pc-admin-font-size-small);
+  color: var(--pc-admin-text-muted); */
+
+  display: inline-flex;
+  align-items: center;
+
+  padding: 3px 5px 2px;
+  margin: 0 1px;
+  background: #f0f0f1;
+  background: rgba(0, 0, 0, 0.07);
+  font-size: 13px;
+  white-space: nowrap;
+  font-family: Consolas, Monaco, monospace;
+  direction: ltr;
+  unicode-bidi: embed;
+}
+
+.pc-admin-settings__meta-badge--total {
+  font-weight: var(--pc-admin-font-weight-emphasis);
+  color: var(--pc-admin-text);
+}
+
+.pc-admin-settings__source-url {
+  font-size: var(--pc-admin-font-size-small);
+  color: var(--pc-admin-text-muted);
+  margin-left: auto;
+}
+
+.pc-admin-settings__source-meta {
+  font-size: var(--pc-admin-font-size-small);
+  color: var(--pc-admin-text-muted);
+  margin-left: auto;
+  white-space: nowrap;
+}
+
+/* Source badges */
+.pc-admin-settings__source-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 20px;
+  border-radius: 3px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.pc-admin-settings__source-badge--wp {
+  background: #3b82f6;
+}
+
+.pc-admin-settings__source-badge--ical {
+  background: #10b981;
+}
+
+.pc-admin-settings__source-badge--discord {
+  background: #5865f2;
+}
+
+/* Add source */
+.pc-admin-settings__add-source {
+  position: relative;
+  /* margin-top: var(--pc-admin-spacing-lg);
+  margin-bottom: var(--pc-admin-spacing-lg); */
+}
+
+.pc-admin-settings__add-menu {
+  position: absolute;
+  top: calc(100% + var(--pc-admin-spacing-xs));
+  right: 0;
+  z-index: 10;
+  background: var(--pc-admin-background);
+  border: 1px solid var(--pc-admin-border);
+  border-radius: var(--pc-admin-radius);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  min-width: 180px;
+}
+
+.pc-admin-settings__add-menu-item {
+  display: block;
+  width: 100%;
+  padding: var(--pc-admin-spacing-sm) var(--pc-admin-spacing-md);
+  background: none;
+  border: none;
+  text-align: left;
+  font-family: var(--pc-admin-font-family);
+  font-size: var(--pc-admin-font-size);
+  color: var(--pc-admin-text);
+  cursor: pointer;
+}
+
+.pc-admin-settings__add-menu-item:hover {
+  background: var(--pc-admin-background-hover);
+}
+
+/* Discord status badges */
+.pc-admin-settings__meta-badge--discord {
+  background: #eef0fe;
+  border-color: #c7d2fe;
+  color: #4338ca;
+}
+
+.pc-admin-settings__meta-badge--muted {
+  background: var(--pc-admin-background-hover);
+  color: var(--pc-admin-text-disabled);
+}

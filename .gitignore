@@ -1,8 +1,16 @@
 node_modules/
 dist/
 .release/
+vendor/
+
 *.zip
+composer.phar
+composer-setup.php
+composer.lock
+
+.env
 .vscode/*
 !.vscode/settings.json
 .obsidian
+.opencode
 *.draft*

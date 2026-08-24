@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<ruleset name="Post Calendar">
+  <description>PHPCS rules for Post Calendar plugin</description>
+
+  <arg name="basepath" value=".."/>
+  <arg name="colors"/>
+  <arg value="sp"/>
+
+  <arg name="extensions" value="php"/>
+
+  <file>..</file>
+
+  <exclude-pattern>/vendor/</exclude-pattern>
+  <exclude-pattern>/node_modules/</exclude-pattern>
+  <exclude-pattern>/dist/</exclude-pattern>
+  <exclude-pattern>/bricks.draft/</exclude-pattern>
+  <exclude-pattern>/.vscode/</exclude-pattern>
+  <exclude-pattern>/composer-setup.php</exclude-pattern>
+
+  <rule ref="WordPress"/>
+
+  <!-- Disable PHPDoc requirements — not used in this project. -->
+  <rule ref="Squiz.Commenting.FileComment.Missing">
+    <severity>0</severity>
+  </rule>
+  <rule ref="Squiz.Commenting.FileComment.MissingPackageTag">
+    <severity>0</severity>
+  </rule>
+  <rule ref="Squiz.Commenting.ClassComment.Missing">
+    <severity>0</severity>
+  </rule>
+  <rule ref="Squiz.Commenting.FunctionComment.Missing">
+    <severity>0</severity>
+  </rule>
+  <rule ref="Squiz.Commenting.FunctionComment.MissingParamTag">
+    <severity>0</severity>
+  </rule>
+  <rule ref="Squiz.Commenting.FunctionComment.MissingParamComment">
+    <severity>0</severity>
+  </rule>
+  <rule ref="Squiz.Commenting.FunctionComment.WrongStyle">
+    <severity>0</severity>
+  </rule>
+  <rule ref="Squiz.Commenting.VariableComment.Missing">
+    <severity>0</severity>
+  </rule>
+  <rule ref="Squiz.Commenting.InlineComment.InvalidEndChar">
+    <severity>0</severity>
+  </rule>
+  <rule ref="Squiz.Commenting.BlockComment.CloserSameLine">
+    <severity>0</severity>
+  </rule>
+  <rule ref="Squiz.Commenting.BlockComment.NoEmptyLineBefore">
+    <severity>0</severity>
+  </rule>
+  <rule ref="Generic.Commenting.DocComment.MissingShort">
+    <severity>0</severity>
+  </rule>
+  <rule ref="Squiz.PHP.CommentedOutCode.Found">
+    <severity>0</severity>
+  </rule>
+
+  <!-- Disable file naming rules — PascalCase filenames match class names for PSR-4 autoloading. -->
+  <rule ref="WordPress.Files.FileName.InvalidClassFileName">
+    <severity>0</severity>
+  </rule>
+  <rule ref="WordPress.Files.FileName.NotHyphenatedLowercase">
+    <severity>0</severity>
+  </rule>
+
+  <!-- Slow DB query warnings: meta_query/tax_query are required for calendar queries. -->
+  <rule ref="WordPress.DB.SlowDBQuery.slow_db_query_meta_query">
+    <severity>0</severity>
+  </rule>
+  <rule ref="WordPress.DB.SlowDBQuery.slow_db_query_meta_key">
+    <severity>0</severity>
+  </rule>
+  <rule ref="WordPress.DB.SlowDBQuery.slow_db_query_tax_query">
+    <severity>0</severity>
+  </rule>
+
+  <config name="testVersion" value="7.4-"/>
+
+  <rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+    <properties>
+      <property name="prefixes" type="array">
+        <element value="post_calendar"/>
+        <element value="PostCalendar"/>
+      </property>
+    </properties>
+  </rule>
+
+  <rule ref="WordPress.WP.I18n">
+    <properties>
+      <property name="text_domain" type="array">
+        <element value="post-calendar"/>
+      </property>
+    </properties>
+  </rule>
+</ruleset>

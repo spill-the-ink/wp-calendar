@@ -1,45 +1,55 @@
 export interface CalendarConfig {
   defaultView?: string;
   enabledViews?: string[];
-  openTab?: number | string;
   showToolbar?: boolean;
   showToolbarActions?: boolean;
   showToolbarLabel?: boolean;
   showViewMenu?: boolean;
   agendaRangeMode?: string;
   agendaRangeMonths?: number | string;
+  timelineDays?: number | string;
+  responsiveBreakpoint?: number | string;
   queryVars?: Record<string, unknown>;
   postTypes?: string[];
   error?: string;
 }
 
-export interface CalendarSharedSnapshot {
-	activePaneIndex: number;
-  activeView: string;
-  activeViews: string[];
-  agendaLength: number;
-  currentDate: Date;
-  errorMessage: string;
-  events: CalendarEventRecord[];
-  isLoading: boolean;
-}
-
 export interface CalendarEventInput {
   id?: number | string;
-  title: string;
-  start: string | Date;
-  end: string | Date;
+  name: string;
+  scheduled_start_time: string | Date;
+  scheduled_end_time: string | Date;
   allDay?: boolean;
   url?: string;
-  excerpt?: string;
+  description?: string;
   tags?: string[];
+  label?: { id: string; name: string; color: string } | null;
+  location?: string | null;
+  location_url?: string | null;
+  source?: CalendarEventSource;
+  postId?: number;
+  postType?: string;
+  eventIndex?: number;
 }
 
-export interface CalendarEventRecord extends Omit<CalendarEventInput, 'start' | 'end'> {
-  start: Date;
-  end: Date;
+export interface CalendarEventRecord extends Omit<
+  CalendarEventInput,
+  "scheduled_start_time" | "scheduled_end_time"
+> {
+  scheduled_start_time: Date;
+  scheduled_end_time: Date;
   allDay: boolean;
   tags: string[];
+  label: { id: string; name: string; color: string } | null;
+  source: CalendarEventSource | null;
+  location: string | null;
+  location_url: string | null;
+}
+
+export interface CalendarEventSource {
+  type: "wp" | "ical" | "discord";
+  id: string | null;
+  name: string | null;
 }
 
 export interface CalendarRuntime {
@@ -60,14 +70,20 @@ export interface CalendarRuntimeStrings {
   day?: string;
   event?: string;
   loadError?: string;
+  loading?: string;
+  later?: string;
   missingApiUrl?: string;
   month?: string;
   next?: string;
+  nextWeek?: string;
   noEvents?: string;
   showMore?: string;
   showMoreEventsForMonth?: string;
+  thisWeek?: string;
   time?: string;
   today?: string;
+  timeline?: string;
+  tomorrow?: string;
   week?: string;
   year?: string;
 }
@@ -77,40 +93,59 @@ export interface CalendarRange {
   end: Date;
 }
 
-export type EventRepeatValue = 'none' | 'weekly' | 'monthly' | 'yearly';
+export type EventRepeatValue = "none" | "weekly" | "monthly" | "yearly";
 
 export interface AdminEventRow {
-  label: string;
+  name: string;
+  name_id: string;
+  description?: string;
+  location?: string;
+  location_url?: string;
   all_day: boolean;
-  start: string;
-  end: string;
-  repeat: EventRepeatValue;
-  repeat_interval: number;
-  repeat_byday: string[];
+  scheduled_start_time_date: string;
+  scheduled_start_time_time: string;
+  scheduled_end_time_date: string;
+  scheduled_end_time_time: string;
+  frequency: EventRepeatValue;
+  interval: number;
+  by_weekday: string[];
   repeat_until: string;
 }
 
 export interface AdminRuntimeStrings {
   addEvent?: string;
   allDay?: string;
+  byWeekday?: string;
+  category?: string;
+  categoryHelp?: string;
+  description?: string;
+  descriptionHelp?: string;
   doesNotRepeat?: string;
   endDate?: string;
-  eventLabel?: string;
-  eventLabelHelp?: string;
+  endTime?: string;
+  every?: string;
   eventNumber?: string;
-  eventRepeat?: string;
   eventsIntro?: string;
   friday?: string;
+  labelNone?: string;
+  labels?: Array<{ id: string; name: string; color: string }>;
+  location?: string;
+  locationHelp?: string;
+  locationUrl?: string;
+  locationUrlHelp?: string;
   monday?: string;
   monthly?: string;
+  name?: string;
+  nameHelp?: string;
   noEvents?: string;
   removeEvent?: string;
-  repeatInterval?: string;
+  repeat?: string;
   repeatIntervalHelp?: string;
   repeatOn?: string;
   repeatUntil?: string;
   saturday?: string;
   startDate?: string;
+  startTime?: string;
   sunday?: string;
   thursday?: string;
   tuesday?: string;
@@ -123,4 +158,72 @@ export interface AdminRuntime {
   currentEvents?: AdminEventRow[];
   fieldName?: string;
   strings?: AdminRuntimeStrings;
+}
+
+export interface IcalFeed {
+  id: string;
+  name: string;
+  url: string;
+  color: string;
+  enabled: boolean;
+}
+
+export interface SettingsPostType {
+  name: string;
+  label: string;
+  singularName: string;
+  eventCount: number;
+  enabled: boolean;
+}
+
+export interface SettingsDiscordGuild {
+  guild_id: string;
+  name: string;
+  enabled: boolean;
+}
+
+/** A single row in the Event Sources appendable list. */
+export type SettingsSourceRow =
+  | { type: "wp"; postType: string; eventCount: number }
+  | { type: "ical"; id: string; name: string; url: string; color: string; enabled: boolean }
+  | { type: "discord"; guildId: string; name: string; enabled: boolean };
+
+export interface SettingsRuntimeStrings {
+  eventSourcesTitle?: string;
+  sourcesHeaderSummary?: string;
+  totalEvents?: string;
+  byPostType?: string;
+  byIcal?: string;
+  byDiscord?: string;
+  noSources?: string;
+  addSource?: string;
+  addPostType?: string;
+  addIcalFeed?: string;
+  addDiscordGuild?: string;
+  removeSource?: string;
+  save?: string;
+  discordConnected?: string;
+  discordNotConfigured?: string;
+  discordServers?: string;
+}
+
+export interface SettingsStatistics {
+  totalWpEvents: number;
+  totalIcalFeeds: number;
+  totalDiscordGuilds: number;
+}
+
+export interface SettingsRuntime {
+  postTypes?: SettingsPostType[];
+  icalFeeds?: IcalFeed[];
+  sourcesOptionName?: string;
+  postTypesOptionName?: string;
+  removeEventsAction?: string;
+  statistics?: SettingsStatistics;
+  discordConfigured?: boolean;
+  discordGuilds?: SettingsDiscordGuild[];
+  restUrl?: string;
+  restNonce?: string;
+  discordGuildsRoute?: string;
+  strings?: SettingsRuntimeStrings;
 }

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Post Calendar\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-18 09:27:16+0000\n"
+"POT-Creation-Date: 2026-09-03 08:08:47+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12,417 +12,509 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Domain: post-calendar\n"
 
-#: includes/event-sources/settings-page.php:107
-msgid "%d post currently contains Post Calendar event definitions."
-msgid_plural "%d posts currently contain Post Calendar event definitions."
+#: includes/admin/Settings_Page.php:899
+msgid "%d Discord server"
+msgid_plural "%d Discord servers"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/event-sources/post-type.php:56
+#: includes/admin/Settings_Page.php:895
+msgid "%d from posts"
+msgid_plural "%d from posts"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/admin/Settings_Page.php:897
+msgid "%d iCal feed"
+msgid_plural "%d iCal feeds"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/admin/Settings_Page.php:910
+msgid "%d server"
+msgid_plural "%d servers"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/admin/Settings_Page.php:893
+msgid "%d total event"
+msgid_plural "%d total events"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/events/Post_Type.php:57
 msgid "A virtual query type for Post Calendar events. Query this type to retrieve event posts from all source post types."
 msgstr ""
 
-#: includes/bricks/elements/post-calendar.php:463
+#: includes/integrations/Bricks/Post_Calendar.php:384
 msgid "Active button color"
 msgstr ""
 
-#: includes/bricks/elements/post-calendar.php:476
+#: includes/integrations/Bricks/Post_Calendar.php:397
 msgid "Active button text color"
 msgstr ""
 
-#: includes/event-sources/admin-editor.php:246
+#: includes/admin/Settings_Page.php:904
+msgid "Add Discord server"
+msgstr ""
+
+#: includes/admin/Admin_Editor.php:267
 msgid "Add event"
 msgstr ""
 
-#: includes/event-sources/admin-editor.php:253
+#: includes/admin/Settings_Page.php:903
+msgid "Add iCal feed"
+msgstr ""
+
+#: includes/admin/Admin_Editor.php:274
 msgid "Add one or more event rows to make this post appear in the calendar."
 msgstr ""
 
-#: includes/bricks/elements/post-calendar.php:24 includes/class-assets.php:113
+#: includes/admin/Settings_Page.php:902
+msgid "Add post type"
+msgstr ""
+
+#: includes/admin/Settings_Page.php:901
+msgid "Add source"
+msgstr ""
+
+#: includes/core/Assets.php:147 includes/integrations/Bricks/Post_Calendar.php:415
 msgid "Agenda"
 msgstr ""
 
-#: includes/class-assets.php:112
+#: includes/integrations/Bricks/Post_Calendar.php:166
+msgid "Agenda range"
+msgstr ""
+
+#: includes/integrations/Bricks/Post_Calendar.php:177
+msgid "Agenda window (months)"
+msgstr ""
+
+#: includes/core/Assets.php:146
 msgid "All-day"
 msgstr ""
 
-#: includes/event-sources/admin-editor.php:247
+#: includes/admin/Admin_Editor.php:268
 msgid "All-day event"
 msgstr ""
 
-#: includes/bricks/elements/post-calendar.php:36 includes/class-assets.php:114
+#: includes/admin/Admin_Editor.php:294
+msgid "Assign a label to this event for color-coded grouping in calendar views."
+msgstr ""
+
+#: includes/core/Assets.php:148
 msgid "Back"
 msgstr ""
 
-#: includes/bricks/elements/post-calendar.php:407
+#: includes/integrations/Bricks/Post_Calendar.php:219
+msgid "Below this container width, wide time-grid views (two weeks, week, timeline) automatically render as agenda. 0 disables auto-switching."
+msgstr ""
+
+#: includes/integrations/Bricks/Post_Calendar.php:328
 msgid "Body text color"
 msgstr ""
 
-#: includes/bricks/elements/post-calendar.php:394
+#: includes/integrations/Bricks/Post_Calendar.php:315
 msgid "Border color"
 msgstr ""
 
-#: includes/event-sources/settings-page.php:82
-msgid "Built-in event editor"
-msgstr ""
-
-#: includes/bricks/elements/post-calendar.php:351
+#: includes/integrations/Bricks/Post_Calendar.php:273
 msgid "Button and event radius"
 msgstr ""
 
-#: includes/bricks/elements/post-calendar.php:558
-msgid "Calendar Content"
-msgstr ""
-
-#: includes/bricks/elements/post-calendar.php:316
+#: includes/integrations/Bricks/Post_Calendar.php:241
 msgid "Calendar height"
 msgstr ""
 
-#: includes/bricks/elements/post-calendar.php:52
-msgid "Calendar label"
-msgstr ""
-
-#: includes/bricks/elements/post-calendar.php:491
-msgid "Calendar Toolbar"
-msgstr ""
-
-#: includes/bricks/elements/post-calendar-view-panel.php:17
-msgid "Calendar View Panel"
-msgstr ""
-
-#: includes/bricks/elements/post-calendar.php:152 includes/class-assets.php:115
+#: includes/core/Assets.php:149
 msgid "Calendar views"
 msgstr ""
 
-#: includes/bricks/elements/post-calendar.php:298
+#: includes/integrations/Bricks/Post_Calendar.php:225
 msgid "Calendar width"
 msgstr ""
 
-#: includes/bricks/elements/post-calendar.php:264
+#: includes/integrations/Bricks/Post_Calendar.php:96
 msgid "Colors"
 msgstr ""
 
-#: includes/bricks/elements/post-calendar.php:304
-msgid "Controls the minimum calendar width used by the month and week layouts."
-msgstr ""
-
-#: includes/class-assets.php:117
+#: includes/core/Assets.php:151
 msgid "Date"
 msgstr ""
 
-#: includes/bricks/elements/post-calendar.php:23 includes/class-assets.php:118
+#: includes/core/Assets.php:152 includes/integrations/Bricks/Post_Calendar.php:414
 msgid "Day"
 msgstr ""
 
-#: includes/class-update-checker.php:205
+#: includes/integrations/Bricks/Post_Calendar.php:119
+msgid "Default view"
+msgstr ""
+
+#: includes/admin/Settings_Page.php:907
+msgid "Discord connected"
+msgstr ""
+
+#: includes/admin/Settings_Page.php:908
+msgid "Discord not configured"
+msgstr ""
+
+#: includes/core/Update_Checker.php:205
 msgid "Display posts as events in a calendar via Bricks or shortcode, using existing post types and the built-in Post Calendar editor or direct event meta."
 msgstr ""
 
-#: includes/event-sources/admin-editor.php:264
+#: includes/admin/Admin_Editor.php:285
 msgid "Does not repeat"
 msgstr ""
 
-#: includes/class-update-checker.php:232
+#: includes/core/Update_Checker.php:233
 msgid "Download from GitHub ↗"
 msgstr ""
 
-#: includes/event-sources/admin-editor.php:248
+#: includes/integrations/Bricks/Post_Calendar.php:127
+msgid "Enabled views"
+msgstr ""
+
+#: includes/admin/Admin_Editor.php:269
 msgid "End date"
 msgstr ""
 
-#: includes/class-assets.php:119 includes/event-sources/admin-editor.php:251
+#: includes/admin/Admin_Editor.php:272 includes/core/Assets.php:153
 msgid "Event"
 msgstr ""
 
-#: includes/event-sources/admin-editor.php:252
+#: includes/admin/Admin_Editor.php:273
 msgid "Event frequency"
 msgstr ""
 
-#: includes/event-sources/admin-editor.php:249
+#: includes/admin/Admin_Editor.php:270
 msgid "Event label"
 msgstr ""
 
-#: includes/bricks/elements/post-calendar.php:437
+#: includes/integrations/Bricks/Post_Calendar.php:358
 msgid "Event pill color"
 msgstr ""
 
-#: includes/bricks/elements/post-calendar.php:450
+#: includes/integrations/Bricks/Post_Calendar.php:371
 msgid "Event pill text color"
 msgstr ""
 
-#: includes/event-sources/admin-editor.php:258
+#: includes/admin/Settings_Page.php:890
+msgid "Event Sources"
+msgstr ""
+
+#: includes/admin/Settings_Page.php:891
+msgid "Event sources provide data to the calendar."
+msgstr ""
+
+#: includes/admin/Admin_Editor.php:279
 msgid "For example, every 2 weeks."
 msgstr ""
 
-#: includes/event-sources/settings-page.php:156
+#: includes/admin/Settings_Page.php:190
 msgid "Forbidden"
 msgstr ""
 
-#: includes/event-sources/admin-editor.php:269
+#: includes/admin/Admin_Editor.php:290
 msgid "Friday"
 msgstr ""
 
-#: includes/bricks/elements/post-calendar.php:289
-msgid "Index of the view/content item to open on page load, start at 0."
+#: includes/admin/Settings_Page.php:172
+msgid "JavaScript is required to manage Post Calendar settings."
 msgstr ""
 
-#: includes/bricks/elements/post-calendar.php:259
+#: includes/rest/Rest_Controller.php:153
+msgid "JSON object mapping taxonomy slugs to term slug arrays, e.g. {\"category\":[\"news\"]}. Clauses are combined with AND."
+msgstr ""
+
+#: includes/admin/Admin_Editor.php:293
+msgid "Label"
+msgstr ""
+
+#: includes/integrations/Bricks/Post_Calendar.php:91
 msgid "Layout"
 msgstr ""
 
-#: includes/event-sources/admin-editor.php:250
+#: includes/admin/Admin_Editor.php:271
 msgid "Leave empty to use the post title."
 msgstr ""
 
-#: includes/event-sources/rest-controller.php:65
+#: includes/rest/Rest_Controller.php:163
 msgid "Limit results to events that overlap the supplied ISO 8601 end date."
 msgstr ""
 
-#: includes/event-sources/rest-controller.php:60
+#: includes/rest/Rest_Controller.php:158
 msgid "Limit results to events that overlap the supplied ISO 8601 start date."
 msgstr ""
 
-#: includes/event-sources/rest-controller.php:70
+#: includes/rest/Rest_Controller.php:148
+msgid "Limit results to events whose source post matches the search string."
+msgstr ""
+
+#: includes/rest/Rest_Controller.php:168
 msgid "Limit the number of source posts evaluated for the response."
 msgstr ""
 
-#: includes/shortcode/shortcode.php:65
+#: includes/integrations/Bricks/Post_Calendar.php:490 includes/integrations/Shortcode.php:106
 msgid "Loading calendar…"
 msgstr ""
 
-#: includes/event-sources/admin-editor.php:265
+#: includes/admin/Admin_Editor.php:286
 msgid "Monday"
 msgstr ""
 
-#: includes/bricks/elements/post-calendar.php:21 includes/class-assets.php:122
+#: includes/core/Assets.php:156 includes/integrations/Bricks/Post_Calendar.php:410
 msgid "Month"
 msgstr ""
 
-#: includes/event-sources/admin-editor.php:254
+#: includes/admin/Admin_Editor.php:275
 msgid "Monthly"
 msgstr ""
 
-#: includes/class-assets.php:125
+#: includes/core/Assets.php:159
 msgid "more"
 msgstr ""
 
-#: includes/bricks/elements/post-calendar.php:381
+#: includes/integrations/Bricks/Post_Calendar.php:302
 msgid "Muted surface color"
 msgstr ""
 
-#: includes/bricks/elements/post-calendar.php:420
+#: includes/integrations/Bricks/Post_Calendar.php:341
 msgid "Muted text color"
 msgstr ""
 
-#: includes/bricks/elements/post-calendar.php:38 includes/class-assets.php:123
+#: includes/core/Assets.php:157
 msgid "Next"
 msgstr ""
 
-#: includes/event-sources/admin-editor.php:255
+#: includes/admin/Admin_Editor.php:276
 msgid "No event rows yet."
 msgstr ""
 
-#: includes/class-assets.php:124
+#: includes/admin/Settings_Page.php:900
+msgid "No event sources configured. Add a source to get started."
+msgstr ""
+
+#: includes/core/Assets.php:158
 msgid "No events to display."
 msgstr ""
 
-#: includes/event-sources/settings-page.php:89
-msgid "No post types available."
+#: includes/admin/Admin_Editor.php:295
+msgid "No label"
 msgstr ""
 
-#: includes/bricks/elements/post-calendar.php:287
-msgid "Open tab index"
+#: includes/integrations/Bricks/Post_Calendar.php:209
+msgid "Number of consecutive days on the timeline axis, starting at the current week."
 msgstr ""
 
-#: includes/bricks/elements/post-calendar.php:228
-msgid "Pane"
-msgstr ""
-
-#: includes/bricks/elements/post-calendar.php:250 includes/event-sources/admin-editor.php:33 includes/event-sources/settings-page.php:52 includes/event-sources/settings-page.php:53 includes/event-sources/settings-page.php:72
+#: includes/admin/Admin_Editor.php:35 includes/admin/Settings_Page.php:161 includes/admin/Settings_Page.php:84 includes/admin/Settings_Page.php:85 includes/integrations/Bricks/Post_Calendar.php:82
 msgid "Post Calendar"
 msgstr ""
 
-#: includes/bricks/elements.php:45
+#: includes/integrations/Bricks/Elements.php:42
 msgid "Post Calendar could not register its Bricks element because Bricks is not active or its API is unavailable."
 msgstr ""
 
-#: includes/event-sources/post-type.php:53
+#: includes/events/Post_Type.php:54
 msgid "Post Calendar Event"
 msgstr ""
 
-#: includes/event-sources/admin-editor.php:50
+#: includes/admin/Admin_Editor.php:52
 msgid "Post Calendar event editing requires JavaScript in the post editor."
 msgstr ""
 
-#: includes/event-sources/post-type.php:50 includes/event-sources/post-type.php:52 includes/event-sources/post-type.php:54
+#: includes/events/Post_Type.php:51 includes/events/Post_Type.php:53 includes/events/Post_Type.php:55
 msgid "Post Calendar Events"
 msgstr ""
 
-#: includes/bricks/elements/post-calendar.php:272
+#: includes/integrations/Bricks/Post_Calendar.php:104
 msgid "Query"
 msgstr ""
 
-#: includes/event-sources/settings-page.php:119
-msgid "Remove all event data"
+#: includes/admin/Settings_Page.php:905
+msgid "Remove"
 msgstr ""
 
-#: includes/event-sources/settings-page.php:116
-msgid "Remove all event data for this post type? This cannot be undone."
-msgstr ""
-
-#: includes/event-sources/admin-editor.php:256
+#: includes/admin/Admin_Editor.php:277
 msgid "Remove event"
 msgstr ""
 
 #. translators: 1: number of posts cleared, 2: post type label.
-#: includes/event-sources/settings-page.php:201
+#: includes/admin/Settings_Page.php:236
 msgid "Removed all event data from %1$d posts in %2$s."
 msgstr ""
 
-#: includes/event-sources/settings-page.php:121
-msgid "Removes stored event definitions and the derived query meta that Post Calendar maintains for this post type."
-msgstr ""
-
-#: includes/event-sources/admin-editor.php:257
+#: includes/admin/Admin_Editor.php:278
 msgid "Repeat interval"
 msgstr ""
 
-#: includes/event-sources/admin-editor.php:259
+#: includes/admin/Admin_Editor.php:280
 msgid "Repeat on"
 msgstr ""
 
-#: includes/event-sources/admin-editor.php:260
+#: includes/admin/Admin_Editor.php:281
 msgid "Repeat until"
 msgstr ""
 
-#: includes/event-sources/rest-controller.php:50
+#: includes/integrations/Bricks/Post_Calendar.php:214
+msgid "Responsive breakpoint"
+msgstr ""
+
+#: includes/rest/Rest_Controller.php:138
 msgid "Restrict the collection to a comma-separated list of source post types."
 msgstr ""
 
-#: includes/event-sources/rest-controller.php:55
+#: includes/rest/Rest_Controller.php:143
 msgid "Restrict the collection with a JSON-encoded subset of Bricks query vars."
 msgstr ""
 
-#: includes/event-sources/admin-editor.php:270
+#: includes/admin/Admin_Editor.php:291
 msgid "Saturday"
 msgstr ""
 
-#: includes/class-update-checker.php:193
+#: includes/admin/Settings_Page.php:176 includes/admin/Settings_Page.php:906
+msgid "Save Changes"
+msgstr ""
+
+#: includes/core/Update_Checker.php:193
 msgid "See the GitHub releases page for the full changelog."
 msgstr ""
 
-#: includes/bricks/elements/post-calendar.php:322
-msgid "Sets the fixed height used by the month and week layouts."
-msgstr ""
-
-#: includes/class-assets.php:127
+#: includes/core/Assets.php:161
 msgid "Show %1$s more events for %2$s"
 msgstr ""
 
-#: includes/event-sources/admin-editor.php:261
+#: includes/admin/Admin_Editor.php:282
 msgid "Start date"
 msgstr ""
 
-#: includes/event-sources/admin-editor.php:271
+#: includes/admin/Admin_Editor.php:292
 msgid "Sunday"
 msgstr ""
 
-#: includes/bricks/elements/post-calendar.php:368
+#: includes/integrations/Bricks/Post_Calendar.php:289
 msgid "Surface color"
 msgstr ""
 
-#: includes/bricks/elements/post-calendar.php:334
+#: includes/integrations/Bricks/Post_Calendar.php:257
 msgid "Surface radius"
 msgstr ""
 
-#: includes/event-sources/settings-page.php:215
+#: includes/admin/Settings_Page.php:250
 msgid "That post type cannot be managed from Post Calendar."
 msgstr ""
 
-#: includes/class-assets.php:121
+#: includes/core/Assets.php:155
 msgid "The calendar API URL is missing."
 msgstr ""
 
-#: includes/bricks/elements/post-calendar.php:580 includes/shortcode/shortcode.php:35
+#: includes/integrations/Bricks/Post_Calendar.php:441 includes/integrations/Shortcode.php:35
 msgid "The calendar frontend assets are missing. Run the plugin build before using this element."
 msgstr ""
 
-#: includes/bricks/elements/post-calendar.php:282
-msgid "The query popup is limited to the subset the calendar applies: post type, include/exclude, taxonomy, author include/exclude, search, ordering, and date/meta constraints. Loop, pagination, query-editor, live-search, and non-post object settings are hidden."
+#: includes/integrations/Bricks/Post_Calendar.php:114
+msgid "The query popup is limited to the subset the calendar applies: post type, include/exclude, taxonomy, author include/exclude, search, ordering, and date/meta constraints."
 msgstr ""
 
-#: includes/event-sources/admin-editor.php:268
+#: includes/admin/Admin_Editor.php:289
 msgid "Thursday"
 msgstr ""
 
-#: includes/class-assets.php:128
+#: includes/core/Assets.php:162
 msgid "Time"
 msgstr ""
 
-#: includes/bricks/elements/post-calendar.php:175
-msgid "Title"
+#: includes/integrations/Bricks/Post_Calendar.php:413
+msgid "Timeline"
 msgstr ""
 
-#: includes/bricks/elements/post-calendar.php:41 includes/class-assets.php:129
+#: includes/integrations/Bricks/Post_Calendar.php:204
+msgid "Timeline view: days"
+msgstr ""
+
+#: includes/core/Assets.php:163
 msgid "Today"
 msgstr ""
 
-#: includes/bricks/elements/post-calendar.php:510
-msgid "Toolbar Actions"
+#: includes/integrations/Bricks/Post_Calendar.php:135
+msgid "Toolbar"
 msgstr ""
 
-#: includes/bricks/elements/post-calendar.php:531
-msgid "Toolbar Label"
+#: includes/integrations/Bricks/Post_Calendar.php:150
+msgid "Toolbar: period label"
 msgstr ""
 
-#: includes/event-sources/admin-editor.php:266
+#: includes/integrations/Bricks/Post_Calendar.php:142
+msgid "Toolbar: today / back / next"
+msgstr ""
+
+#: includes/integrations/Bricks/Post_Calendar.php:158
+msgid "Toolbar: view menu"
+msgstr ""
+
+#: includes/admin/Admin_Editor.php:287
 msgid "Tuesday"
 msgstr ""
 
-#: includes/class-assets.php:120
+#: includes/core/Assets.php:164 includes/integrations/Bricks/Post_Calendar.php:411
+msgid "Two weeks"
+msgstr ""
+
+#: includes/integrations/Bricks/Post_Calendar.php:195
+msgid "Two-week view: weeks after"
+msgstr ""
+
+#: includes/integrations/Bricks/Post_Calendar.php:186
+msgid "Two-week view: weeks before"
+msgstr ""
+
+#: includes/core/Assets.php:154
 msgid "Unable to load calendar events right now."
 msgstr ""
 
-#: includes/class-assets.php:116
+#: includes/core/Assets.php:150
 msgid "Unable to parse the calendar configuration."
 msgstr ""
 
-#: includes/event-sources/settings-page.php:85
-msgid "Use this list to choose which source post types show the built-in event editor. Posts appear on the calendar when they contain event definitions, no matter how that meta was added."
+#: includes/integrations/Bricks/Post_Calendar.php:170
+msgid "Upcoming window"
 msgstr ""
 
-#: includes/bricks/elements/post-calendar-view-panel.php:27
-msgid "View"
-msgstr ""
-
-#: includes/class-update-checker.php:206
+#: includes/core/Update_Checker.php:206
 msgid "View all releases on GitHub"
 msgstr ""
 
-#: includes/bricks/elements/post-calendar.php:215
-msgid "View menu"
+#: includes/integrations/Bricks/Post_Calendar.php:169
+msgid "Visible range"
 msgstr ""
 
-#: includes/event-sources/admin-editor.php:267
+#: includes/admin/Admin_Editor.php:288
 msgid "Wednesday"
 msgstr ""
 
-#: includes/bricks/elements/post-calendar.php:22 includes/class-assets.php:130
+#: includes/core/Assets.php:165 includes/integrations/Bricks/Post_Calendar.php:412
 msgid "Week"
 msgstr ""
 
-#: includes/event-sources/admin-editor.php:262
+#: includes/admin/Admin_Editor.php:283
 msgid "Weekly"
 msgstr ""
 
-#: includes/bricks/elements/post-calendar.php:25 includes/class-assets.php:131
+#: includes/integrations/Bricks/Post_Calendar.php:199
+msgid "Weeks shown after the current week. Defaults (0/1) render the current and the following week; 1/1 renders three weeks."
+msgstr ""
+
+#: includes/integrations/Bricks/Post_Calendar.php:190
+msgid "Weeks shown before the current week in the two-week view. 0 = start at the current week."
+msgstr ""
+
+#: includes/core/Assets.php:166 includes/integrations/Bricks/Post_Calendar.php:416
 msgid "Year"
 msgstr ""
 
-#: includes/event-sources/admin-editor.php:263
+#: includes/admin/Admin_Editor.php:284
 msgid "Yearly"
 msgstr ""
 
-#: includes/event-sources/settings-page.php:155
+#: includes/admin/Settings_Page.php:189
 msgid "You are not allowed to manage Post Calendar settings."
 msgstr ""

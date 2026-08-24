@@ -1,6 +1,6 @@
 /// <reference types="vite/client" />
 
-import type { AdminEventRow, AdminRuntime, CalendarRuntime } from './types.ts';
+import type { AdminEventRow, AdminRuntime, CalendarRuntime } from "./types.ts";
 
 declare global {
   interface Window {

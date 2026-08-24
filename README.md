@@ -40,8 +40,8 @@ update_post_meta( $post_id, '_post_events', array(
   array(
     'label'           => '',
     'all_day'         => 1,
-    'start'      => '2026-03-13 00:00:00',
-    'end'        => '2026-03-20 23:59:59',
+    'start'           => '2026-03-13 00:00:00',
+    'end'             => '2026-03-20 23:59:59',
     'repeat'          => 'none',
     'repeat_interval' => 1,
     'repeat_byday'    => array(),
@@ -50,8 +50,8 @@ update_post_meta( $post_id, '_post_events', array(
   array(
     'label'           => 'Team Meeting',
     'all_day'         => 0,
-    'start'      => '2026-03-15 09:00:00',
-    'end'        => '2026-03-15 11:00:00',
+    'start'           => '2026-03-15 09:00:00',
+    'end'             => '2026-03-15 11:00:00',
     'repeat'          => 'weekly',
     'repeat_interval' => 1,
     'repeat_byday'    => array( 'MO', 'WE' ),
@@ -153,7 +153,7 @@ Set the query post type to `post_calendar_event`. The loop receives the source p
 
 ### Dynamic data tags
 
-Post Calendar provides these dynamic data tags for displaying an event's start date, end date, or label. The date tags support custom formatting.
+Use the dynamic data tags in any Bricks element that supports dynamic content for displaying an event's start date, end date, or label. The date tags support custom formatting.
 
 ### Available Tags
 
@@ -178,10 +178,6 @@ The date tags (`{post_event_start}`, `{post_event_end}`, `{post_events_range_sta
 {post_events_range_end:Y-m-d}        -> 2026-06-30
 ```
 
-#### Using tags in Bricks
-
-Use the dynamic data tags in any Bricks element that supports dynamic content, including: Element Conditions, Text or Heading elements, and any field that accepts dynamic content.
-
 ## Built-in event editor (optional)
 
 The built-in event editor provides a UI for creating event definitions on supported post types.
@@ -203,29 +199,29 @@ Post Calendar provides a built-in calendar visualization with the following view
 <table>
   <tr>
     <td align="center">
-      <img src=".github/Year.png" alt="Year view preview" width="260"><br>
+      <img src=".github/images/Year.png" alt="Year view preview" width="260"><br>
       <strong>Year</strong>
     </td>
     <td align="center">
-      <img src=".github/Month.png" alt="Month view preview" width="260"><br>
+      <img src=".github/images/Month.png" alt="Month view preview" width="260"><br>
       <strong>Month</strong>
     </td>
     <td align="center">
-      <img src=".github/Week.png" alt="Week view preview" width="260"><br>
+      <img src=".github/images/Week.png" alt="Week view preview" width="260"><br>
       <strong>Week</strong>
     </td>
   </tr>
   <tr>
     <td align="center">
-      <img src=".github/Day.png" alt="Day view preview" width="260"><br>
+      <img src=".github/images/Day.png" alt="Day view preview" width="260"><br>
       <strong>Day</strong>
     </td>
     <td align="center">
-      <img src=".github/Agenda.png" alt="Agenda view preview" width="260"><br>
+      <img src=".github/images/Agenda.png" alt="Agenda view preview" width="260"><br>
       <strong>Agenda</strong>
     </td>
     <td stlye='disaply'>
-      <!-- <img src=".github/Upcoming-agenda.png" alt="A 2-week agenda window" width="260"><br>
+      <!-- <img src=".github/images/Upcoming-agenda.png" alt="A 2-week agenda window" width="260"><br>
       <strong>Upcoming-agenda</strong> -->
     </td>
   </tr>

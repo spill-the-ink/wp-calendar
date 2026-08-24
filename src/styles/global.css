@@ -1,0 +1,363 @@
+@import "tailwindcss";
+@import "react-big-calendar/lib/css/react-big-calendar.css";
+@config "../../tailwind.config.js";
+
+/* -- Tokens ---------------------------------------------------- */
+
+:root {
+  --background: #fff;
+  --foreground: #1e1e1e;
+  --card: #fff;
+  --card-foreground: #1e1e1e;
+  --popover: #fff;
+  --popover-foreground: #1e1e1e;
+  --primary: #1e1e1e;
+  --primary-foreground: #fff;
+  --secondary: #f3f4f6;
+  --secondary-foreground: #1e1e1e;
+  --muted: #f3f4f6;
+  --muted-foreground: #6b7280;
+  --accent: #f3f4f6;
+  --accent-foreground: #1e1e1e;
+  --destructive: #9f1239;
+  --destructive-foreground: #fff;
+  --border: #d9d9d9;
+  --input: #d9d9d9;
+  --ring: #1e1e1e;
+  --radius: 0.625rem;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 1rem;
+  --pc-error-bg: #fff1f2;
+  --pc-error-border: #fecdd3;
+  --pc-surface-status: #ffffffad;
+  --pc-surface-indicator: lab(63.7053% 60.745 31.3109);
+  --pc-surface-indicator-foreground: #ffffff;
+}
+
+.dark {
+  --background: #0f0f0f;
+  --foreground: #fafafa;
+  --card: #0f0f0f;
+  --card-foreground: #fafafa;
+  --popover: #0f0f0f;
+  --popover-foreground: #fafafa;
+  --primary: #fafafa;
+  --primary-foreground: #0f0f0f;
+  --secondary: #262626;
+  --secondary-foreground: #fafafa;
+  --muted: #262626;
+  --muted-foreground: #a3a3a3;
+  --accent: #262626;
+  --accent-foreground: #fafafa;
+  --destructive: #fecdd3;
+  --destructive-foreground: #9f1239;
+  --border: #404040;
+  --input: #404040;
+  --ring: #d4d4d4;
+
+  --pc-error-bg: #450a0a;
+  --pc-error-border: #9f1239;
+  --pc-surface-status: #1a1a1aad;
+  --pc-surface-indicator: lab(63.7053% 60.745 31.3109);
+  --pc-surface-indicator-foreground: #ffffff;
+  --radius: 0.625rem;
+  --radius-md: 0.625rem;
+}
+
+/* -- App shell ------------------------------------------------- */
+
+/* Utilities used by the shortcode-context overrides below (the toolbar
+   buttons/label are otherwise styled from CalendarApp.tsx constants). */
+@utility pc-view-btn {
+  @apply inline-flex items-center justify-center gap-1.5 bg-transparent border-0 rounded-sm cursor-pointer transition-colors text-muted-foreground text-sm font-medium min-h-9 px-3 py-1.5;
+}
+
+@utility pc-view-btn-active {
+  @apply bg-primary text-primary-foreground;
+}
+
+/* Reserve layout before JS hydration — prevents 0px -> 840px CLS
+   52.5rem surface + ~3.25rem toolbar */
+.js-post-calendar-root:not([data-mounted="true"]) {
+  display: block;
+  min-height: 56rem;
+  min-width: min(100%, 52.5rem);
+  contain: layout;
+}
+
+/* -- React Big Calendar ---------------------------------------- */
+
+.post-calendar-surface .rbc-calendar,
+.post-calendar-surface .rbc-time-view,
+.post-calendar-surface .rbc-month-view,
+.post-calendar-surface .rbc-agenda-view table {
+  @apply border-border;
+}
+
+.post-calendar-surface .rbc-time-view,
+.post-calendar-surface .rbc-month-view,
+.post-calendar-surface .rbc-agenda-view {
+  @apply min-w-[52.5rem];
+}
+
+.post-calendar-surface .rbc-calendar {
+  @apply text-foreground h-full;
+  font-family: inherit;
+}
+
+.post-calendar-surface.is-year-view .rbc-calendar {
+  @apply flex flex-col h-auto min-h-[inherit];
+}
+
+.post-calendar-surface.is-agenda-view .rbc-calendar,
+.post-calendar-surface.is-agenda-view .rbc-agenda-view {
+  @apply h-auto flex-none;
+}
+
+.post-calendar-surface .rbc-btn-group {
+  @apply hidden;
+}
+
+.post-calendar-surface :is(.rbc-month-view, .rbc-time-view) .rbc-header {
+  @apply flex items-center bg-card text-foreground text-base font-normal justify-between min-h-10 px-5 py-2.5;
+  border-bottom: 1px solid var(--border);
+}
+
+.post-calendar-surface :is(.rbc-month-view, .rbc-time-view) .rbc-header + .rbc-header {
+  @apply border-l border-border;
+}
+
+.post-calendar-surface .rbc-row-bg {
+  @apply -mr-px;
+}
+
+.post-calendar-surface .rbc-day-bg + .rbc-day-bg,
+.post-calendar-surface .rbc-time-content > * + * > * {
+  @apply border-l border-border;
+}
+
+.post-calendar-surface .rbc-date-cell {
+  @apply text-muted-foreground text-sm px-5 py-2.5 text-right;
+}
+
+.post-calendar-surface .rbc-date-cell > a {
+  @apply text-inherit no-underline;
+}
+
+.post-calendar-surface .rbc-off-range,
+.post-calendar-surface .rbc-off-range-bg {
+  @apply text-muted-foreground;
+}
+
+.post-calendar-surface .rbc-off-range-bg {
+  @apply bg-muted;
+}
+
+.post-calendar-surface .rbc-today {
+  @apply bg-card;
+  background-image: repeating-linear-gradient(-45deg, var(--card) 0 10px, var(--muted) 10px 12px);
+}
+
+.post-calendar-surface .rbc-row-segment {
+  padding: calc(0.25rem / 2) 0.0625rem;
+}
+
+.post-calendar-surface .rbc-event,
+.post-calendar-surface .rbc-background-event {
+  @apply bg-transparent border-0 rounded-none shadow-none p-0;
+}
+
+.post-calendar-surface .rbc-event-label {
+  @apply hidden;
+}
+
+.post-calendar-surface .rbc-event {
+  @apply overflow-visible;
+}
+
+.post-calendar-surface .rbc-event-content {
+  @apply flex;
+}
+
+.post-calendar-surface .rbc-day-slot .rbc-event,
+.post-calendar-surface .rbc-day-slot .rbc-background-event {
+  @apply box-border;
+  padding-block: calc(0.25rem / 2);
+}
+
+.post-calendar-surface .rbc-time-view .rbc-time-gutter,
+.post-calendar-surface .rbc-time-view .rbc-time-header-gutter {
+  @apply flex flex-col items-stretch justify-end bg-card box-border;
+  flex: 0 0 7.5rem;
+  width: 7.5rem !important;
+  min-width: unset !important;
+  max-width: unset !important;
+}
+
+.post-calendar-surface .rbc-time-header {
+  @apply flex flex-0 flex-row items-stretch;
+  border-bottom: 1px solid var(--border);
+}
+
+.post-calendar-surface .rbc-time-header-content {
+  @apply border-l border-border flex flex-col min-h-0;
+  flex: 1 1 auto;
+}
+
+.post-calendar-surface .rbc-time-header-content > .rbc-row,
+.post-calendar-surface .rbc-time-header-content > .rbc-allday-cell {
+  @apply flex-none;
+}
+
+.post-calendar-surface .rbc-time-header-content > .rbc-row {
+  @apply min-h-10;
+}
+
+.post-calendar-surface .rbc-label {
+  @apply p-0;
+}
+
+.post-calendar-surface .rbc-time-gutter .rbc-timeslot-group,
+.post-calendar-surface .rbc-time-gutter .rbc-time-slot {
+  @apply items-start text-muted-foreground text-sm justify-start;
+}
+
+.post-calendar-surface .rbc-time-header-gutter,
+.post-calendar-surface .rbc-time-gutter .rbc-timeslot-group {
+  @apply p-5;
+}
+
+.post-calendar-surface .rbc-time-gutter .rbc-timeslot-group {
+  @apply pb-0;
+}
+
+.post-calendar-surface .rbc-time-content {
+  @apply border-t border-border;
+}
+
+.post-calendar-surface .rbc-allday-cell {
+  @apply block min-h-20 relative w-full h-auto;
+}
+
+.post-calendar-surface .rbc-timeslot-group {
+  @apply min-h-[3.75rem];
+}
+
+.post-calendar-surface .rbc-time-slot {
+  @apply text-transparent;
+}
+
+.post-calendar-surface .rbc-day-slot .rbc-time-slot {
+  @apply border-t-0;
+}
+
+.post-calendar-surface .rbc-current-time-indicator {
+  @apply h-0.5;
+  background: var(--pc-surface-indicator);
+}
+
+.post-calendar-surface .rbc-month-view,
+.post-calendar-surface .rbc-time-view {
+  @apply border border-border;
+}
+
+.post-calendar-surface .rbc-month-row {
+  @apply border-l-0 min-h-[7.875rem];
+}
+
+.post-calendar-surface .rbc-month-header {
+  @apply border-b border-border;
+}
+
+.post-calendar-surface .rbc-event.is-outside-current-month .post-calendar-event-pill {
+  @apply opacity-55;
+}
+
+.rbc-button-link {
+  @apply flex-1;
+}
+
+/* -- Loading / Empty common status — deprecated aliases kept for backwards compat */
+.post-calendar-loading,
+.post-calendar-empty {
+  @apply hidden;
+}
+
+/* -- Toolbar (shortcode context only — bulk moved to CalendarApp.tsx) ---------- */
+
+.post-calendar-shortcode .post-calendar-toolbar {
+  @apply items-center grid gap-5 mb-0 pb-3;
+  grid-template-columns: minmax(0, auto) 1fr minmax(0, auto);
+}
+
+.post-calendar-shortcode .post-calendar-toolbar-label-wrap {
+  @apply items-center flex justify-center;
+}
+
+.post-calendar-shortcode .post-calendar-view-button {
+  @apply pc-view-btn font-medium min-h-9 px-3;
+}
+
+.post-calendar-shortcode .post-calendar-view-button.is-active {
+  @apply pc-view-btn-active;
+}
+
+.post-calendar-shortcode .post-calendar-view-button > *,
+.post-calendar-shortcode .post-calendar-toolbar-label > * {
+  color: inherit;
+  font: inherit;
+  line-height: inherit;
+  @apply m-0;
+}
+
+.post-calendar-shortcode .post-calendar-view-button:hover {
+  @apply text-foreground;
+}
+
+.post-calendar-shortcode .post-calendar-view-button:focus-visible {
+  @apply text-foreground outline-none;
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* -- Placeholder ----------------------------------------------- */
+
+.post-calendar-element-placeholder {
+  @apply bg-slate-50 border border-slate-300 rounded-xl text-slate-600 p-4;
+}
+
+/* -- Utility --------------------------------------------------- */
+
+.visually-hidden {
+  @apply absolute w-px h-px p-0 -m-px overflow-hidden whitespace-nowrap border-0;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+}
+
+/* -- Responsive ------------------------------------------------ */
+
+/* react-big-calendar time gutter narrow override (moved views use max-[720px]:* utilities) */
+@media (max-width: 720px) {
+  .post-calendar-surface .rbc-time-view .rbc-time-gutter,
+  .post-calendar-surface .rbc-time-view .rbc-time-header-gutter {
+    width: 3.75rem !important;
+  }
+}
+
+/* -- Container queries ----------------------------------------- */
+
+@container (max-width: 9.5rem) {
+  .post-calendar-month-cell .post-calendar-pill-time,
+  .post-calendar-month-cell .post-calendar-pill-title {
+    @apply hidden;
+  }
+
+  .post-calendar-month-cell .post-calendar-event-link::before,
+  .post-calendar-month-cell .post-calendar-event-pill::before {
+    @apply bg-current rounded-full inline-block;
+    content: "";
+    height: 0.4375rem;
+    width: 0.4375rem;
+  }
+}
