@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Post Calendar\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-03 08:08:47+0000\n"
+"POT-Creation-Date: 2026-09-03 10:42:42+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -158,7 +158,7 @@ msgstr ""
 msgid "Discord not configured"
 msgstr ""
 
-#: includes/core/Update_Checker.php:205
+#: includes/core/Update_Checker.php:244
 msgid "Display posts as events in a calendar via Bricks or shortcode, using existing post types and the built-in Post Calendar editor or direct event meta."
 msgstr ""
 
@@ -166,7 +166,7 @@ msgstr ""
 msgid "Does not repeat"
 msgstr ""
 
-#: includes/core/Update_Checker.php:233
+#: includes/core/Update_Checker.php:272
 msgid "Download from GitHub ↗"
 msgstr ""
 
@@ -375,7 +375,7 @@ msgstr ""
 msgid "Save Changes"
 msgstr ""
 
-#: includes/core/Update_Checker.php:193
+#: includes/core/Update_Checker.php:232
 msgid "See the GitHub releases page for the full changelog."
 msgstr ""
 
@@ -479,7 +479,7 @@ msgstr ""
 msgid "Upcoming window"
 msgstr ""
 
-#: includes/core/Update_Checker.php:206
+#: includes/core/Update_Checker.php:245
 msgid "View all releases on GitHub"
 msgstr ""
 

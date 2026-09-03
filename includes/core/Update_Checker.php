@@ -7,27 +7,42 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Checks GitHub Releases for a newer stable version of the plugin and surfaces
- * the standard WordPress update notice, including one-click auto-install.
+ * Checks the monorepo's GitHub Releases for a newer stable version of the
+ * plugin and surfaces the standard WordPress update notice, including one-click
+ * auto-install.
  *
- * How it works:
+ * All plugins in the monorepo are released together on a single GitHub release
+ * tag, with one zip asset per plugin named "<slug>-<version>.zip" (for example
+ * `post-calendar-0.5.2.zip`). This checker:
  *  1. Hooks into `pre_set_site_transient_update_plugins` to inject update data
  *     whenever WordPress refreshes its plugin update cache.
- *  2. The GitHub API response is itself cached in a separate transient so we
- *     don't hit the API on every admin page load (TTL: 12 h on success, 1 h
- *     on failure / empty response).
- *  3. When a `.zip` release asset is found, `package` is set to its download
- *     URL so WordPress can install the update automatically. If no asset is
- *     attached, `package` falls back to `false` and a manual download link is
- *     shown instead.
+ *  2. Fetches the monorepo's latest release and picks the asset whose name
+ *     starts with this plugin's slug, reading the per-plugin version straight
+ *     from the asset filename.
+ *  3. Compares that version to the installed plugin version and, if newer,
+ *     points `package` at the asset download URL so WordPress can install the
+ *     update automatically (or falls back to a manual download link).
  *
- * Release requirement: each GitHub release must have the plugin ZIP (built via
- * `yarn build:zip`) uploaded as a release asset before being published.
+ * The GitHub API response is cached in a separate transient so we don't hit the
+ * API on every admin page load (TTL: 12 h on success, 1 h on failure).
  */
 class Update_Checker {
 
-	const TRANSIENT_KEY  = 'post_calendar_github_update';
-	const GITHUB_API_URL = 'https://api.github.com/repos/achtender/post-calendar/releases/latest';
+	/**
+	 * The GitHub monorepo that hosts releases for all plugins.
+	 *
+	 * @var string
+	 */
+	const GITHUB_REPO = 'spill-the-ink/wp-plugins';
+
+	/**
+	 * Slug prefix used to match this plugin's zip asset on the release.
+	 *
+	 * @var string
+	 */
+	const ASSET_SLUG = 'post-calendar';
+
+	const TRANSIENT_KEY = 'post_calendar_github_update';
 	const PLUGIN_SLUG    = 'post-calendar/post-calendar.php';
 
 	public function __construct() {
@@ -41,21 +56,46 @@ class Update_Checker {
 	// GitHub API
 	// -------------------------------------------------------------------------
 
+	private function github_api_url(): string {
+		return 'https://api.github.com/repos/' . self::GITHUB_REPO . '/releases/latest';
+	}
+
+	private function github_releases_url(): string {
+		return 'https://github.com/' . self::GITHUB_REPO . '/releases';
+	}
+
 	/**
-	 * Returns the browser_download_url of the first .zip asset attached to a
-	 * release, or null if none is present.
+	 * Finds this plugin's zip asset on a release and returns its download URL
+	 * and per-plugin version (parsed from the asset filename).
 	 *
 	 * @param  object $release Decoded GitHub release object.
-	 * @return string|null
+	 * @return array{url:string,version:string}|null URL + version, or null.
 	 */
-	private function get_zip_url( object $release ): ?string {
+	private function find_plugin_asset( object $release ): ?array {
 		if ( empty( $release->assets ) ) {
 			return null;
 		}
 		foreach ( $release->assets as $asset ) {
-			if ( isset( $asset->name ) && $this->has_zip_suffix( (string) $asset->name ) ) {
-				return $asset->browser_download_url;
+			if ( ! isset( $asset->name ) || ! is_string( $asset->name ) ) {
+				continue;
 			}
+
+			$name = $asset->name;
+
+			// Match "<slug>-<version>.zip".
+			if ( 0 !== strpos( $name, self::ASSET_SLUG . '-' ) || ! $this->has_zip_suffix( $name ) ) {
+				continue;
+			}
+
+			$version = substr( $name, strlen( self::ASSET_SLUG ) + 1, -4 );
+			if ( '' === $version ) {
+				continue;
+			}
+
+			return array(
+				'url'     => $asset->browser_download_url ?? '',
+				'version' => $version,
+			);
 		}
 		return null;
 	}
@@ -65,7 +105,8 @@ class Update_Checker {
 	}
 
 	/**
-	 * Fetches the latest stable release from GitHub, with transient caching.
+	 * Fetches the latest stable release from the monorepo, with transient
+	 * caching.
 	 *
 	 * Returns null when the fetch fails or the latest release is a pre-release
 	 * or draft.
@@ -81,7 +122,7 @@ class Update_Checker {
 		}
 
 		$response = wp_remote_get(
-			self::GITHUB_API_URL,
+			$this->github_api_url(),
 			array(
 				'timeout' => 10,
 				'headers' => array(
@@ -122,7 +163,7 @@ class Update_Checker {
 
 	/**
 	 * Injects update data into the WordPress plugin update transient when a
-	 * newer GitHub release is detected.
+	 * newer release of this plugin is detected on the monorepo.
 	 *
 	 * @param  object $transient The update_plugins site transient.
 	 * @return object            Modified transient.
@@ -137,22 +178,20 @@ class Update_Checker {
 			return $transient;
 		}
 
-		// Strip a leading "v" so "v1.2.3" compares cleanly with "1.2.3".
-		$github_version = ltrim( $release->tag_name, 'v' );
+		$asset = $this->find_plugin_asset( $release );
+		if ( null === $asset ) {
+			return $transient;
+		}
 
-		if ( version_compare( $github_version, POST_CALENDAR_VERSION, '>' ) ) {
-			$zip_url = $this->get_zip_url( $release );
-
+		if ( version_compare( $asset['version'], POST_CALENDAR_VERSION, '>' ) ) {
 			$transient->response[ self::PLUGIN_SLUG ] = (object) array(
 				'id'           => self::PLUGIN_SLUG,
 				'slug'         => 'post-calendar',
 				'plugin'       => self::PLUGIN_SLUG,
-				'new_version'  => $github_version,
-				'url'          => esc_url( $release->html_url ?? 'https://github.com/achtender/post-calendar/releases' ),
+				'new_version'  => $asset['version'],
+				'url'          => esc_url( $release->html_url ?? $this->github_releases_url() ),
 				// When a ZIP asset is attached, WordPress can install it automatically.
-				// If no asset is found (e.g. forgot to upload), falls back to false
-				// and the update_message hook appends a manual download link.
-				'package'      => $zip_url ?? false,
+				'package'      => $asset['url'] ?: false,
 				'tested'       => '',
 				'requires_php' => '7.4',
 			);
@@ -183,9 +222,9 @@ class Update_Checker {
 			return $result;
 		}
 
-		$github_version = ltrim( $release->tag_name, 'v' );
-		$releases_url   = esc_url( 'https://github.com/achtender/post-calendar/releases' );
-		$zip_url        = $this->get_zip_url( $release );
+		$asset         = $this->find_plugin_asset( $release );
+		$releases_url  = esc_url( $this->github_releases_url() );
+		$download_link = ( null !== $asset && $asset['url'] ) ? $asset['url'] : '';
 
 		// Use the GitHub release body as the changelog if available.
 		$changelog = ! empty( $release->body )
@@ -195,12 +234,12 @@ class Update_Checker {
 		$info = (object) array(
 			'name'          => 'Post Calendar',
 			'slug'          => 'post-calendar',
-			'version'       => $github_version,
+			'version'       => ( null !== $asset ) ? $asset['version'] : POST_CALENDAR_VERSION,
 			'author'        => '<a href="https://github.com/achtender" target="_blank">Achtender</a>',
 			'homepage'      => $releases_url,
 			'requires'      => '6.0',
 			'requires_php'  => '7.4',
-			'download_link' => $zip_url ?? false,
+			'download_link' => $download_link ?: false,
 			'sections'      => array(
 				'description' => '<p>' . esc_html__( 'Display posts as events in a calendar via Bricks or shortcode, using existing post types and the built-in Post Calendar editor or direct event meta.', 'post-calendar' ) . '</p>'
 					. '<p><a href="' . $releases_url . '" target="_blank">' . esc_html__( 'View all releases on GitHub', 'post-calendar' ) . '</a></p>',
@@ -225,7 +264,7 @@ class Update_Checker {
 			return;
 		}
 
-		$releases_url = esc_url( 'https://github.com/achtender/post-calendar/releases' );
+		$releases_url = esc_url( $this->github_releases_url() );
 		printf(
 			' <a href="%s" target="_blank" rel="noopener noreferrer">%s</a>',
 			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $releases_url is already escaped via esc_url().
