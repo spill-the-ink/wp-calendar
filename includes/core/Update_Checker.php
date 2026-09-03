@@ -183,18 +183,27 @@ class Update_Checker {
 			return $transient;
 		}
 
+		$details = (object) array(
+			'id'           => self::PLUGIN_SLUG,
+			'slug'         => 'post-calendar',
+			'plugin'       => self::PLUGIN_SLUG,
+			'new_version'  => $asset['version'],
+			'url'          => esc_url( $release->html_url ?? $this->github_releases_url() ),
+			// When a ZIP asset is attached, WordPress can install it automatically.
+			'package'      => $asset['url'] ?: false,
+			'tested'       => '',
+			'requires_php' => '7.4',
+		);
+
+		// Always place the plugin in either response or no_update so WordPress
+		// treats it as update-supported (this is what enables the "Enable/Disable
+		// auto-updates" toggle on the Plugins screen). Mirroring core's own
+		// Update URI handling, put it in response when a newer version exists and
+		// in no_update when it is already current.
 		if ( version_compare( $asset['version'], POST_CALENDAR_VERSION, '>' ) ) {
-			$transient->response[ self::PLUGIN_SLUG ] = (object) array(
-				'id'           => self::PLUGIN_SLUG,
-				'slug'         => 'post-calendar',
-				'plugin'       => self::PLUGIN_SLUG,
-				'new_version'  => $asset['version'],
-				'url'          => esc_url( $release->html_url ?? $this->github_releases_url() ),
-				// When a ZIP asset is attached, WordPress can install it automatically.
-				'package'      => $asset['url'] ?: false,
-				'tested'       => '',
-				'requires_php' => '7.4',
-			);
+			$transient->response[ self::PLUGIN_SLUG ] = $details;
+		} else {
+			$transient->no_update[ self::PLUGIN_SLUG ] = $details;
 		}
 
 		return $transient;
