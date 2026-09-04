@@ -1,9 +1,9 @@
 <?php
 
-namespace PostCalendar\Integrations\Bricks;
+namespace WpCalendar\Integrations\Bricks;
 
 use DateTimeImmutable;
-use PostCalendar\Events\Event_Date_Parser;
+use WpCalendar\Events\Event_Date_Parser;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

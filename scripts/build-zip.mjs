@@ -26,7 +26,7 @@ const closePromise = new Promise((resolve, reject) => {
 archive.pipe(output);
 
 [
-  'post-calendar.php',
+  'wp-calendar.php',
   'README.md',
 ].forEach((file) => {
   archive.file(path.join(rootDir, file), { name: path.posix.join(pluginSlug, file) });

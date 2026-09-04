@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Post Calendar\n"
+"Project-Id-Version: WordPress Calendar\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-04 12:01:10+0000\n"
+"POT-Creation-Date: 2026-09-04 13:59:06+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Domain: post-calendar\n"
+"X-Domain: wp-calendar\n"
 
 #: includes/admin/Settings_Page.php:899
 msgid "%d Discord server"
@@ -43,14 +43,14 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: includes/events/Post_Type.php:57
-msgid "A virtual query type for Post Calendar events. Query this type to retrieve event posts from all source post types."
+msgid "A virtual query type for WordPress Calendar events. Query this type to retrieve event posts from all source post types."
 msgstr ""
 
-#: includes/integrations/Bricks/Post_Calendar.php:384
+#: includes/integrations/Bricks/Calendar.php:384
 msgid "Active button color"
 msgstr ""
 
-#: includes/integrations/Bricks/Post_Calendar.php:397
+#: includes/integrations/Bricks/Calendar.php:397
 msgid "Active button text color"
 msgstr ""
 
@@ -78,15 +78,15 @@ msgstr ""
 msgid "Add source"
 msgstr ""
 
-#: includes/core/Assets.php:147 includes/integrations/Bricks/Post_Calendar.php:415
+#: includes/core/Assets.php:147 includes/integrations/Bricks/Calendar.php:415
 msgid "Agenda"
 msgstr ""
 
-#: includes/integrations/Bricks/Post_Calendar.php:166
+#: includes/integrations/Bricks/Calendar.php:166
 msgid "Agenda range"
 msgstr ""
 
-#: includes/integrations/Bricks/Post_Calendar.php:177
+#: includes/integrations/Bricks/Calendar.php:177
 msgid "Agenda window (months)"
 msgstr ""
 
@@ -106,23 +106,39 @@ msgstr ""
 msgid "Back"
 msgstr ""
 
-#: includes/integrations/Bricks/Post_Calendar.php:219
+#: includes/integrations/Bricks/Calendar.php:219
 msgid "Below this container width, wide time-grid views (two weeks, week, timeline) automatically render as agenda. 0 disables auto-switching."
 msgstr ""
 
-#: includes/integrations/Bricks/Post_Calendar.php:328
+#: includes/integrations/Bricks/Calendar.php:328
 msgid "Body text color"
 msgstr ""
 
-#: includes/integrations/Bricks/Post_Calendar.php:315
+#: includes/integrations/Bricks/Calendar.php:315
 msgid "Border color"
 msgstr ""
 
-#: includes/integrations/Bricks/Post_Calendar.php:273
+#: includes/integrations/Bricks/Calendar.php:273
 msgid "Button and event radius"
 msgstr ""
 
-#: includes/integrations/Bricks/Post_Calendar.php:241
+#: includes/admin/Admin_Editor.php:35 includes/admin/Settings_Page.php:85
+msgid "Calendar"
+msgstr ""
+
+#: includes/events/Post_Type.php:54
+msgid "Calendar Event"
+msgstr ""
+
+#: includes/admin/Admin_Editor.php:52
+msgid "Calendar event editing requires JavaScript in the post editor."
+msgstr ""
+
+#: includes/events/Post_Type.php:51 includes/events/Post_Type.php:53 includes/events/Post_Type.php:55
+msgid "Calendar Events"
+msgstr ""
+
+#: includes/integrations/Bricks/Calendar.php:241
 msgid "Calendar height"
 msgstr ""
 
@@ -130,11 +146,11 @@ msgstr ""
 msgid "Calendar views"
 msgstr ""
 
-#: includes/integrations/Bricks/Post_Calendar.php:225
+#: includes/integrations/Bricks/Calendar.php:225
 msgid "Calendar width"
 msgstr ""
 
-#: includes/integrations/Bricks/Post_Calendar.php:96
+#: includes/integrations/Bricks/Calendar.php:96
 msgid "Colors"
 msgstr ""
 
@@ -142,11 +158,11 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
-#: includes/core/Assets.php:152 includes/integrations/Bricks/Post_Calendar.php:414
+#: includes/core/Assets.php:152 includes/integrations/Bricks/Calendar.php:414
 msgid "Day"
 msgstr ""
 
-#: includes/integrations/Bricks/Post_Calendar.php:119
+#: includes/integrations/Bricks/Calendar.php:119
 msgid "Default view"
 msgstr ""
 
@@ -159,7 +175,7 @@ msgid "Discord not configured"
 msgstr ""
 
 #: includes/core/Update_Checker.php:253
-msgid "Display posts as events in a calendar via Bricks or shortcode, using existing post types and the built-in Post Calendar editor or direct event meta."
+msgid "Display posts as events in a calendar via Bricks or shortcode, using existing post types and the built-in WordPress Calendar editor or direct event meta."
 msgstr ""
 
 #: includes/admin/Admin_Editor.php:285
@@ -170,7 +186,7 @@ msgstr ""
 msgid "Download from GitHub ↗"
 msgstr ""
 
-#: includes/integrations/Bricks/Post_Calendar.php:127
+#: includes/integrations/Bricks/Calendar.php:127
 msgid "Enabled views"
 msgstr ""
 
@@ -190,11 +206,11 @@ msgstr ""
 msgid "Event label"
 msgstr ""
 
-#: includes/integrations/Bricks/Post_Calendar.php:358
+#: includes/integrations/Bricks/Calendar.php:358
 msgid "Event pill color"
 msgstr ""
 
-#: includes/integrations/Bricks/Post_Calendar.php:371
+#: includes/integrations/Bricks/Calendar.php:371
 msgid "Event pill text color"
 msgstr ""
 
@@ -219,7 +235,7 @@ msgid "Friday"
 msgstr ""
 
 #: includes/admin/Settings_Page.php:172
-msgid "JavaScript is required to manage Post Calendar settings."
+msgid "JavaScript is required to manage WordPress Calendar settings."
 msgstr ""
 
 #: includes/rest/Rest_Controller.php:153
@@ -230,7 +246,7 @@ msgstr ""
 msgid "Label"
 msgstr ""
 
-#: includes/integrations/Bricks/Post_Calendar.php:91
+#: includes/integrations/Bricks/Calendar.php:91
 msgid "Layout"
 msgstr ""
 
@@ -254,7 +270,7 @@ msgstr ""
 msgid "Limit the number of source posts evaluated for the response."
 msgstr ""
 
-#: includes/integrations/Bricks/Post_Calendar.php:490 includes/integrations/Shortcode.php:106
+#: includes/integrations/Bricks/Calendar.php:490 includes/integrations/Shortcode.php:106
 msgid "Loading calendar…"
 msgstr ""
 
@@ -262,7 +278,7 @@ msgstr ""
 msgid "Monday"
 msgstr ""
 
-#: includes/core/Assets.php:156 includes/integrations/Bricks/Post_Calendar.php:410
+#: includes/core/Assets.php:156 includes/integrations/Bricks/Calendar.php:410
 msgid "Month"
 msgstr ""
 
@@ -274,11 +290,11 @@ msgstr ""
 msgid "more"
 msgstr ""
 
-#: includes/integrations/Bricks/Post_Calendar.php:302
+#: includes/integrations/Bricks/Calendar.php:302
 msgid "Muted surface color"
 msgstr ""
 
-#: includes/integrations/Bricks/Post_Calendar.php:341
+#: includes/integrations/Bricks/Calendar.php:341
 msgid "Muted text color"
 msgstr ""
 
@@ -302,31 +318,11 @@ msgstr ""
 msgid "No label"
 msgstr ""
 
-#: includes/integrations/Bricks/Post_Calendar.php:209
+#: includes/integrations/Bricks/Calendar.php:209
 msgid "Number of consecutive days on the timeline axis, starting at the current week."
 msgstr ""
 
-#: includes/admin/Admin_Editor.php:35 includes/admin/Settings_Page.php:161 includes/admin/Settings_Page.php:84 includes/admin/Settings_Page.php:85 includes/integrations/Bricks/Post_Calendar.php:82
-msgid "Post Calendar"
-msgstr ""
-
-#: includes/integrations/Bricks/Elements.php:42
-msgid "Post Calendar could not register its Bricks element because Bricks is not active or its API is unavailable."
-msgstr ""
-
-#: includes/events/Post_Type.php:54
-msgid "Post Calendar Event"
-msgstr ""
-
-#: includes/admin/Admin_Editor.php:52
-msgid "Post Calendar event editing requires JavaScript in the post editor."
-msgstr ""
-
-#: includes/events/Post_Type.php:51 includes/events/Post_Type.php:53 includes/events/Post_Type.php:55
-msgid "Post Calendar Events"
-msgstr ""
-
-#: includes/integrations/Bricks/Post_Calendar.php:104
+#: includes/integrations/Bricks/Calendar.php:104
 msgid "Query"
 msgstr ""
 
@@ -355,7 +351,7 @@ msgstr ""
 msgid "Repeat until"
 msgstr ""
 
-#: includes/integrations/Bricks/Post_Calendar.php:214
+#: includes/integrations/Bricks/Calendar.php:214
 msgid "Responsive breakpoint"
 msgstr ""
 
@@ -391,27 +387,27 @@ msgstr ""
 msgid "Sunday"
 msgstr ""
 
-#: includes/integrations/Bricks/Post_Calendar.php:289
+#: includes/integrations/Bricks/Calendar.php:289
 msgid "Surface color"
 msgstr ""
 
-#: includes/integrations/Bricks/Post_Calendar.php:257
+#: includes/integrations/Bricks/Calendar.php:257
 msgid "Surface radius"
 msgstr ""
 
 #: includes/admin/Settings_Page.php:250
-msgid "That post type cannot be managed from Post Calendar."
+msgid "That post type cannot be managed from WordPress Calendar."
 msgstr ""
 
 #: includes/core/Assets.php:155
 msgid "The calendar API URL is missing."
 msgstr ""
 
-#: includes/integrations/Bricks/Post_Calendar.php:441 includes/integrations/Shortcode.php:35
+#: includes/integrations/Bricks/Calendar.php:441 includes/integrations/Shortcode.php:35
 msgid "The calendar frontend assets are missing. Run the plugin build before using this element."
 msgstr ""
 
-#: includes/integrations/Bricks/Post_Calendar.php:114
+#: includes/integrations/Bricks/Calendar.php:114
 msgid "The query popup is limited to the subset the calendar applies: post type, include/exclude, taxonomy, author include/exclude, search, ordering, and date/meta constraints."
 msgstr ""
 
@@ -423,11 +419,11 @@ msgstr ""
 msgid "Time"
 msgstr ""
 
-#: includes/integrations/Bricks/Post_Calendar.php:413
+#: includes/integrations/Bricks/Calendar.php:413
 msgid "Timeline"
 msgstr ""
 
-#: includes/integrations/Bricks/Post_Calendar.php:204
+#: includes/integrations/Bricks/Calendar.php:204
 msgid "Timeline view: days"
 msgstr ""
 
@@ -435,19 +431,19 @@ msgstr ""
 msgid "Today"
 msgstr ""
 
-#: includes/integrations/Bricks/Post_Calendar.php:135
+#: includes/integrations/Bricks/Calendar.php:135
 msgid "Toolbar"
 msgstr ""
 
-#: includes/integrations/Bricks/Post_Calendar.php:150
+#: includes/integrations/Bricks/Calendar.php:150
 msgid "Toolbar: period label"
 msgstr ""
 
-#: includes/integrations/Bricks/Post_Calendar.php:142
+#: includes/integrations/Bricks/Calendar.php:142
 msgid "Toolbar: today / back / next"
 msgstr ""
 
-#: includes/integrations/Bricks/Post_Calendar.php:158
+#: includes/integrations/Bricks/Calendar.php:158
 msgid "Toolbar: view menu"
 msgstr ""
 
@@ -455,15 +451,15 @@ msgstr ""
 msgid "Tuesday"
 msgstr ""
 
-#: includes/core/Assets.php:164 includes/integrations/Bricks/Post_Calendar.php:411
+#: includes/core/Assets.php:164 includes/integrations/Bricks/Calendar.php:411
 msgid "Two weeks"
 msgstr ""
 
-#: includes/integrations/Bricks/Post_Calendar.php:195
+#: includes/integrations/Bricks/Calendar.php:195
 msgid "Two-week view: weeks after"
 msgstr ""
 
-#: includes/integrations/Bricks/Post_Calendar.php:186
+#: includes/integrations/Bricks/Calendar.php:186
 msgid "Two-week view: weeks before"
 msgstr ""
 
@@ -475,7 +471,7 @@ msgstr ""
 msgid "Unable to parse the calendar configuration."
 msgstr ""
 
-#: includes/integrations/Bricks/Post_Calendar.php:170
+#: includes/integrations/Bricks/Calendar.php:170
 msgid "Upcoming window"
 msgstr ""
 
@@ -483,7 +479,7 @@ msgstr ""
 msgid "View all releases on GitHub"
 msgstr ""
 
-#: includes/integrations/Bricks/Post_Calendar.php:169
+#: includes/integrations/Bricks/Calendar.php:169
 msgid "Visible range"
 msgstr ""
 
@@ -491,7 +487,7 @@ msgstr ""
 msgid "Wednesday"
 msgstr ""
 
-#: includes/core/Assets.php:165 includes/integrations/Bricks/Post_Calendar.php:412
+#: includes/core/Assets.php:165 includes/integrations/Bricks/Calendar.php:412
 msgid "Week"
 msgstr ""
 
@@ -499,15 +495,23 @@ msgstr ""
 msgid "Weekly"
 msgstr ""
 
-#: includes/integrations/Bricks/Post_Calendar.php:199
+#: includes/integrations/Bricks/Calendar.php:199
 msgid "Weeks shown after the current week. Defaults (0/1) render the current and the following week; 1/1 renders three weeks."
 msgstr ""
 
-#: includes/integrations/Bricks/Post_Calendar.php:190
+#: includes/integrations/Bricks/Calendar.php:190
 msgid "Weeks shown before the current week in the two-week view. 0 = start at the current week."
 msgstr ""
 
-#: includes/core/Assets.php:166 includes/integrations/Bricks/Post_Calendar.php:416
+#: includes/admin/Settings_Page.php:161 includes/admin/Settings_Page.php:84 includes/integrations/Bricks/Calendar.php:82
+msgid "WordPress Calendar"
+msgstr ""
+
+#: includes/integrations/Bricks/Elements.php:42
+msgid "WordPress Calendar could not register its Bricks element because Bricks is not active or its API is unavailable."
+msgstr ""
+
+#: includes/core/Assets.php:166 includes/integrations/Bricks/Calendar.php:416
 msgid "Year"
 msgstr ""
 
@@ -516,5 +520,5 @@ msgid "Yearly"
 msgstr ""
 
 #: includes/admin/Settings_Page.php:189
-msgid "You are not allowed to manage Post Calendar settings."
+msgid "You are not allowed to manage WordPress Calendar settings."
 msgstr ""

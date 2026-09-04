@@ -35,7 +35,7 @@ const isLocal = params.get("mode") === "local" || params.has("mock");
 
 const runtime: CalendarRuntime = {
   locale: "en-US",
-  restUrl: "/wp-json/post-calendar/v1/events",
+  restUrl: "/wp-json/wp-calendar/v1/events",
   ...(isLocal ? { previewEvents: demoEvents } : {}),
   strings: {
     allDay: "All-day",
@@ -98,7 +98,7 @@ const adminEvents: AdminEventRow[] = [
 ];
 
 const adminRuntime: AdminRuntime = {
-  fieldName: "post_calendar_events",
+  fieldName: "wp_calendar_events",
   currentEvents: adminEvents,
   strings: {
     eventsIntro: "Add one or more event rows to make this post appear in the calendar.",
@@ -162,8 +162,8 @@ const settingsRuntime: SettingsRuntime = {
       enabled: true,
     },
   ],
-  sourcesOptionName: "post_calendar_sources",
-  postTypesOptionName: "post_calendar_post_types",
+  sourcesOptionName: "wp_calendar_sources",
+  postTypesOptionName: "wp_calendar_post_types",
   statistics: {
     totalWpEvents: 37,
     totalIcalFeeds: 1,
@@ -202,7 +202,7 @@ if (previewRoot) {
 }
 
 // Mount admin editor
-const adminRoot = document.querySelector(".js-post-calendar-admin-root");
+const adminRoot = document.querySelector(".js-wp-calendar-admin-root");
 if (adminRoot) {
   createRoot(adminRoot).render(
     <StrictMode>
@@ -212,7 +212,7 @@ if (adminRoot) {
 }
 
 // Mount settings
-const settingsRoot = document.querySelector(".js-post-calendar-settings-root");
+const settingsRoot = document.querySelector(".js-wp-calendar-settings-root");
 if (settingsRoot) {
   createRoot(settingsRoot).render(
     <StrictMode>

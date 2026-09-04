@@ -1,22 +1,22 @@
 <?php
 
-namespace PostCalendar\Admin;
+namespace WpCalendar\Admin;
 
-use PostCalendar\Assets;
-use PostCalendar\Events\Event_Date_Parser;
-use PostCalendar\Events\Event_Query_Service;
+use WpCalendar\Assets;
+use WpCalendar\Events\Event_Date_Parser;
+use WpCalendar\Events\Event_Query_Service;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
 class Admin_Editor {
-	private const META_BOX_ID      = 'post-calendar-events';
-	private const NONCE_ACTION     = 'post_calendar_save_events';
-	private const NONCE_NAME       = 'post_calendar_events_nonce';
-	private const ROWS_FIELD_NAME  = 'post_calendar_events';
-	private const INPUT_FIELD_NAME = 'post_calendar_events_json';
-	private const ROOT_CLASS       = 'js-post-calendar-admin-root';
+	private const META_BOX_ID      = 'wp-calendar-events';
+	private const NONCE_ACTION     = 'wp_calendar_save_events';
+	private const NONCE_NAME       = 'wp_calendar_events_nonce';
+	private const ROWS_FIELD_NAME  = 'wp_calendar_events';
+	private const INPUT_FIELD_NAME = 'wp_calendar_events_json';
+	private const ROOT_CLASS       = 'js-wp-calendar-admin-root';
 
 	private Assets $assets;
 
@@ -32,7 +32,7 @@ class Admin_Editor {
 		foreach ( Settings_Page::get_allowed_post_types() as $post_type ) {
 			add_meta_box(
 				self::META_BOX_ID,
-				esc_html__( 'Post Calendar', 'post-calendar' ),
+				esc_html__( 'Calendar', 'wp-calendar' ),
 				array( $this, 'render_meta_box' ),
 				$post_type,
 				'normal',
@@ -47,9 +47,9 @@ class Admin_Editor {
 
 		wp_nonce_field( self::NONCE_ACTION, self::NONCE_NAME );
 		?>
-		<div class="post-calendar-admin-root <?php echo esc_attr( self::ROOT_CLASS ); ?>"></div>
+		<div class="wp-calendar-admin-root <?php echo esc_attr( self::ROOT_CLASS ); ?>"></div>
 		<noscript>
-			<p><?php echo esc_html__( 'Post Calendar event editing requires JavaScript in the post editor.', 'post-calendar' ); ?>
+			<p><?php echo esc_html__( 'Calendar event editing requires JavaScript in the post editor.', 'wp-calendar' ); ?>
 			</p>
 		</noscript>
 		<?php
@@ -264,35 +264,35 @@ class Admin_Editor {
 		}
 
 		return array(
-			'addEvent'           => esc_html__( 'Add event', 'post-calendar' ),
-			'allDay'             => esc_html__( 'All-day event', 'post-calendar' ),
-			'endDate'            => esc_html__( 'End date', 'post-calendar' ),
-			'eventLabel'         => esc_html__( 'Event label', 'post-calendar' ),
-			'eventLabelHelp'     => esc_html__( 'Leave empty to use the post title.', 'post-calendar' ),
-			'eventNumber'        => esc_html__( 'Event', 'post-calendar' ),
-			'eventRepeat'        => esc_html__( 'Event frequency', 'post-calendar' ),
-			'eventsIntro'        => esc_html__( 'Add one or more event rows to make this post appear in the calendar.', 'post-calendar' ),
-			'monthly'            => esc_html__( 'Monthly', 'post-calendar' ),
-			'noEvents'           => esc_html__( 'No event rows yet.', 'post-calendar' ),
-			'removeEvent'        => esc_html__( 'Remove event', 'post-calendar' ),
-			'repeatInterval'     => esc_html__( 'Repeat interval', 'post-calendar' ),
-			'repeatIntervalHelp' => esc_html__( 'For example, every 2 weeks.', 'post-calendar' ),
-			'repeatOn'           => esc_html__( 'Repeat on', 'post-calendar' ),
-			'repeatUntil'        => esc_html__( 'Repeat until', 'post-calendar' ),
-			'startDate'          => esc_html__( 'Start date', 'post-calendar' ),
-			'weekly'             => esc_html__( 'Weekly', 'post-calendar' ),
-			'yearly'             => esc_html__( 'Yearly', 'post-calendar' ),
-			'doesNotRepeat'      => esc_html__( 'Does not repeat', 'post-calendar' ),
-			'monday'             => esc_html__( 'Monday', 'post-calendar' ),
-			'tuesday'            => esc_html__( 'Tuesday', 'post-calendar' ),
-			'wednesday'          => esc_html__( 'Wednesday', 'post-calendar' ),
-			'thursday'           => esc_html__( 'Thursday', 'post-calendar' ),
-			'friday'             => esc_html__( 'Friday', 'post-calendar' ),
-			'saturday'           => esc_html__( 'Saturday', 'post-calendar' ),
-			'sunday'             => esc_html__( 'Sunday', 'post-calendar' ),
-			'eventCategory'      => esc_html__( 'Label', 'post-calendar' ),
-			'eventCategoryHelp'  => esc_html__( 'Assign a label to this event for color-coded grouping in calendar views.', 'post-calendar' ),
-			'labelNone'          => esc_html__( 'No label', 'post-calendar' ),
+			'addEvent'           => esc_html__( 'Add event', 'wp-calendar' ),
+			'allDay'             => esc_html__( 'All-day event', 'wp-calendar' ),
+			'endDate'            => esc_html__( 'End date', 'wp-calendar' ),
+			'eventLabel'         => esc_html__( 'Event label', 'wp-calendar' ),
+			'eventLabelHelp'     => esc_html__( 'Leave empty to use the post title.', 'wp-calendar' ),
+			'eventNumber'        => esc_html__( 'Event', 'wp-calendar' ),
+			'eventRepeat'        => esc_html__( 'Event frequency', 'wp-calendar' ),
+			'eventsIntro'        => esc_html__( 'Add one or more event rows to make this post appear in the calendar.', 'wp-calendar' ),
+			'monthly'            => esc_html__( 'Monthly', 'wp-calendar' ),
+			'noEvents'           => esc_html__( 'No event rows yet.', 'wp-calendar' ),
+			'removeEvent'        => esc_html__( 'Remove event', 'wp-calendar' ),
+			'repeatInterval'     => esc_html__( 'Repeat interval', 'wp-calendar' ),
+			'repeatIntervalHelp' => esc_html__( 'For example, every 2 weeks.', 'wp-calendar' ),
+			'repeatOn'           => esc_html__( 'Repeat on', 'wp-calendar' ),
+			'repeatUntil'        => esc_html__( 'Repeat until', 'wp-calendar' ),
+			'startDate'          => esc_html__( 'Start date', 'wp-calendar' ),
+			'weekly'             => esc_html__( 'Weekly', 'wp-calendar' ),
+			'yearly'             => esc_html__( 'Yearly', 'wp-calendar' ),
+			'doesNotRepeat'      => esc_html__( 'Does not repeat', 'wp-calendar' ),
+			'monday'             => esc_html__( 'Monday', 'wp-calendar' ),
+			'tuesday'            => esc_html__( 'Tuesday', 'wp-calendar' ),
+			'wednesday'          => esc_html__( 'Wednesday', 'wp-calendar' ),
+			'thursday'           => esc_html__( 'Thursday', 'wp-calendar' ),
+			'friday'             => esc_html__( 'Friday', 'wp-calendar' ),
+			'saturday'           => esc_html__( 'Saturday', 'wp-calendar' ),
+			'sunday'             => esc_html__( 'Sunday', 'wp-calendar' ),
+			'eventCategory'      => esc_html__( 'Label', 'wp-calendar' ),
+			'eventCategoryHelp'  => esc_html__( 'Assign a label to this event for color-coded grouping in calendar views.', 'wp-calendar' ),
+			'labelNone'          => esc_html__( 'No label', 'wp-calendar' ),
 			'labels'             => $label_options,
 		);
 	}

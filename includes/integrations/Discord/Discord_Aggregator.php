@@ -1,6 +1,6 @@
 <?php
 
-namespace PostCalendar\Integrations\Discord;
+namespace WpCalendar\Integrations\Discord;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -12,8 +12,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Caching uses transients with a 5-minute TTL and a lock to prevent concurrent fetches.
  */
 class Discord_Aggregator {
-	private const TRANSIENT_PREFIX      = 'post_calendar_discord_events_';
-	private const TRANSIENT_LOCK_PREFIX = 'post_calendar_discord_lock_';
+	private const TRANSIENT_PREFIX      = 'wp_calendar_discord_events_';
+	private const TRANSIENT_LOCK_PREFIX = 'wp_calendar_discord_lock_';
 	private const TTL                   = 300; // 5 minutes.
 	private const LOCK_TTL              = 30; // 30 seconds.
 

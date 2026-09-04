@@ -1,23 +1,23 @@
 <?php
 
-namespace PostCalendar\Admin;
+namespace WpCalendar\Admin;
 
-use PostCalendar\Events\Event_Config;
+use WpCalendar\Events\Event_Config;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
 class Settings_Page {
-	private const PAGE_SLUG                = 'post-calendar';
-	private const OPTION_NAME              = 'post_calendar_post_types';
-	private const LABELS_OPTION_NAME       = 'post_calendar_labels';
-	public const SOURCES_OPTION_NAME       = 'post_calendar_sources';
-	private const REMOVE_EVENTS_ACTION     = 'post_calendar_remove_events';
-	private const REMOVE_EVENTS_NONCE      = 'post_calendar_remove_events_nonce';
-	private const REMOVE_EVENTS_POST_FIELD = 'post_calendar_remove_post_type';
-	private const NOTICE_POST_TYPE_ARG     = 'post_calendar_post_type';
-	private const NOTICE_REMOVED_ARG       = 'post_calendar_removed';
+	private const PAGE_SLUG                = 'wp-calendar';
+	private const OPTION_NAME              = 'wp_calendar_post_types';
+	private const LABELS_OPTION_NAME       = 'wp_calendar_labels';
+	public const SOURCES_OPTION_NAME       = 'wp_calendar_sources';
+	private const REMOVE_EVENTS_ACTION     = 'wp_calendar_remove_events';
+	private const REMOVE_EVENTS_NONCE      = 'wp_calendar_remove_events_nonce';
+	private const REMOVE_EVENTS_POST_FIELD = 'wp_calendar_remove_post_type';
+	private const NOTICE_POST_TYPE_ARG     = 'wp_calendar_post_type';
+	private const NOTICE_REMOVED_ARG       = 'wp_calendar_removed';
 	private const EVENT_ENABLED_META       = Event_Config::EVENT_HAS_EVENTS_META;
 	private const EVENTS_META              = Event_Config::EVENTS_META;
 	private const EVENT_RANGE_START_META   = Event_Config::EVENT_RANGE_START_META;
@@ -30,7 +30,7 @@ class Settings_Page {
 		'bricks_fonts',
 		'bricks_template',
 		// Internal virtual type - must never appear as a selectable event source.
-		'post_calendar_event',
+		'wp_calendar_event',
 	);
 
 	private const DEFAULT_LABEL_COLORS = array(
@@ -49,7 +49,7 @@ class Settings_Page {
 
 	public function register_settings(): void {
 		register_setting(
-			'post_calendar',
+			'wp_calendar',
 			self::OPTION_NAME,
 			array(
 				'type'              => 'array',
@@ -59,7 +59,7 @@ class Settings_Page {
 		);
 
 		register_setting(
-			'post_calendar',
+			'wp_calendar',
 			self::LABELS_OPTION_NAME,
 			array(
 				'type'              => 'array',
@@ -69,7 +69,7 @@ class Settings_Page {
 		);
 
 		register_setting(
-			'post_calendar',
+			'wp_calendar',
 			self::SOURCES_OPTION_NAME,
 			array(
 				'type'              => 'array',
@@ -81,8 +81,8 @@ class Settings_Page {
 
 	public function register_menu(): void {
 		add_options_page(
-			esc_html__( 'Post Calendar', 'post-calendar' ),
-			esc_html__( 'Post Calendar', 'post-calendar' ),
+			esc_html__( 'WordPress Calendar', 'wp-calendar' ),
+			esc_html__( 'Calendar', 'wp-calendar' ),
 			'manage_options',
 			self::PAGE_SLUG,
 			array( $this, 'render_page' )
@@ -108,7 +108,7 @@ class Settings_Page {
 		// it lazily (and only when the Discord section is used) via the /discord/guilds
 		// REST endpoint.
 		$discord_guilds     = $sources['discord']['guilds'] ?? array();
-		$discord_configured = \PostCalendar\Integrations\Discord\Discord_Client::is_configured();
+		$discord_configured = \WpCalendar\Integrations\Discord\Discord_Client::is_configured();
 
 		// Compute overall statistics.
 		$total_wp_events      = array_sum( $event_counts );
@@ -123,7 +123,7 @@ class Settings_Page {
 		);
 
 		// Enqueue the React settings app.
-		$assets = new \PostCalendar\Assets();
+		$assets = new \WpCalendar\Assets();
 		if ( $assets->has_settings_built_assets() ) {
 			$settings_post_types = array();
 			foreach ( $post_types as $pt ) {
@@ -144,9 +144,9 @@ class Settings_Page {
 					'postTypesOptionName' => self::OPTION_NAME,
 					'discordConfigured'   => $discord_configured,
 					'discordGuilds'       => $discord_guilds,
-					'restUrl'             => esc_url_raw( rest_url( \PostCalendar\Rest\Rest_Controller::REST_NAMESPACE ) ),
+					'restUrl'             => esc_url_raw( rest_url( \WpCalendar\Rest\Rest_Controller::REST_NAMESPACE ) ),
 					'restNonce'           => wp_create_nonce( 'wp_rest' ),
-					'discordGuildsRoute'  => \PostCalendar\Rest\Rest_Controller::DISCORD_GUILDS_ROUTE,
+					'discordGuildsRoute'  => \WpCalendar\Rest\Rest_Controller::DISCORD_GUILDS_ROUTE,
 					'statistics'          => array(
 						'totalWpEvents'      => $total_wp_events,
 						'totalIcalFeeds'     => $total_ical_feeds,
@@ -158,22 +158,22 @@ class Settings_Page {
 		}
 		?>
 		<div class="wrap">
-			<h1><?php echo esc_html__( 'Post Calendar', 'post-calendar' ); ?></h1>
+			<h1><?php echo esc_html__( 'WordPress Calendar', 'wp-calendar' ); ?></h1>
 
-			<?php settings_errors( 'post_calendar' ); ?>
+			<?php settings_errors( 'wp_calendar' ); ?>
 
 			<form action="options.php" method="post">
-				<?php settings_fields( 'post_calendar' ); ?>
+				<?php settings_fields( 'wp_calendar' ); ?>
 
 				<?php if ( $assets->has_settings_built_assets() ) : ?>
-					<div class="js-post-calendar-settings-root"></div>
+					<div class="js-wp-calendar-settings-root"></div>
 				<?php else : ?>
 					<noscript>
-						<p><?php echo esc_html__( 'JavaScript is required to manage Post Calendar settings.', 'post-calendar' ); ?></p>
+						<p><?php echo esc_html__( 'JavaScript is required to manage WordPress Calendar settings.', 'wp-calendar' ); ?></p>
 					</noscript>
 				<?php endif; ?>
 
-				<?php submit_button( $this->get_settings_strings()['save'] ?? __( 'Save Changes', 'post-calendar' ) ); ?>
+				<?php submit_button( $this->get_settings_strings()['save'] ?? __( 'Save Changes', 'wp-calendar' ) ); ?>
 			</form>
 		</div>
 		<?php
@@ -186,8 +186,8 @@ class Settings_Page {
 
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_die(
-				esc_html__( 'You are not allowed to manage Post Calendar settings.', 'post-calendar' ),
-				esc_html__( 'Forbidden', 'post-calendar' ),
+				esc_html__( 'You are not allowed to manage WordPress Calendar settings.', 'wp-calendar' ),
+				esc_html__( 'Forbidden', 'wp-calendar' ),
 				array(
 					'response' => 403,
 				)
@@ -216,11 +216,11 @@ class Settings_Page {
 
 	// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Read-only GET parameters for admin notice display; no form processing.
 	private function maybe_add_action_notice(): void {
-		if ( ! isset( $_GET['post_calendar_notice'] ) ) {
+		if ( ! isset( $_GET['wp_calendar_notice'] ) ) {
 			return;
 		}
 
-		$notice     = sanitize_key( wp_unslash( $_GET['post_calendar_notice'] ) );
+		$notice     = sanitize_key( wp_unslash( $_GET['wp_calendar_notice'] ) );
 		$post_type  = isset( $_GET[ self::NOTICE_POST_TYPE_ARG ] ) ? sanitize_key( wp_unslash( $_GET[ self::NOTICE_POST_TYPE_ARG ] ) ) : '';
 		$post_types = self::get_selectable_post_types();
 		$label      = isset( $post_types[ $post_type ] ) ? ( '' !== $post_types[ $post_type ]->labels->singular_name ? $post_types[ $post_type ]->labels->singular_name : $post_types[ $post_type ]->label ) : $post_type;
@@ -229,11 +229,11 @@ class Settings_Page {
 			$removed = isset( $_GET[ self::NOTICE_REMOVED_ARG ] ) ? absint( wp_unslash( $_GET[ self::NOTICE_REMOVED_ARG ] ) ) : 0;
 
 			add_settings_error(
-				'post_calendar',
-				'post_calendar_events_cleared',
+				'wp_calendar',
+				'wp_calendar_events_cleared',
 				sprintf(
 					/* translators: 1: number of posts cleared, 2: post type label. */
-					esc_html__( 'Removed all event data from %1$d posts in %2$s.', 'post-calendar' ),
+					esc_html__( 'Removed all event data from %1$d posts in %2$s.', 'wp-calendar' ),
 					$removed,
 					$label
 				),
@@ -245,9 +245,9 @@ class Settings_Page {
 
 		if ( 'invalid-post-type' === $notice ) {
 			add_settings_error(
-				'post_calendar',
-				'post_calendar_invalid_post_type',
-				esc_html__( 'That post type cannot be managed from Post Calendar.', 'post-calendar' ),
+				'wp_calendar',
+				'wp_calendar_invalid_post_type',
+				esc_html__( 'That post type cannot be managed from WordPress Calendar.', 'wp-calendar' ),
 				'error'
 			);
 		}
@@ -437,12 +437,12 @@ class Settings_Page {
 	 * @return array  The refreshed guild list.
 	 */
 	public static function refresh_discord_guilds( array $enabled_map = array() ): array {
-		$token = \PostCalendar\Integrations\Discord\Discord_Client::get_bot_token();
+		$token = \WpCalendar\Integrations\Discord\Discord_Client::get_bot_token();
 		if ( '' === $token ) {
 			return array();
 		}
 
-		$api_guilds = \PostCalendar\Integrations\Discord\Discord_Client::get_bot_guilds( $token );
+		$api_guilds = \WpCalendar\Integrations\Discord\Discord_Client::get_bot_guilds( $token );
 		if ( ! is_array( $api_guilds ) ) {
 			return array();
 		}
@@ -520,7 +520,7 @@ class Settings_Page {
 
 		$css = '';
 		foreach ( $labels as $label ) {
-			$css_var = '--post-calendar-label-' . sanitize_html_class( $label['id'] );
+			$css_var = '--wp-calendar-label-' . sanitize_html_class( $label['id'] );
 			$css    .= "$css_var:" . esc_attr( $label['color'] ) . ';';
 		}
 
@@ -540,7 +540,7 @@ class Settings_Page {
 
 	public static function get_event_source_post_types(): array {
 		$selectable_types = array_keys( self::get_selectable_post_types() );
-		$source_types     = apply_filters( 'post_calendar_event_source_post_types', $selectable_types );
+		$source_types     = apply_filters( 'wp_calendar_event_source_post_types', $selectable_types );
 
 		if ( ! is_array( $source_types ) ) {
 			return array();
@@ -623,7 +623,7 @@ class Settings_Page {
 			return false;
 		}
 
-		return (bool) apply_filters( 'post_calendar_is_selectable_post_type', true, $post_type );
+		return (bool) apply_filters( 'wp_calendar_is_selectable_post_type', true, $post_type );
 	}
 
 	private static function post_type_supports_content( string $post_type ): bool {
@@ -648,7 +648,7 @@ class Settings_Page {
 	}
 
 	private static function get_excluded_post_types(): array {
-		$excluded_post_types = apply_filters( 'post_calendar_excluded_post_types', self::EXCLUDED_POST_TYPES );
+		$excluded_post_types = apply_filters( 'wp_calendar_excluded_post_types', self::EXCLUDED_POST_TYPES );
 
 		if ( ! is_array( $excluded_post_types ) ) {
 			return self::EXCLUDED_POST_TYPES;
@@ -758,7 +758,7 @@ class Settings_Page {
 				array_merge(
 					$args,
 					array(
-						'post_calendar_notice' => $notice,
+						'wp_calendar_notice' => $notice,
 					)
 				)
 			)
@@ -820,7 +820,7 @@ class Settings_Page {
 			 *
 			 * @return bool Whether HTTP feed URLs are permitted.
 			 */
-			if ( 'http' !== $scheme || ! apply_filters( 'post_calendar_allow_insecure_feed_urls', false ) ) {
+			if ( 'http' !== $scheme || ! apply_filters( 'wp_calendar_allow_insecure_feed_urls', false ) ) {
 				return false;
 			}
 		}
@@ -887,27 +887,27 @@ class Settings_Page {
 
 	private function get_settings_strings(): array {
 		return array(
-			'eventSourcesTitle'    => esc_html__( 'Event Sources', 'post-calendar' ),
-			'sourcesHeaderSummary' => esc_html__( 'Event sources provide data to the calendar.', 'post-calendar' ),
+			'eventSourcesTitle'    => esc_html__( 'Event Sources', 'wp-calendar' ),
+			'sourcesHeaderSummary' => esc_html__( 'Event sources provide data to the calendar.', 'wp-calendar' ),
 			// translators: %d: number of events.
-			'totalEvents'          => esc_html( _n( '%d total event', '%d total events', 1, 'post-calendar' ) ),
+			'totalEvents'          => esc_html( _n( '%d total event', '%d total events', 1, 'wp-calendar' ) ),
 			// translators: %d: number of events from posts.
-			'byPostType'           => esc_html( _n( '%d from posts', '%d from posts', 1, 'post-calendar' ) ),
+			'byPostType'           => esc_html( _n( '%d from posts', '%d from posts', 1, 'wp-calendar' ) ),
 			// translators: %d: number of iCal feeds.
-			'byIcal'               => esc_html( _n( '%d iCal feed', '%d iCal feeds', 1, 'post-calendar' ) ),
+			'byIcal'               => esc_html( _n( '%d iCal feed', '%d iCal feeds', 1, 'wp-calendar' ) ),
 			// translators: %d: number of Discord servers.
-			'byDiscord'            => esc_html( _n( '%d Discord server', '%d Discord servers', 1, 'post-calendar' ) ),
-			'noSources'            => esc_html__( 'No event sources configured. Add a source to get started.', 'post-calendar' ),
-			'addSource'            => esc_html__( 'Add source', 'post-calendar' ),
-			'addPostType'          => esc_html__( 'Add post type', 'post-calendar' ),
-			'addIcalFeed'          => esc_html__( 'Add iCal feed', 'post-calendar' ),
-			'addDiscordGuild'      => esc_html__( 'Add Discord server', 'post-calendar' ),
-			'removeSource'         => esc_html__( 'Remove', 'post-calendar' ),
-			'save'                 => esc_html__( 'Save Changes', 'post-calendar' ),
-			'discordConnected'     => esc_html__( 'Discord connected', 'post-calendar' ),
-			'discordNotConfigured' => esc_html__( 'Discord not configured', 'post-calendar' ),
+			'byDiscord'            => esc_html( _n( '%d Discord server', '%d Discord servers', 1, 'wp-calendar' ) ),
+			'noSources'            => esc_html__( 'No event sources configured. Add a source to get started.', 'wp-calendar' ),
+			'addSource'            => esc_html__( 'Add source', 'wp-calendar' ),
+			'addPostType'          => esc_html__( 'Add post type', 'wp-calendar' ),
+			'addIcalFeed'          => esc_html__( 'Add iCal feed', 'wp-calendar' ),
+			'addDiscordGuild'      => esc_html__( 'Add Discord server', 'wp-calendar' ),
+			'removeSource'         => esc_html__( 'Remove', 'wp-calendar' ),
+			'save'                 => esc_html__( 'Save Changes', 'wp-calendar' ),
+			'discordConnected'     => esc_html__( 'Discord connected', 'wp-calendar' ),
+			'discordNotConfigured' => esc_html__( 'Discord not configured', 'wp-calendar' ),
 			// translators: %d: number of Discord servers.
-			'discordServers'       => esc_html( _n( '%d server', '%d servers', 1, 'post-calendar' ) ),
+			'discordServers'       => esc_html( _n( '%d server', '%d servers', 1, 'wp-calendar' ) ),
 		);
 	}
 }

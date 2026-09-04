@@ -28,7 +28,7 @@ export const surfaceWide = "h-auto overflow-visible";
 export const surfaceYear = "h-auto min-h-[52.5rem] min-w-[min(100%,52.5rem)] overflow-visible";
 
 /** Class-name hooks kept for react-big-calendar descendant overrides in global.css. */
-const surfaceClass = "post-calendar-surface";
+const surfaceClass = "wp-calendar-surface";
 
 export function surfaceClassName(viewHook: string, isLoading: boolean): string {
   const isWide = viewHook === "is-agenda-view" || viewHook === "is-timeline-view";

@@ -59,12 +59,12 @@ jobs:
         run: |
           node <<'NODE'
           const fs = require('fs');
-          const file = 'post-calendar.php';
+          const file = 'wp-calendar.php';
           const v = process.env.RELEASE_VERSION;
 
           let src = fs.readFileSync(file, 'utf8');
           src = src.replace(/Version:\s+[0-9]+\.[0-9]+\.[0-9]+/, `Version:     ${v}`);
-          src = src.replace(/define\( 'POST_CALENDAR_VERSION', '[^']+' \);/, `define( 'POST_CALENDAR_VERSION', '${v}' );`);
+          src = src.replace(/define\( 'WP_CALENDAR_VERSION', '[^']+' \);/, `define( 'WP_CALENDAR_VERSION', '${v}' );`);
           fs.writeFileSync(file, src);
           NODE
 
@@ -75,13 +75,13 @@ jobs:
           node <<'NODE'
           const fs = require('fs');
           const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
-          const php = fs.readFileSync('post-calendar.php', 'utf8');
+          const php = fs.readFileSync('wp-calendar.php', 'utf8');
           const header = (php.match(/Version:\s+([0-9]+\.[0-9]+\.[0-9]+)/) || [])[1];
-          const constant = (php.match(/POST_CALENDAR_VERSION', '([^']+)'/) || [])[1];
+          const constant = (php.match(/WP_CALENDAR_VERSION', '([^']+)'/) || [])[1];
           const expected = process.env.RELEASE_VERSION;
 
           if (!header || !constant) {
-            throw new Error('Could not parse plugin version fields in post-calendar.php');
+            throw new Error('Could not parse plugin version fields in wp-calendar.php');
           }
 
           if (pkg.version !== expected || header !== expected || constant !== expected) {
@@ -95,7 +95,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add package.json package-lock.json post-calendar.php
+          git add package.json package-lock.json wp-calendar.php
 
           if git diff --cached --quiet; then
             echo "No version changes to commit"
@@ -112,7 +112,7 @@ jobs:
         env:
           RELEASE_VERSION: ${{ steps.version.outputs.value }}
         run: |
-          ZIP_PATH=".release/post-calendar-${RELEASE_VERSION}.zip"
+          ZIP_PATH=".release/wp-calendar-${RELEASE_VERSION}.zip"
           if [ ! -f "$ZIP_PATH" ]; then
             echo "Expected release zip not found: $ZIP_PATH"
             exit 1
@@ -127,14 +127,14 @@ jobs:
           if [ -n "$INPUT_NOTES" ]; then
             printf '%s\n' "$INPUT_NOTES" > release-notes.md
           else
-            printf 'Post Calendar %s\n\nAutomated build artifact.\n' "$RELEASE_VERSION" > release-notes.md
+            printf 'WordPress Calendar %s\n\nAutomated build artifact.\n' "$RELEASE_VERSION" > release-notes.md
           fi
 
       - name: Publish GitHub release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ steps.version.outputs.value }}
-          name: Post Calendar ${{ steps.version.outputs.value }}
+          name: WordPress Calendar ${{ steps.version.outputs.value }}
           body_path: release-notes.md
           prerelease: ${{ inputs.prerelease }}
           files: ${{ env.ZIP_PATH }}

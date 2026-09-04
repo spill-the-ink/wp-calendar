@@ -1,6 +1,6 @@
 <?php
 
-namespace PostCalendar;
+namespace WpCalendar;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * All plugins in the monorepo are released together on a single GitHub release
  * tag, with one zip asset per plugin named "<slug>-<version>.zip" (for example
- * `post-calendar-0.5.2.zip`). This checker:
+ * `wp-calendar-0.5.2.zip`). This checker:
  *  1. Hooks into `pre_set_site_transient_update_plugins` to inject update data
  *     whenever WordPress refreshes its plugin update cache.
  *  2. Fetches the monorepo's latest release and picks the asset whose name
@@ -40,10 +40,10 @@ class Update_Checker {
 	 *
 	 * @var string
 	 */
-	const ASSET_SLUG = 'post-calendar';
+	const ASSET_SLUG = 'wp-calendar';
 
-	const TRANSIENT_KEY = 'post_calendar_github_update';
-	const PLUGIN_SLUG    = 'post-calendar/post-calendar.php';
+	const TRANSIENT_KEY = 'wp_calendar_github_update';
+	const PLUGIN_SLUG    = 'wp-calendar/wp-calendar.php';
 
 	public function __construct() {
 		add_filter( 'pre_set_site_transient_update_plugins', array( $this, 'check_for_update' ) );
@@ -185,7 +185,7 @@ class Update_Checker {
 
 		$details = (object) array(
 			'id'           => self::PLUGIN_SLUG,
-			'slug'         => 'post-calendar',
+			'slug'         => 'wp-calendar',
 			'plugin'       => self::PLUGIN_SLUG,
 			'new_version'  => $asset['version'],
 			'url'          => esc_url( $release->html_url ?? $this->github_releases_url() ),
@@ -200,7 +200,7 @@ class Update_Checker {
 		// auto-updates" toggle on the Plugins screen). Mirroring core's own
 		// Update URI handling, put it in response when a newer version exists and
 		// in no_update when it is already current.
-		if ( version_compare( $asset['version'], POST_CALENDAR_VERSION, '>' ) ) {
+		if ( version_compare( $asset['version'], WP_CALENDAR_VERSION, '>' ) ) {
 			$transient->response[ self::PLUGIN_SLUG ] = $details;
 		} else {
 			$transient->no_update[ self::PLUGIN_SLUG ] = $details;
@@ -222,7 +222,7 @@ class Update_Checker {
 			return $result;
 		}
 
-		if ( ! isset( $args->slug ) || 'post-calendar' !== $args->slug ) {
+		if ( ! isset( $args->slug ) || 'wp-calendar' !== $args->slug ) {
 			return $result;
 		}
 
@@ -238,20 +238,20 @@ class Update_Checker {
 		// Use the GitHub release body as the changelog if available.
 		$changelog = ! empty( $release->body )
 			? '<pre>' . esc_html( $release->body ) . '</pre>'
-			: '<p>' . esc_html__( 'See the GitHub releases page for the full changelog.', 'post-calendar' ) . '</p>';
+			: '<p>' . esc_html__( 'See the GitHub releases page for the full changelog.', 'wp-calendar' ) . '</p>';
 
 		$info = (object) array(
-			'name'          => 'Post Calendar',
-			'slug'          => 'post-calendar',
-			'version'       => ( null !== $asset ) ? $asset['version'] : POST_CALENDAR_VERSION,
+			'name'          => 'WordPress Calendar',
+			'slug'          => 'wp-calendar',
+			'version'       => ( null !== $asset ) ? $asset['version'] : WP_CALENDAR_VERSION,
 			'author'        => '<a href="https://github.com/achtender" target="_blank">Achtender</a>',
 			'homepage'      => $releases_url,
 			'requires'      => '6.0',
 			'requires_php'  => '7.4',
 			'download_link' => $download_link ?: false,
 			'sections'      => array(
-				'description' => '<p>' . esc_html__( 'Display posts as events in a calendar via Bricks or shortcode, using existing post types and the built-in Post Calendar editor or direct event meta.', 'post-calendar' ) . '</p>'
-					. '<p><a href="' . $releases_url . '" target="_blank">' . esc_html__( 'View all releases on GitHub', 'post-calendar' ) . '</a></p>',
+				'description' => '<p>' . esc_html__( 'Display posts as events in a calendar via Bricks or shortcode, using existing post types and the built-in WordPress Calendar editor or direct event meta.', 'wp-calendar' ) . '</p>'
+					. '<p><a href="' . $releases_url . '" target="_blank">' . esc_html__( 'View all releases on GitHub', 'wp-calendar' ) . '</a></p>',
 				'changelog'   => $changelog,
 			),
 		);
@@ -278,7 +278,7 @@ class Update_Checker {
 			' <a href="%s" target="_blank" rel="noopener noreferrer">%s</a>',
 			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $releases_url is already escaped via esc_url().
 			$releases_url,
-			esc_html__( 'Download from GitHub ↗', 'post-calendar' ),
+			esc_html__( 'Download from GitHub ↗', 'wp-calendar' ),
 		);
 	}
 

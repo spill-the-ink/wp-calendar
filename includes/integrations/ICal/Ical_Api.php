@@ -2,10 +2,10 @@
 /**
  * Fetches and parses events from configured iCal feeds.
  *
- * @package PostCalendar\Integrations
+ * @package WpCalendar\Integrations
  */
 
-namespace PostCalendar\Integrations\ICal;
+namespace WpCalendar\Integrations\ICal;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

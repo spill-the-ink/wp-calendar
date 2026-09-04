@@ -125,11 +125,11 @@ const CalendarMonthView = Object.assign(
     );
 
     return (
-      <div className={cn("min-h-max", "post-calendar-month-view")}>
+      <div className={cn("min-h-max", "wp-calendar-month-view")}>
         <table
           className={cn(
             "min-w-[640px] w-full table-fixed border-collapse border border-border",
-            "post-calendar-month-table",
+            "wp-calendar-month-table",
           )}
         >
           <thead>
@@ -147,7 +147,7 @@ const CalendarMonthView = Object.assign(
           </thead>
           <tbody>
             {weeks.map((week, weekIndex) => (
-              <tr key={`month-week-${weekIndex}`} className="post-calendar-month-row">
+              <tr key={`month-week-${weekIndex}`} className="wp-calendar-month-row">
                 {week.map((day) => {
                   const dayKey = moment(day.date).format("YYYY-MM-DD");
 
@@ -156,7 +156,7 @@ const CalendarMonthView = Object.assign(
                       key={dayKey}
                       className={cn(
                         monthCell,
-                        "post-calendar-month-cell",
+                        "wp-calendar-month-cell",
                         !day.isCurrentMonth && "bg-muted",
                         day.isToday && todayStripe,
                       )}
@@ -189,7 +189,7 @@ const CalendarMonthView = Object.assign(
                                   eventPill,
                                   eventColor && eventPillColor,
                                   "flex-none max-w-full min-w-0",
-                                  "post-calendar-event-pill",
+                                  "wp-calendar-event-pill",
                                 )}
                                 style={labelStyle}
                                 role="listitem"
@@ -197,24 +197,24 @@ const CalendarMonthView = Object.assign(
                                 {event.url ? (
                                   <a
                                     href={event.url}
-                                    className={cn(eventLink, "post-calendar-event-link")}
+                                    className={cn(eventLink, "wp-calendar-event-link")}
                                     title={`${isAllDay ? `${strings.allDay} · ` : formatEventTime(event)}${event.name}`}
                                   >
                                     {!isAllDay && (
-                                      <span className={cn(pillTime, "post-calendar-pill-time")}>
+                                      <span className={cn(pillTime, "wp-calendar-pill-time")}>
                                         {formatEventTime(event)}
                                       </span>
                                     )}
-                                    <span className="post-calendar-pill-title">{event.name}</span>
+                                    <span className="wp-calendar-pill-title">{event.name}</span>
                                   </a>
                                 ) : (
                                   <>
                                     {!isAllDay && (
-                                      <span className={cn(pillTime, "post-calendar-pill-time")}>
+                                      <span className={cn(pillTime, "wp-calendar-pill-time")}>
                                         {formatEventTime(event)}
                                       </span>
                                     )}
-                                    <span className="post-calendar-pill-title">{event.name}</span>
+                                    <span className="wp-calendar-pill-title">{event.name}</span>
                                   </>
                                 )}
                               </span>

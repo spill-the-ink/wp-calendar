@@ -86,8 +86,8 @@ export default function AdminSettings({ runtime }: AdminSettingsProps) {
   );
 
   const strings = getRuntimeStrings(runtime);
-  const fieldName = runtime.sourcesOptionName ?? "post_calendar_sources";
-  const postTypesFieldName = runtime.postTypesOptionName ?? "post_calendar_post_types";
+  const fieldName = runtime.sourcesOptionName ?? "wp_calendar_sources";
+  const postTypesFieldName = runtime.postTypesOptionName ?? "wp_calendar_post_types";
 
   const allPostTypes = runtime.postTypes ?? [];
   const allGuilds = discordGuilds;

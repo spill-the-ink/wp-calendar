@@ -1,20 +1,20 @@
 <?php
 
-namespace PostCalendar\Events;
+namespace WpCalendar\Events;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
 /**
- * One-time migration: renames serialized _post_events array keys from
+ * One-time migration: renames serialized _wp_calendar_events array keys from
  * WordPress-style to Discord-aligned naming conventions.
  *
  * Old keys: label, label_id, start, end, repeat, repeat_interval, repeat_byday, repeat_until
  * New keys: name, name_id, scheduled_start_time, scheduled_end_time, frequency, interval, by_weekday, recurrence_end
  */
 class Meta_Keys_Migration {
-	private const VERSION_OPTION  = 'post_calendar_meta_keys_version';
+	private const VERSION_OPTION  = 'wp_calendar_meta_keys_version';
 	private const CURRENT_VERSION = 1;
 
 	private const KEY_MAP = array(

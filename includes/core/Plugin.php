@@ -1,17 +1,18 @@
 <?php
 
-namespace PostCalendar;
+namespace WpCalendar;
 
-use PostCalendar\Admin\Admin_Editor;
-use PostCalendar\Admin\Settings_Page;
-use PostCalendar\Events\Event_Model_Sync;
-use PostCalendar\Events\Meta_Keys_Migration;
-use PostCalendar\Events\Post_Type;
-use PostCalendar\Integrations\Bricks\Dynamic_Data_Queries;
-use PostCalendar\Integrations\Bricks\Dynamic_Data_Tags;
-use PostCalendar\Integrations\Bricks\Elements;
-use PostCalendar\Integrations\Shortcode;
-use PostCalendar\Rest\Rest_Controller;
+use WpCalendar\Admin\Admin_Editor;
+use WpCalendar\Admin\Settings_Page;
+use WpCalendar\Events\Event_Model_Sync;
+use WpCalendar\Events\Meta_Keys_Migration;
+use WpCalendar\Events\Post_Type;
+use WpCalendar\Events\Schema_Migration;
+use WpCalendar\Integrations\Bricks\Dynamic_Data_Queries;
+use WpCalendar\Integrations\Bricks\Dynamic_Data_Tags;
+use WpCalendar\Integrations\Bricks\Elements;
+use WpCalendar\Integrations\Shortcode;
+use WpCalendar\Rest\Rest_Controller;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -102,6 +103,7 @@ class Plugin {
 		$this->update_checker         = new Update_Checker();
 
 		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
+		add_action( 'plugins_loaded', array( Schema_Migration::class, 'maybe_run' ), 5 );
 		add_action( 'plugins_loaded', array( Meta_Keys_Migration::class, 'maybe_run' ), 5 );
 	}
 
@@ -110,6 +112,6 @@ class Plugin {
 	}
 
 	public function load_textdomain(): void {
-		load_plugin_textdomain( 'post-calendar', false, dirname( plugin_basename( POST_CALENDAR_PLUGIN_FILE ) ) . '/languages' );
+		load_plugin_textdomain( 'wp-calendar', false, dirname( plugin_basename( WP_CALENDAR_PLUGIN_FILE ) ) . '/languages' );
 	}
 }

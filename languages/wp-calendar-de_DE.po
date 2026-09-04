@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Post Calendar\n"
+"Project-Id-Version: WordPress Calendar\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-03-13 13:42:42+0000\n"
 "PO-Revision-Date: 2026-03-13 13:45+0000\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Domain: post-calendar\n"
+"X-Domain: wp-calendar\n"
 
 #. translators: 1: post type label, 2: post type slug.
 #: includes/bricks/elements/class-element-post-calendar.php:374

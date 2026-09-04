@@ -1,6 +1,6 @@
 <?php
 
-namespace PostCalendar\Integrations\Bricks;
+namespace WpCalendar\Integrations\Bricks;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -21,9 +21,9 @@ class Elements {
 		}
 
 		$element_files = array(
-			'post-calendar' => array(
-				'file' => POST_CALENDAR_PLUGIN_DIR . 'includes/integrations/Bricks/Post_Calendar.php',
-				'class' => \PostCalendar\Integrations\Bricks\Element_Post_Calendar::class,
+			'wp-calendar' => array(
+				'file' => WP_CALENDAR_PLUGIN_DIR . 'includes/integrations/Bricks/Calendar.php',
+				'class' => \WpCalendar\Integrations\Bricks\Element_Calendar::class,
 			),
 		);
 
@@ -39,7 +39,7 @@ class Elements {
 
 		printf(
 			'<div class="notice notice-warning"><p>%s</p></div>',
-			esc_html__( 'Post Calendar could not register its Bricks element because Bricks is not active or its API is unavailable.', 'post-calendar' ),
+			esc_html__( 'WordPress Calendar could not register its Bricks element because Bricks is not active or its API is unavailable.', 'wp-calendar' ),
 		);
 	}
 

@@ -1,19 +1,19 @@
 <?php
 
-namespace PostCalendar\Events;
+namespace WpCalendar\Events;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
 class Event_Config {
-	public const EVENTS_META                     = '_post_events';
-	public const EVENT_HAS_EVENTS_META           = '_post_has_events';
-	public const EVENT_RANGE_START_META          = '_post_events_range_start';
-	public const EVENT_RANGE_END_META            = '_post_events_range_end';
-	public const EVENT_SCHEDULED_START_TIME_META = '_post_event_start';
-	public const EVENT_SCHEDULED_END_TIME_META   = '_post_event_end';
-	public const EVENT_NAME_META                 = '_post_event_label';
+	public const EVENTS_META                     = '_wp_calendar_events';
+	public const EVENT_HAS_EVENTS_META           = '_wp_calendar_has_events';
+	public const EVENT_RANGE_START_META          = '_wp_calendar_events_range_start';
+	public const EVENT_RANGE_END_META            = '_wp_calendar_events_range_end';
+	public const EVENT_SCHEDULED_START_TIME_META = '_wp_calendar_event_start';
+	public const EVENT_SCHEDULED_END_TIME_META   = '_wp_calendar_event_end';
+	public const EVENT_NAME_META                 = '_wp_calendar_event_label';
 
 	private const SUPPORTED_QUERY_VAR_KEYS = array(
 		'post_type',

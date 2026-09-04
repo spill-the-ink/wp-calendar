@@ -1,16 +1,16 @@
 <?php
 
-namespace PostCalendar\Integrations;
+namespace WpCalendar\Integrations;
 
-use PostCalendar\Plugin;
-use PostCalendar\Admin\Settings_Page;
+use WpCalendar\Plugin;
+use WpCalendar\Admin\Settings_Page;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
 class Shortcode {
-	private const TAG                         = 'post_calendar';
+	private const TAG                         = 'wp_calendar';
 	private const DEFAULT_VIEW                = 'month';
 	private const DEFAULT_AGENDA_RANGE_MODE   = 'visible-range';
 	private const DEFAULT_AGENDA_RANGE_MONTHS = 3;
@@ -32,7 +32,7 @@ class Shortcode {
 		$assets = $plugin->assets();
 
 		if ( ! $assets->has_built_assets() ) {
-			return '<div class="post-calendar-element-placeholder">' . esc_html__( 'The calendar frontend assets are missing. Run the plugin build before using this element.', 'post-calendar' ) . '</div>';
+			return '<div class="wp-calendar-element-placeholder">' . esc_html__( 'The calendar frontend assets are missing. Run the plugin build before using this element.', 'wp-calendar' ) . '</div>';
 		}
 
 		$attributes = shortcode_atts(
@@ -89,7 +89,7 @@ class Shortcode {
 					if ( is_array( $label ) && isset( $label['id'], $label['color'] ) ) {
 						$id         = sanitize_html_class( sanitize_key( (string) $label['id'] ) );
 						$color      = sanitize_hex_color( (string) $label['color'] );
-						$label_css .= "--post-calendar-label-{$id}:{$color};";
+						$label_css .= "--wp-calendar-label-{$id}:{$color};";
 					}
 				}
 			}
@@ -101,13 +101,13 @@ class Shortcode {
 		}
 
 		$html = sprintf(
-			'<div class="post-calendar-shortcode"><div class="js-post-calendar-root" data-config="%1$s"><div class="post-calendar-element-placeholder">%2$s</div></div></div>',
+			'<div class="wp-calendar-shortcode"><div class="js-wp-calendar-root" data-config="%1$s"><div class="wp-calendar-element-placeholder">%2$s</div></div></div>',
 			esc_attr( wp_json_encode( $config ) ),
-			esc_html__( 'Loading calendar…', 'post-calendar' )
+			esc_html__( 'Loading calendar…', 'wp-calendar' )
 		);
 
 		if ( $label_css ) {
-			$html = sprintf( '<style>.post-calendar-shortcode .post-calendar-element{%s}</style>', esc_attr( $label_css ) ) . $html;
+			$html = sprintf( '<style>.wp-calendar-shortcode .wp-calendar-element{%s}</style>', esc_attr( $label_css ) ) . $html;
 		}
 
 		return $html;

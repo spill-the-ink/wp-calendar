@@ -2,12 +2,12 @@
 /**
  * Remote iCal (.ics) feed fetching and SSRF-safe validation.
  *
- * @package PostCalendar\Integrations
+ * @package WpCalendar\Integrations
  */
 
-namespace PostCalendar\Integrations\ICal;
+namespace WpCalendar\Integrations\ICal;
 
-use PostCalendar\Admin\Settings_Page;
+use WpCalendar\Admin\Settings_Page;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

@@ -1,6 +1,6 @@
 <?php
 
-namespace PostCalendar\Integrations\Bricks;
+namespace WpCalendar\Integrations\Bricks;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

@@ -1,10 +1,10 @@
 <?php
 
-namespace PostCalendar\Events;
+namespace WpCalendar\Events;
 
 use DateInterval;
 use DateTimeImmutable;
-use PostCalendar\Admin\Settings_Page;
+use WpCalendar\Admin\Settings_Page;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -30,8 +30,8 @@ class Event_Query_Service {
 	 * Cache lifetime for per-post occurrence expansion.
 	 */
 	public const EXPANSION_CACHE_TTL    = 300;
-	private const EXPANSION_CACHE_GROUP = 'post_calendar';
-	private const TRANSIENT_PREFIX      = 'post_calendar_exp_';
+	private const EXPANSION_CACHE_GROUP = 'wp_calendar';
+	private const TRANSIENT_PREFIX      = 'wp_calendar_exp_';
 
 	/**
 	 * Cap on the serialized size of persisted occurrences. Sites without an

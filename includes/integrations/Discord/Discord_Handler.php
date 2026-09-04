@@ -1,8 +1,8 @@
 <?php
 
-namespace PostCalendar\Integrations\Discord;
+namespace WpCalendar\Integrations\Discord;
 
-use PostCalendar\Admin\Settings_Page;
+use WpCalendar\Admin\Settings_Page;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

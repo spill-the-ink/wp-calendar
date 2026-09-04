@@ -5,7 +5,7 @@ import type { CalendarRuntime } from "../types.ts";
  * proxied to the remote WordPress install (see vite.config.js), so the
  * app code is identical in development and production.
  */
-export const EVENTS_API_PATH = "/wp-json/post-calendar/v1/events";
+export const EVENTS_API_PATH = "/wp-json/wp-calendar/v1/events";
 
 /**
  * Resolve the events endpoint for the current environment:

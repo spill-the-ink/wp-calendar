@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import type { AdminEventRow, AdminRuntime, EventRepeatValue } from "../../types.ts";
 
-const ADMIN_SYNC_EVENT = "post-calendar-admin-sync";
+const ADMIN_SYNC_EVENT = "wp-calendar-admin-sync";
 
 const WEEKDAYS = [
   { code: "MO", key: "monday" },
@@ -132,7 +132,7 @@ function normalizeRows(rows: RawAdminEventRow[] | undefined): AdminEventRow[] {
 }
 
 function getSharedRows(runtime: AdminRuntime): AdminEventRow[] {
-  const sharedRows = globalThis.PostCalendarAdminSharedRows;
+  const sharedRows = globalThis.WpCalendarAdminSharedRows;
 
   if (Array.isArray(sharedRows)) {
     return normalizeRows(sharedRows);
@@ -142,21 +142,21 @@ function getSharedRows(runtime: AdminRuntime): AdminEventRow[] {
 }
 
 function broadcastRows(rows: AdminEventRow[]): void {
-  globalThis.PostCalendarAdminSharedRows = rows;
+  globalThis.WpCalendarAdminSharedRows = rows;
   globalThis.dispatchEvent(new CustomEvent(ADMIN_SYNC_EVENT, { detail: rows }));
 }
 
 export default function AdminEventEditor({ runtime }: { runtime: AdminRuntime }) {
-  const [instanceId] = useState(() => `post-calendar-admin-${Math.random().toString(36).slice(2)}`);
+  const [instanceId] = useState(() => `wp-calendar-admin-${Math.random().toString(36).slice(2)}`);
   const [rows, setRows] = useState<AdminEventRow[]>(() => {
-    if (Array.isArray(globalThis.PostCalendarAdminSharedRows)) {
-      return normalizeRows(globalThis.PostCalendarAdminSharedRows);
+    if (Array.isArray(globalThis.WpCalendarAdminSharedRows)) {
+      return normalizeRows(globalThis.WpCalendarAdminSharedRows);
     }
     const initial = getSharedRows(runtime);
-    globalThis.PostCalendarAdminSharedRows = initial;
+    globalThis.WpCalendarAdminSharedRows = initial;
     return initial;
   });
-  const fieldName = runtime.fieldName ?? "post_calendar_events";
+  const fieldName = runtime.fieldName ?? "wp_calendar_events";
   const strings = runtime.strings ?? {};
 
   useEffect(() => {
@@ -200,7 +200,7 @@ export default function AdminEventEditor({ runtime }: { runtime: AdminRuntime })
   }
 
   return (
-    <div className="pc-admin-panel" data-post-calendar-admin-instance={instanceId}>
+    <div className="pc-admin-panel" data-wp-calendar-admin-instance={instanceId}>
       {rows.map((row, index) => {
         const startFull = formatDateTimeString(
           row.scheduled_start_time_date,

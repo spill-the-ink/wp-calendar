@@ -234,14 +234,14 @@ function CalendarEvent({ event }: CalendarEventProps) {
       className={cn(
         eventPill,
         eventColor && eventPillColor,
-        "post-calendar-event-pill",
-        sourceBadge && `post-calendar-event-pill--${sourceBadge}`,
+        "wp-calendar-event-pill",
+        sourceBadge && `wp-calendar-event-pill--${sourceBadge}`,
         "flex-none",
       )}
       style={labelStyle}
     >
       {event.url ? (
-        <a href={event.url} className={cn(eventLink, "post-calendar-event-link")}>
+        <a href={event.url} className={cn(eventLink, "wp-calendar-event-link")}>
           {sourceBadge && (
             <span
               className={cn(
@@ -343,7 +343,7 @@ function CalendarToolbar({
       // Only handle when focus is inside toolbar's view tabs
       const target = event.target as HTMLElement | null;
       if (!target || !el.contains(target)) return;
-      if (!target.closest(".post-calendar-views-inline")) return;
+      if (!target.closest(".wp-calendar-views-inline")) return;
 
       const index = views.findIndex((v) => v === view);
       if (index === -1) return;
@@ -418,15 +418,15 @@ function CalendarToolbar({
   const isNarrow = isNarrowProp ?? views.length > 4;
 
   return (
-    <div className={cn(toolbar, "post-calendar-toolbar")} ref={toolbarRef}>
+    <div className={cn(toolbar, "wp-calendar-toolbar")} ref={toolbarRef}>
       {showToolbarActions ? (
-        <div className={cn("flex flex-wrap items-center gap-2.5", "post-calendar-toolbar-actions")}>
+        <div className={cn("flex flex-wrap items-center gap-2.5", "wp-calendar-toolbar-actions")}>
           <button
             type="button"
             className={cn(
               toolbarButton,
-              "post-calendar-toolbar-button",
-              "post-calendar-toolbar-button--today",
+              "wp-calendar-toolbar-button",
+              "wp-calendar-toolbar-button--today",
             )}
             onClick={() => onNavigate("TODAY")}
             disabled={isToday}
@@ -447,7 +447,7 @@ function CalendarToolbar({
           >
             <button
               type="button"
-              className={cn(toolbarButton, toolbarButtonNav, "post-calendar-toolbar-button--nav")}
+              className={cn(toolbarButton, toolbarButtonNav, "wp-calendar-toolbar-button--nav")}
               onClick={() => onNavigate("PREV")}
               aria-label={`${strings.back} (${getPrevRangeLabel(view, currentDate, culture)})`}
               title={`${strings.back}: ${getPrevRangeLabel(view, currentDate, culture)}`}
@@ -456,7 +456,7 @@ function CalendarToolbar({
             </button>
             <button
               type="button"
-              className={cn(toolbarButton, toolbarButtonNav, "post-calendar-toolbar-button--nav")}
+              className={cn(toolbarButton, toolbarButtonNav, "wp-calendar-toolbar-button--nav")}
               onClick={() => onNavigate("NEXT")}
               aria-label={`${strings.next} (${getNextRangeLabel(view, currentDate, culture)})`}
               title={`${strings.next}: ${getNextRangeLabel(view, currentDate, culture)}`}
@@ -468,13 +468,10 @@ function CalendarToolbar({
       ) : null}
 
       {showToolbarLabel && showDateJump ? (
-        <div
-          className={cn(toolbarLabelWrap, "post-calendar-toolbar-label-wrap")}
-          ref={datePickerRef}
-        >
+        <div className={cn(toolbarLabelWrap, "wp-calendar-toolbar-label-wrap")} ref={datePickerRef}>
           <button
             type="button"
-            className={cn(toolbarLabelButton, "post-calendar-toolbar-label-button")}
+            className={cn(toolbarLabelButton, "wp-calendar-toolbar-label-button")}
             onClick={() => setDatePickerOpen(!datePickerOpen)}
             aria-expanded={datePickerOpen}
             aria-haspopup="dialog"
@@ -486,13 +483,13 @@ function CalendarToolbar({
           </button>
           {datePickerOpen && (
             <div
-              className={cn(datePickerPopover, "post-calendar-date-picker-popover")}
+              className={cn(datePickerPopover, "wp-calendar-date-picker-popover")}
               role="dialog"
               aria-label={strings.date}
             >
               <input
                 type={dateInputConfig.type}
-                className={cn(datePickerInput, "post-calendar-date-picker-input")}
+                className={cn(datePickerInput, "wp-calendar-date-picker-input")}
                 aria-label={strings.date}
                 value={dateInputConfig.value}
                 onChange={handleDateChange}
@@ -519,7 +516,7 @@ function CalendarToolbar({
         <div
           className={cn(
             "m-0 max-w-full items-center justify-center break-words whitespace-normal text-center text-base font-normal leading-5 text-foreground max-[720px]:text-left",
-            "post-calendar-toolbar-label",
+            "wp-calendar-toolbar-label",
           )}
           aria-live="polite"
         >
@@ -529,16 +526,16 @@ function CalendarToolbar({
 
       {showViewMenu ? (
         <div
-          className={cn("flex flex-wrap items-center gap-1", "post-calendar-toolbar-views")}
+          className={cn("flex flex-wrap items-center gap-1", "wp-calendar-toolbar-views")}
           role="tablist"
           aria-label={strings.calendarViews}
           ref={dropdownRef}
         >
           {isNarrow ? (
-            <div className={cn("relative", "post-calendar-views-dropdown")}>
+            <div className={cn("relative", "wp-calendar-views-dropdown")}>
               <button
                 type="button"
-                className={cn(dropdownTrigger, "post-calendar-views-dropdown-trigger")}
+                className={cn(dropdownTrigger, "wp-calendar-views-dropdown-trigger")}
                 onClick={() => setViewsDropdownOpen(!viewsDropdownOpen)}
                 aria-expanded={viewsDropdownOpen}
                 aria-haspopup="listbox"
@@ -547,7 +544,7 @@ function CalendarToolbar({
                 <span
                   className={cn(
                     "min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-start",
-                    "post-calendar-views-dropdown-label",
+                    "wp-calendar-views-dropdown-label",
                   )}
                 >
                   {viewLabels[view]}
@@ -556,17 +553,14 @@ function CalendarToolbar({
                   size={14}
                   className={cn(
                     "inline-flex shrink-0 transition-transform",
-                    "post-calendar-views-dropdown-chevron",
+                    "wp-calendar-views-dropdown-chevron",
                     viewsDropdownOpen && "rotate-180",
                   )}
                   aria-hidden="true"
                 />
               </button>
               {viewsDropdownOpen && (
-                <ul
-                  className={cn(dropdownList, "post-calendar-views-dropdown-list")}
-                  role="listbox"
-                >
+                <ul className={cn(dropdownList, "wp-calendar-views-dropdown-list")} role="listbox">
                   {views.map((calendarView) => (
                     <li
                       key={calendarView}
@@ -579,12 +573,12 @@ function CalendarToolbar({
                       className={cn(
                         dropdownItem,
                         calendarView === view && "bg-muted",
-                        "post-calendar-views-dropdown-item",
+                        "wp-calendar-views-dropdown-item",
                         calendarView === view && "is-active",
                       )}
                       data-view={calendarView}
                     >
-                      <span className="post-calendar-views-dropdown-item-label">
+                      <span className="wp-calendar-views-dropdown-item-label">
                         {viewLabels[calendarView]}
                       </span>
                     </li>
@@ -594,7 +588,7 @@ function CalendarToolbar({
             </div>
           ) : (
             <div
-              className={cn("flex flex-wrap gap-1", "post-calendar-views-inline")}
+              className={cn("flex flex-wrap gap-1", "wp-calendar-views-inline")}
               role="tablist"
               aria-label={strings.calendarViews}
             >
@@ -612,13 +606,11 @@ function CalendarToolbar({
                   className={cn(
                     viewButton,
                     calendarView === view && "bg-primary text-primary-foreground",
-                    "post-calendar-view-button",
+                    "wp-calendar-view-button",
                     calendarView === view && "is-active",
                   )}
                 >
-                  <span className="post-calendar-view-button-label">
-                    {viewLabels[calendarView]}
-                  </span>
+                  <span className="wp-calendar-view-button-label">{viewLabels[calendarView]}</span>
                 </button>
               ))}
             </div>
@@ -904,7 +896,7 @@ export default function CalendarApp({ config, runtime }: CalendarAppProps) {
         "relative text-foreground transition-opacity duration-[0.12s] ease-linear",
         isMeasuring && "is-measuring",
         isMeasuring && "opacity-[0.99]",
-        "post-calendar-app",
+        "wp-calendar-app",
       )}
       ref={appRef}
       aria-busy={isLoading}
@@ -914,7 +906,7 @@ export default function CalendarApp({ config, runtime }: CalendarAppProps) {
         <p
           className={cn(
             "mb-4 rounded-xl border px-3.5 py-3 text-destructive [background:var(--pc-error-bg)] [border-color:var(--pc-error-border)]",
-            "post-calendar-error",
+            "wp-calendar-error",
           )}
           role="alert"
         >
@@ -927,7 +919,7 @@ export default function CalendarApp({ config, runtime }: CalendarAppProps) {
           className={cn(
             "absolute bottom-3 right-3 z-10 inline-flex max-w-[calc(100%-1.5rem)] items-center gap-2 rounded-sm border-none bg-foreground px-4 py-2 text-sm text-background [backdrop-filter:blur(8px)]",
             isLoading ? "is-loading" : "is-empty",
-            "post-calendar-status",
+            "wp-calendar-status",
           )}
           role="status"
           aria-live="polite"
@@ -937,7 +929,7 @@ export default function CalendarApp({ config, runtime }: CalendarAppProps) {
             <span
               className={cn(
                 "inline-block h-3.5 w-3.5 shrink-0 animate-spin rounded-full border-2 border-muted border-t-foreground",
-                "post-calendar-status-spinner",
+                "wp-calendar-status-spinner",
               )}
               aria-hidden="true"
             />
@@ -945,7 +937,7 @@ export default function CalendarApp({ config, runtime }: CalendarAppProps) {
           <span
             className={cn(
               "overflow-hidden text-ellipsis whitespace-nowrap",
-              "post-calendar-status-text",
+              "wp-calendar-status-text",
             )}
           >
             {isLoading ? "Loading…" : strings.noEvents}

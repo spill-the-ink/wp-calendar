@@ -1,6 +1,6 @@
 <?php
 
-namespace PostCalendar\Integrations\Discord;
+namespace WpCalendar\Integrations\Discord;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

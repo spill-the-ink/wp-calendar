@@ -1,11 +1,11 @@
 <?php
 
-namespace PostCalendar\Rest;
+namespace WpCalendar\Rest;
 
 use DateTimeImmutable;
-use PostCalendar\Admin\Settings_Page;
-use PostCalendar\Events\Event_Config;
-use PostCalendar\Events\Event_Query_Service;
+use WpCalendar\Admin\Settings_Page;
+use WpCalendar\Events\Event_Config;
+use WpCalendar\Events\Event_Query_Service;
 use WP_REST_Request;
 use WP_REST_Response;
 use WP_REST_Server;
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class Rest_Controller {
-	public const REST_NAMESPACE       = 'post-calendar/v1';
+	public const REST_NAMESPACE       = 'wp-calendar/v1';
 	public const REST_ROUTE           = '/events';
 	public const CONFIG_ROUTE         = '/config';
 	public const DISCORD_GUILDS_ROUTE = '/discord/guilds';
@@ -94,7 +94,7 @@ class Rest_Controller {
 	 */
 	// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found -- $request is required by the WP REST API callback signature.
 	public function get_discord_guilds( WP_REST_Request $request ): WP_REST_Response {
-		$token = \PostCalendar\Integrations\Discord\Discord_Client::get_bot_token();
+		$token = \WpCalendar\Integrations\Discord\Discord_Client::get_bot_token();
 		if ( '' === $token ) {
 			return new WP_REST_Response(
 				array(
@@ -135,37 +135,37 @@ class Rest_Controller {
 	public function get_collection_params(): array {
 		return array(
 			'post_types'  => array(
-				'description'       => __( 'Restrict the collection to a comma-separated list of source post types.', 'post-calendar' ),
+				'description'       => __( 'Restrict the collection to a comma-separated list of source post types.', 'wp-calendar' ),
 				'type'              => 'string',
 				'sanitize_callback' => 'sanitize_text_field',
 			),
 			'query_vars'  => array(
-				'description'       => __( 'Restrict the collection with a JSON-encoded subset of Bricks query vars.', 'post-calendar' ),
+				'description'       => __( 'Restrict the collection with a JSON-encoded subset of Bricks query vars.', 'wp-calendar' ),
 				'type'              => 'string',
 				'sanitize_callback' => array( $this, 'sanitize_query_vars_param' ),
 			),
 			'search'      => array(
-				'description'       => __( 'Limit results to events whose source post matches the search string.', 'post-calendar' ),
+				'description'       => __( 'Limit results to events whose source post matches the search string.', 'wp-calendar' ),
 				'type'              => 'string',
 				'sanitize_callback' => 'sanitize_text_field',
 			),
 			'tax_filters' => array(
-				'description'       => __( 'JSON object mapping taxonomy slugs to term slug arrays, e.g. {"category":["news"]}. Clauses are combined with AND.', 'post-calendar' ),
+				'description'       => __( 'JSON object mapping taxonomy slugs to term slug arrays, e.g. {"category":["news"]}. Clauses are combined with AND.', 'wp-calendar' ),
 				'type'              => 'string',
 				'sanitize_callback' => array( $this, 'sanitize_tax_filters_param' ),
 			),
 			'start'       => array(
-				'description'       => __( 'Limit results to events that overlap the supplied ISO 8601 start date.', 'post-calendar' ),
+				'description'       => __( 'Limit results to events that overlap the supplied ISO 8601 start date.', 'wp-calendar' ),
 				'type'              => 'string',
 				'sanitize_callback' => 'sanitize_text_field',
 			),
 			'end'         => array(
-				'description'       => __( 'Limit results to events that overlap the supplied ISO 8601 end date.', 'post-calendar' ),
+				'description'       => __( 'Limit results to events that overlap the supplied ISO 8601 end date.', 'wp-calendar' ),
 				'type'              => 'string',
 				'sanitize_callback' => 'sanitize_text_field',
 			),
 			'per_page'    => array(
-				'description'       => __( 'Limit the number of source posts evaluated for the response.', 'post-calendar' ),
+				'description'       => __( 'Limit the number of source posts evaluated for the response.', 'wp-calendar' ),
 				'type'              => 'integer',
 				'default'           => self::DEFAULT_PER_PAGE,
 				'minimum'           => 1,
@@ -196,7 +196,7 @@ class Rest_Controller {
 				'no_found_rows'              => true,
 				'update_post_term_cache'     => false,
 				'ignore_sticky_posts'        => true,
-				'post_calendar_source_types' => $source_types,
+				'wp_calendar_source_types' => $source_types,
 			),
 			$query_vars,
 		);
@@ -286,14 +286,14 @@ class Rest_Controller {
 	 * @return array  Discord events in unified schema.
 	 */
 	private function fetch_discord_events( ?DateTimeImmutable $range_start, ?DateTimeImmutable $range_end ): array {
-		$token = \PostCalendar\Integrations\Discord\Discord_Client::get_bot_token();
+		$token = \WpCalendar\Integrations\Discord\Discord_Client::get_bot_token();
 		if ( '' === $token ) {
 			return array();
 		}
 
 		$sources = Settings_Page::get_sources();
 		$guilds  = $sources['discord']['guilds'] ?? array();
-		$events  = \PostCalendar\Integrations\Discord\Discord_Aggregator::get_events( $guilds );
+		$events  = \WpCalendar\Integrations\Discord\Discord_Aggregator::get_events( $guilds );
 
 		if ( empty( $events ) ) {
 			return array();
@@ -313,7 +313,7 @@ class Rest_Controller {
 		$sources = Settings_Page::get_sources();
 		$feeds   = $sources['ical_feeds'] ?? array();
 		$year    = $this->resolve_ical_expansion_year( $range_start, $range_end );
-		$events  = \PostCalendar\Integrations\ICal\Ical_Aggregator::get_events( $feeds, $year );
+		$events  = \WpCalendar\Integrations\ICal\Ical_Aggregator::get_events( $feeds, $year );
 
 		if ( empty( $events ) ) {
 			return array();
@@ -552,7 +552,7 @@ class Rest_Controller {
 
 		$intersected = array_values( array_intersect( $source_types, $query_source_types ) );
 
-		return ! empty( $intersected ) ? $intersected : array( '__post_calendar_no_results__' );
+		return ! empty( $intersected ) ? $intersected : array( '__wp_calendar_no_results__' );
 	}
 
 	private function merge_supported_query_vars( array $args, array $query_vars ): array {

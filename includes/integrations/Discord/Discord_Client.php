@@ -1,6 +1,6 @@
 <?php
 
-namespace PostCalendar\Integrations\Discord;
+namespace WpCalendar\Integrations\Discord;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Handles Discord Bot token management and API communication.
  */
 class Discord_Client {
-	private const OPTION_KEY = 'post_calendar_discord';
+	private const OPTION_KEY = 'wp_calendar_discord';
 	private const API_BASE   = 'https://discord.com/api/v10';
 
 	/**
@@ -20,8 +20,8 @@ class Discord_Client {
 	 */
 	public static function get_bot_token(): string {
 		// wp-config constant takes precedence.
-		if ( defined( 'POST_CALENDAR_DISCORD_TOKEN' ) && '' !== POST_CALENDAR_DISCORD_TOKEN ) {
-			return POST_CALENDAR_DISCORD_TOKEN;
+		if ( defined( 'WP_CALENDAR_DISCORD_TOKEN' ) && '' !== WP_CALENDAR_DISCORD_TOKEN ) {
+			return WP_CALENDAR_DISCORD_TOKEN;
 		}
 
 		$option = get_option( self::OPTION_KEY, '' );
@@ -134,14 +134,14 @@ class Discord_Client {
 		);
 
 		if ( is_wp_error( $response ) ) {
-			error_log( '[Post Calendar] Discord API error: ' . $response->get_error_message() ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Intentional debug logging for Discord API errors.
+			error_log( '[WordPress Calendar] Discord API error: ' . $response->get_error_message() ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Intentional debug logging for Discord API errors.
 			return null;
 		}
 
 		$status_code = wp_remote_retrieve_response_code( $response );
 		if ( 200 !== $status_code ) {
 			$body = wp_remote_retrieve_body( $response );
-			error_log( '[Post Calendar] Discord API returned ' . $status_code . ' for guild ' . $guild_id . ': ' . $body ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Intentional debug logging for Discord API errors.
+			error_log( '[WordPress Calendar] Discord API returned ' . $status_code . ' for guild ' . $guild_id . ': ' . $body ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Intentional debug logging for Discord API errors.
 			return null;
 		}
 

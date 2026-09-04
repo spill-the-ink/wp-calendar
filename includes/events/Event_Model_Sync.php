@@ -1,9 +1,9 @@
 <?php
 
-namespace PostCalendar\Events;
+namespace WpCalendar\Events;
 
 use DateTimeImmutable;
-use PostCalendar\Admin\Settings_Page;
+use WpCalendar\Admin\Settings_Page;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

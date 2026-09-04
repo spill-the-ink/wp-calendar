@@ -1,18 +1,18 @@
 <?php
 
-namespace PostCalendar\Integrations\Bricks;
+namespace WpCalendar\Integrations\Bricks;
 
-// use PostCalendar\Events\Event_Config;
+// use WpCalendar\Events\Event_Config;
 
-use PostCalendar\Events\Event_Query_Service;
-use PostCalendar\Events\Event_Config;
+use WpCalendar\Events\Event_Query_Service;
+use WpCalendar\Events\Event_Config;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
 class Dynamic_Data_Queries {
-	private const QUERY_POST_CALENDAR_EVENTS = 'post_calendar_events';
+	private const QUERY_WP_CALENDAR_EVENTS = 'wp_calendar_events';
 
 	/**
 	 * Maximum number of window pages exposed to Bricks' pagination element.
@@ -33,9 +33,9 @@ class Dynamic_Data_Queries {
 
 	public function __construct( ?Event_Query_Service $event_query_service = null ) {
 		$this->query_options = array(
-			self::QUERY_POST_CALENDAR_EVENTS => array(
-				'label'     => 'Post Calendar Events',
-				'get_posts' => array( $this, 'get_post_calendar_events' ),
+			self::QUERY_WP_CALENDAR_EVENTS => array(
+				'label'     => 'Calendar Events',
+				'get_posts' => array( $this, 'get_wp_calendar_events' ),
 			),
 		);
 
@@ -68,7 +68,7 @@ class Dynamic_Data_Queries {
 	}
 
 	private function is_events_object_type( string $object_type ): bool {
-		return self::QUERY_POST_CALENDAR_EVENTS === $object_type;
+		return self::QUERY_WP_CALENDAR_EVENTS === $object_type;
 	}
 
 	private function is_events_query_settings( $query_settings ): bool {
@@ -137,7 +137,7 @@ class Dynamic_Data_Queries {
 	 * Range resolution: explicit start/end params > anchor + span > service
 	 * default. Pagination offsets the window by its own span.
 	 */
-	private function get_post_calendar_events( $query_obj = null ) {
+	private function get_wp_calendar_events( $query_obj = null ) {
 		list( $range_start, $range_end ) = $this->resolve_range( $query_obj );
 
 		$source_types = $this->event_query_service->resolve_post_types( false );
@@ -268,7 +268,7 @@ class Dynamic_Data_Queries {
 			'posts_per_page'             => Calendar_Request_Params::MAX_SOURCE_POSTS,
 			'no_found_rows'              => true,
 			'ignore_sticky_posts'        => true,
-			'post_calendar_source_types' => $source_types,
+			'wp_calendar_source_types' => $source_types,
 			'orderby'                    => 'meta_value',
 			'meta_key'                   => Event_Config::EVENT_RANGE_START_META,
 			'meta_type'                  => 'DATETIME',

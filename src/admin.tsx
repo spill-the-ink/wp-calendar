@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import AdminEventEditor from "./components/admin/EventEditor.tsx";
 import "./styles/admin.css";
 
-const ADMIN_ROOT_SELECTOR = ".js-post-calendar-admin-root";
+const ADMIN_ROOT_SELECTOR = ".js-wp-calendar-admin-root";
 
 function start(): void {
   document.querySelectorAll<HTMLElement>(ADMIN_ROOT_SELECTOR).forEach((element) => {
@@ -15,7 +15,7 @@ function start(): void {
 
     root.render(
       <StrictMode>
-        <AdminEventEditor runtime={globalThis.PostCalendarAdmin ?? {}} />
+        <AdminEventEditor runtime={globalThis.WpCalendarAdmin ?? {}} />
       </StrictMode>,
     );
 

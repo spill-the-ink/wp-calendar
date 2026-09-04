@@ -19,10 +19,10 @@ export default defineConfig(({ mode, command }) => {
       sourcemap: true,
       lib: {
         entry: resolve(__dirname, isAdminBuild ? 'src/admin.tsx' : isSettingsBuild ? 'src/settings.tsx' : 'src/main.tsx'),
-        name: isAdminBuild ? 'PostCalendarAdmin' : isSettingsBuild ? 'PostCalendarSettings' : 'PostCalendarApp',
+        name: isAdminBuild ? 'WpCalendarAdmin' : isSettingsBuild ? 'WpCalendarSettings' : 'WpCalendarApp',
         formats: ['iife'],
-        fileName: () => (isAdminBuild ? 'post-calendar-admin.js' : isSettingsBuild ? 'post-calendar-settings.js' : 'post-calendar.js'),
-        cssFileName: isAdminBuild ? 'post-calendar-admin' : isSettingsBuild ? 'post-calendar-settings' : 'post-calendar',
+        fileName: () => (isAdminBuild ? 'wp-calendar-admin.js' : isSettingsBuild ? 'wp-calendar-settings.js' : 'wp-calendar.js'),
+        cssFileName: isAdminBuild ? 'wp-calendar-admin' : isSettingsBuild ? 'wp-calendar-settings' : 'wp-calendar',
       },
       rollupOptions: {
         output: {
@@ -46,7 +46,7 @@ function buildApiProxy(remoteUrl) {
   }
 
   return {
-    '/wp-json/post-calendar/v1': {
+    '/wp-json/wp-calendar/v1': {
       target: remoteUrl,
       changeOrigin: true,
       secure: false,

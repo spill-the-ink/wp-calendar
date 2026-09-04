@@ -2,10 +2,10 @@
 /**
  * Minimal RFC 5545 (iCalendar) parser tuned for event feeds.
  *
- * @package PostCalendar\Integrations
+ * @package WpCalendar\Integrations
  */
 
-namespace PostCalendar\Integrations\ICal;
+namespace WpCalendar\Integrations\ICal;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

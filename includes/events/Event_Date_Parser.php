@@ -1,6 +1,6 @@
 <?php
 
-namespace PostCalendar\Events;
+namespace WpCalendar\Events;
 
 use DateTimeImmutable;
 use DateTimeZone;

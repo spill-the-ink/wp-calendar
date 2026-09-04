@@ -1,10 +1,10 @@
 <?php
 
-namespace PostCalendar\Events;
+namespace WpCalendar\Events;
 
 use DateInterval;
 use DateTimeImmutable;
-use PostCalendar\Admin\Settings_Page;
+use WpCalendar\Admin\Settings_Page;
 use WP_Post;
 use WP_Query;
 
@@ -18,18 +18,18 @@ if ( ! defined( 'ABSPATH' ) ) {
  * `post_type` slug.
  */
 class Post_Type {
-	public const SLUG                   = 'post_calendar_event';
-	public const SOURCE_TYPES_QUERY_VAR = 'post_calendar_source_types';
+	public const SLUG                   = 'wp_calendar_event';
+	public const SOURCE_TYPES_QUERY_VAR = 'wp_calendar_source_types';
 
 	private const EVENT_ENABLED_META               = Event_Config::EVENT_HAS_EVENTS_META;
 	private const EVENT_SCHEDULED_START_TIME_META  = Event_Config::EVENT_SCHEDULED_START_TIME_META;
 	private const EVENT_SCHEDULED_END_TIME_META    = Event_Config::EVENT_SCHEDULED_END_TIME_META;
 	private const EVENT_NAME_META                  = Event_Config::EVENT_NAME_META;
-	private const OCCURRENCE_FLAG_QUERY_VAR        = 'post_calendar_expand_occurrences';
-	private const OCCURRENCE_RANGE_START_QUERY_VAR = 'post_event_range_start';
-	private const OCCURRENCE_RANGE_END_QUERY_VAR   = 'post_event_range_end';
-	private const OCCURRENCE_OFFSET_QUERY_VAR      = 'post_event_offset';
-	private const OCCURRENCE_LIMIT_QUERY_VAR       = 'post_event_limit';
+	private const OCCURRENCE_FLAG_QUERY_VAR        = 'wp_calendar_expand_occurrences';
+	private const OCCURRENCE_RANGE_START_QUERY_VAR = 'wp_calendar_occurrence_range_start';
+	private const OCCURRENCE_RANGE_END_QUERY_VAR   = 'wp_calendar_occurrence_range_end';
+	private const OCCURRENCE_OFFSET_QUERY_VAR      = 'wp_calendar_occurrence_offset';
+	private const OCCURRENCE_LIMIT_QUERY_VAR       = 'wp_calendar_occurrence_limit';
 	private const DEFAULT_OCCURRENCE_WINDOW        = 'P1Y';
 
 	private Event_Query_Service $event_query_service;
@@ -41,20 +41,20 @@ class Post_Type {
 		add_action( 'pre_get_posts', array( $this, 'intercept_query' ) );
 		add_filter( 'the_posts', array( $this, 'expand_recurring_posts' ), 10, 2 );
 		add_filter( 'get_post_metadata', array( $this, 'filter_occurrence_meta' ), 10, 4 );
-		add_filter( 'post_calendar_excluded_post_types', array( $this, 'exclude_from_settings' ) );
+		add_filter( 'wp_calendar_excluded_post_types', array( $this, 'exclude_from_settings' ) );
 	}
 
 	public function register_post_type(): void {
 		register_post_type(
 			self::SLUG,
 			array(
-				'label'               => esc_html__( 'Post Calendar Events', 'post-calendar' ),
+				'label'               => esc_html__( 'Calendar Events', 'wp-calendar' ),
 				'labels'              => array(
-					'name'          => esc_html__( 'Post Calendar Events', 'post-calendar' ),
-					'singular_name' => esc_html__( 'Post Calendar Event', 'post-calendar' ),
-					'menu_name'     => esc_html__( 'Post Calendar Events', 'post-calendar' ),
+					'name'          => esc_html__( 'Calendar Events', 'wp-calendar' ),
+					'singular_name' => esc_html__( 'Calendar Event', 'wp-calendar' ),
+					'menu_name'     => esc_html__( 'Calendar Events', 'wp-calendar' ),
 				),
-				'description'         => esc_html__( 'A virtual query type for Post Calendar events. Query this type to retrieve event posts from all source post types.', 'post-calendar' ),
+				'description'         => esc_html__( 'A virtual query type for WordPress Calendar events. Query this type to retrieve event posts from all source post types.', 'wp-calendar' ),
 				'public'              => true,
 				'publicly_queryable'  => true,
 				'show_ui'             => true,
@@ -297,7 +297,7 @@ class Post_Type {
 		 * Extract occurrence-level date filters from a meta_query and convert them to
 		 * a post-level search window. This is necessary because:
 		 *
-		 * 1. Users query on _post_start and _post_end (occurrence keys)
+		 * 1. Users query on _wp_calendar_event_start and _wp_calendar_event_end (occurrence keys)
 		 * 2. These keys don't exist on the source post; they only appear on occurrence clones
 		 * 3. We must intercept these filters, remove them from the post meta_query,
 		 *    and convert them to post-level summary range bounds
@@ -367,7 +367,7 @@ class Post_Type {
 	private function extract_range_from_clause( array $clause ): array {
 		/**
 		 * Extract a date range constraint from a meta_query clause that references
-		 * occurrence date keys. Only _post_start and _post_end are converted
+		 * occurrence date keys. Only _wp_calendar_event_start and _wp_calendar_event_end are converted
 		 * to search window bounds. All other meta keys are left as-is for post-level filtering.
 		 *
 		 * Occurrence date filters must NOT be passed to the post-level WP_Query because

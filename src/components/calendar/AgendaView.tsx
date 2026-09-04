@@ -133,8 +133,8 @@ function AgendaEventRow({
     <li
       className={cn(
         "flex items-start gap-3 border-b border-border px-5 py-2.5",
-        "post-calendar-agenda-row",
-        sourceBadge && `post-calendar-agenda-row--${sourceBadge}`,
+        "wp-calendar-agenda-row",
+        sourceBadge && `wp-calendar-agenda-row--${sourceBadge}`,
         isPast && "opacity-55",
       )}
     >
@@ -206,7 +206,7 @@ function AgendaEventRow({
 function AgendaSkeleton({ rows = 4 }: { rows?: number }) {
   return (
     <div
-      className={cn("animate-pulse", "post-calendar-agenda-skeleton")}
+      className={cn("animate-pulse", "wp-calendar-agenda-skeleton")}
       role="status"
       aria-hidden="true"
     >
@@ -255,9 +255,9 @@ const AgendaView = Object.assign(
     const hasEvents = sections.length > 0;
 
     return (
-      <div className={cn(agendaView, "flex flex-col", "post-calendar-agenda-feed")}>
+      <div className={cn(agendaView, "flex flex-col", "wp-calendar-agenda-feed")}>
         {sections.map((section) => (
-          <section key={section.key} className="post-calendar-agenda-section">
+          <section key={section.key} className="wp-calendar-agenda-section">
             <header className={agendaSectionHeader}>
               <span className="text-base leading-5 text-foreground">
                 {

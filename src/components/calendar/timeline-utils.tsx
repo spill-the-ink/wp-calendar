@@ -131,7 +131,7 @@ export function buildTimelineLanes(
 export function TimelineSkeleton({ columns = 7 }: { columns?: number }) {
   return (
     <div
-      className={cn("flex w-full animate-pulse", "post-calendar-timeline-skeleton")}
+      className={cn("flex w-full animate-pulse", "wp-calendar-timeline-skeleton")}
       role="status"
       aria-hidden="true"
     >

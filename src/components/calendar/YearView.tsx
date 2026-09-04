@@ -114,8 +114,8 @@ const CalendarYearView = Object.assign(
     const strings = getRuntimeStrings({ strings: runtimeStrings });
 
     return (
-      <div className={cn(yearView, "post-calendar-year-view")}>
-        <table className={cn(yearTable, "post-calendar-year-table")}>
+      <div className={cn(yearView, "wp-calendar-year-view")}>
+        <table className={cn(yearTable, "wp-calendar-year-table")}>
           <tbody className={yearTableBody}>
             {monthRows.map((row, rowIndex) => (
               <tr key={`year-row-${rowIndex}`} className={yearTableRow}>
@@ -128,7 +128,7 @@ const CalendarYearView = Object.assign(
                       key={month.start.toISOString()}
                       className={cn(
                         yearCell,
-                        "post-calendar-year-cell",
+                        "wp-calendar-year-cell",
                         rowIndex === 0 && "border-t-0",
                       )}
                     >
@@ -165,7 +165,7 @@ const CalendarYearView = Object.assign(
                                 className={cn(
                                   eventPill,
                                   eventColor && eventPillColor,
-                                  "post-calendar-event-pill",
+                                  "wp-calendar-event-pill",
                                 )}
                                 style={labelStyle}
                                 role="listitem"
@@ -173,7 +173,7 @@ const CalendarYearView = Object.assign(
                                 {event.url ? (
                                   <a
                                     href={event.url}
-                                    className={cn(eventLink, "post-calendar-event-link")}
+                                    className={cn(eventLink, "wp-calendar-event-link")}
                                   >
                                     {event.name}
                                   </a>

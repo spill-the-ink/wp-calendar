@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<ruleset name="Post Calendar">
-  <description>PHPCS rules for Post Calendar plugin</description>
+<ruleset name="WordPress Calendar">
+  <description>PHPCS rules for WordPress Calendar plugin</description>
 
   <arg name="basepath" value=".."/>
   <arg name="colors"/>
@@ -84,8 +84,8 @@
   <rule ref="WordPress.NamingConventions.PrefixAllGlobals">
     <properties>
       <property name="prefixes" type="array">
-        <element value="post_calendar"/>
-        <element value="PostCalendar"/>
+        <element value="wp_calendar"/>
+        <element value="WpCalendar"/>
       </property>
     </properties>
   </rule>
@@ -93,7 +93,7 @@
   <rule ref="WordPress.WP.I18n">
     <properties>
       <property name="text_domain" type="array">
-        <element value="post-calendar"/>
+        <element value="wp-calendar"/>
       </property>
     </properties>
   </rule>

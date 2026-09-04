@@ -1,9 +1,9 @@
 <?php
 
-namespace PostCalendar\Integrations\Bricks;
+namespace WpCalendar\Integrations\Bricks;
 
-use PostCalendar\Events\Event_Config;
-use PostCalendar\Events\Event_Date_Parser;
+use WpCalendar\Events\Event_Config;
+use WpCalendar\Events\Event_Date_Parser;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -19,7 +19,7 @@ class Dynamic_Data_Tags {
 	}
 
 	/**
-	 * Register Post Calendar dynamic data tags in Bricks builder
+	 * Register WordPress Calendar dynamic data tags in Bricks builder
 	 *
 	 * Syntax examples:
 	 * - {post_event_start}
@@ -45,68 +45,68 @@ class Dynamic_Data_Tags {
 		$tags[] = array(
 			'name'  => '{post_event_start}',
 			'label' => 'Event Start',
-			'group' => 'Post Calendar',
+			'group' => 'WordPress Calendar',
 		);
 
 		$tags[] = array(
 			'name'  => '{post_event_end}',
 			'label' => 'Event End',
-			'group' => 'Post Calendar',
+			'group' => 'WordPress Calendar',
 		);
 
 		$tags[] = array(
 			'name'  => '{post_event_label}',
 			'label' => 'Event Label',
-			'group' => 'Post Calendar',
+			'group' => 'WordPress Calendar',
 		);
 
 		$tags[] = array(
 			'name'  => '{post_has_events}',
 			'label' => 'Has Events',
-			'group' => 'Post Calendar',
+			'group' => 'WordPress Calendar',
 		);
 
 		$tags[] = array(
 			'name'  => '{post_events_range_start}',
 			'label' => 'Events Range Start',
-			'group' => 'Post Calendar',
+			'group' => 'WordPress Calendar',
 		);
 
 		$tags[] = array(
 			'name'  => '{post_events_range_end}',
 			'label' => 'Events Range End',
-			'group' => 'Post Calendar',
+			'group' => 'WordPress Calendar',
 		);
 
 		// Occurrence event tags (inside an events loop).
 		$event_tags = array(
-			'{pc_event_title}'   => 'Event Title',
-			'{pc_event_start}'   => 'Event Start',
-			'{pc_event_end}'     => 'Event End',
-			'{pc_event_url}'     => 'Event URL',
-			'{pc_event_all_day}' => 'Event All Day',
+			'{wpc_event_title}'   => 'Event Title',
+			'{wpc_event_start}'   => 'Event Start',
+			'{wpc_event_end}'     => 'Event End',
+			'{wpc_event_url}'     => 'Event URL',
+			'{wpc_event_all_day}' => 'Event All Day',
 		);
 
 		foreach ( $event_tags as $name => $label ) {
 			$tags[] = array(
 				'name'  => $name,
 				'label' => $label,
-				'group' => 'Post Calendar',
+				'group' => 'WordPress Calendar',
 			);
 		}
 
 		// Window tags (active events query scope).
 		$window_tags = array(
-			'{pc_window_start}'        => 'Events Window Start',
-			'{pc_window_end}'          => 'Events Window End',
-			'{pc_url:cal_view:agenda}' => 'Calendar State URL',
+			'{wpc_window_start}'        => 'Events Window Start',
+			'{wpc_window_end}'          => 'Events Window End',
+			'{wpc_url:cal_view:agenda}' => 'Calendar State URL',
 		);
 
 		foreach ( $window_tags as $name => $label ) {
 			$tags[] = array(
 				'name'  => $name,
 				'label' => $label,
-				'group' => 'Post Calendar',
+				'group' => 'WordPress Calendar',
 			);
 		}
 
@@ -131,8 +131,8 @@ class Dynamic_Data_Tags {
 		$clean_tag = str_replace( array( '{', '}' ), '', $tag );
 
 		// Calendar tags are context-based, not post-based: resolve before the post check.
-		if ( strpos( $clean_tag, 'pc_' ) === 0 ) {
-			return $this->get_pc_tag_value( $clean_tag );
+		if ( strpos( $clean_tag, 'wpc_' ) === 0 ) {
+			return $this->get_wpc_tag_value( $clean_tag );
 		}
 
 		// Get post ID.
@@ -206,11 +206,11 @@ class Dynamic_Data_Tags {
 		}
 
 		// Calendar tags are context-based: no post required.
-		if ( strpos( $content, '{pc_' ) !== false ) {
+		if ( strpos( $content, '{wpc_' ) !== false ) {
 			$content = preg_replace_callback(
-				'/\{(pc_[a-z_]+(?::[^}]+)?)\}/',
+				'/\{(wpc_[a-z_]+(?::[^}]+)?)\}/',
 				function ( $matches ) {
-					return (string) $this->get_pc_tag_value( $matches[1] );
+					return (string) $this->get_wpc_tag_value( $matches[1] );
 				},
 				$content
 			);
@@ -222,7 +222,7 @@ class Dynamic_Data_Tags {
 			return $content;
 		}
 
-		// Check if content contains any Post Calendar tags.
+		// Check if content contains any WordPress Calendar tags.
 		if ( strpos( $content, '{post_' ) === false ) {
 			return $content;
 		}
@@ -316,29 +316,29 @@ class Dynamic_Data_Tags {
 	}
 
 	/**
-	 * Resolve a context-based {pc_*} tag against the active calendar scope.
+	 * Resolve a context-based {wpc_*} tag against the active calendar scope.
 	 *
-	 * Supported syntax: {pc_event_start:g:i A}, {pc_window_start:F j}, {pc_url:cal_anchor:2026-09-01}.
+	 * Supported syntax: {wpc_event_start:g:i A}, {wpc_window_start:F j}, {wpc_url:cal_anchor:2026-09-01}.
 	 *
 	 * @param string $clean_tag Tag name without braces, possibly with a :format suffix.
 	 * @return string Rendered value, or empty string when no calendar context exists.
 	 */
-	private function get_pc_tag_value( string $clean_tag ): string {
-		list( $name, $format ) = $this->split_pc_tag( $clean_tag );
+	private function get_wpc_tag_value( string $clean_tag ): string {
+		list( $name, $format ) = $this->split_wpc_tag( $clean_tag );
 
 		switch ( true ) {
-			case 'pc_event_title' === $name:
-			case 'pc_event_start' === $name:
-			case 'pc_event_end' === $name:
-			case 'pc_event_url' === $name:
-			case 'pc_event_all_day' === $name:
+			case 'wpc_event_title' === $name:
+			case 'wpc_event_start' === $name:
+			case 'wpc_event_end' === $name:
+			case 'wpc_event_url' === $name:
+			case 'wpc_event_all_day' === $name:
 				return $this->render_event_tag( $name, $format );
 
-			case 'pc_window_start' === $name:
-			case 'pc_window_end' === $name:
+			case 'wpc_window_start' === $name:
+			case 'wpc_window_end' === $name:
 				return $this->render_window_tag( $name, $format );
 
-			case 'pc_url' === $name:
+			case 'wpc_url' === $name:
 				return $this->render_state_url( $format );
 		}
 
@@ -348,8 +348,8 @@ class Dynamic_Data_Tags {
 	/**
 	 * Build the current URL with calendar params changed.
 	 *
-	 * Format: {pc_url:param:value} e.g. {pc_url:cal_anchor:2026-09-01}.
-	 * Use an empty value to remove a param: {pc_url:cal_anchor:}.
+	 * Format: {wpc_url:param:value} e.g. {wpc_url:cal_anchor:2026-09-01}.
+	 * Use an empty value to remove a param: {wpc_url:cal_anchor:}.
 	 */
 	private function render_state_url( ?string $args ): string {
 		if ( ! is_string( $args ) || false === strpos( $args, ':' ) ) {
@@ -369,19 +369,19 @@ class Dynamic_Data_Tags {
 		}
 
 		switch ( $name ) {
-			case 'pc_event_title':
+			case 'wpc_event_title':
 				return (string) ( $event['title'] ?? '' );
 
-			case 'pc_event_start':
+			case 'wpc_event_start':
 				return $this->format_context_date( $event['start'] ?? null, $format );
 
-			case 'pc_event_end':
+			case 'wpc_event_end':
 				return $this->format_context_date( $event['end'] ?? null, $format );
 
-			case 'pc_event_url':
+			case 'wpc_event_url':
 				return (string) ( $event['url'] ?? '' );
 
-			case 'pc_event_all_day':
+			case 'wpc_event_all_day':
 				return empty( $event['allDay'] ) ? '' : '1';
 		}
 
@@ -396,10 +396,10 @@ class Dynamic_Data_Tags {
 		}
 
 		switch ( $name ) {
-			case 'pc_window_start':
+			case 'wpc_window_start':
 				return $this->format_context_date( $window['start'] ?? null, $format );
 
-			case 'pc_window_end':
+			case 'wpc_window_end':
 				return $this->format_context_date( $window['end'] ?? null, $format );
 		}
 
@@ -409,7 +409,7 @@ class Dynamic_Data_Tags {
 	/**
 	 * @return array{0: string, 1: string|null}
 	 */
-	private function split_pc_tag( string $clean_tag ): array {
+	private function split_wpc_tag( string $clean_tag ): array {
 		$colon_position = strpos( $clean_tag, ':' );
 
 		if ( false === $colon_position ) {

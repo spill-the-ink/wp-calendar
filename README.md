@@ -1,42 +1,42 @@
-# Post Calendar
+# WordPress Calendar
 
-Post Calendar lets you add structured event data to posts and query those events as individual occurrences.
+WordPress Calendar lets you add structured event data to posts and query those events as individual occurrences.
 
 ## Event data model
 
-Event data is stored on source posts. A post becomes an event source when it contains one or more event definitions in the `_post_events` meta key. A single post can define multiple events and remain queryable.
+Event data is stored on source posts. A post becomes an event source when it contains one or more event definitions in the `_wp_calendar_events` meta key. A single post can define multiple events and remain queryable.
 
 You can create event data in three ways:
 
-- Use the built-in editor UI enabled in **Settings > Post Calendar**
-- Use Advanced Custom Fields (ACF), as long as it saves the same `_post_events` meta structure
+- Use the built-in editor UI enabled in **Settings > WordPress Calendar**
+- Use Advanced Custom Fields (ACF), as long as it saves the same `_wp_calendar_events` meta structure
 - Use your own PHP code
 
 ## Derived meta keys
 
 The plugin maintains these meta keys on source posts:
 
-- `_post_events` — the array of event definitions
-- `_post_has_events` — a derived flag (`1` or missing) used for coarse event-source queries
-- `_post_events_range_start` — the canonical start date for the entire set of events on this post
-- `_post_events_range_end` — the canonical end date for the entire set of events on this post (may be missing for open-ended recurring events)
+- `_wp_calendar_events` — the array of event definitions
+- `_wp_calendar_has_events` — a derived flag (`1` or missing) used for coarse event-source queries
+- `_wp_calendar_events_range_start` — the canonical start date for the entire set of events on this post
+- `_wp_calendar_events_range_end` — the canonical end date for the entire set of events on this post (may be missing for open-ended recurring events)
 
 ## Occurrence-specific meta keys
 
 When you query event occurrences, the plugin exposes these meta keys for each expanded occurrence. These describe the current occurrence, not the source post:
 
-- `_post_event_start` — the occurrence start date
-- `_post_event_end` — the occurrence end date
-- `_post_event_label` — the occurrence label (falls back to the source post title if the event row has no label)
+- `_wp_calendar_event_start` — the occurrence start date
+- `_wp_calendar_event_end` — the occurrence end date
+- `_wp_calendar_event_label` — the occurrence label (falls back to the source post title if the event row has no label)
 
 The loop post object also exposes: `post_event_id`, `post_event_start`, `post_event_end`, `post_event_label`, `post_event_source_id`, `post_event_source_index`, and `post_event_occurrence_index`.
 
 If a source post contains multiple event definitions, the summary range describes the complete set of events. Each occurrence carries its own start date, end date, and label.
 
-Example `_post_events` value:
+Example `_wp_calendar_events` value:
 
 ```php
-update_post_meta( $post_id, '_post_events', array(
+update_post_meta( $post_id, '_wp_calendar_events', array(
   array(
     'label'           => '',
     'all_day'         => 1,
@@ -60,7 +60,7 @@ update_post_meta( $post_id, '_post_events', array(
 ) );
 ```
 
-Each event definition in `_post_events` contains these fields:
+Each event definition in `_wp_calendar_events` contains these fields:
 
 - `label` — optional string label for the event (falls back to post title if empty)
 - `all_day` — `1` or `0`
@@ -73,29 +73,29 @@ Each event definition in `_post_events` contains these fields:
 
 ## Querying events
 
-Post Calendar registers `post_calendar_event` as a virtual post type for querying event occurrences. You cannot create or edit `post_calendar_event` posts in WordPress admin. When you query it with WordPress Query (`WP_Query`) or a builder loop, the plugin finds matching source posts with `_post_has_events = 1` and expands their event definitions into individual occurrences.
+WordPress Calendar registers `wp_calendar_event` as a virtual post type for querying event occurrences. You cannot create or edit `wp_calendar_event` posts in WordPress admin. When you query it with WordPress Query (`WP_Query`) or a builder loop, the plugin finds matching source posts with `_wp_calendar_has_events = 1` and expands their event definitions into individual occurrences.
 
 ### Dates and recurrence
 
 Use the `Y-m-d H:i:s` format for event start and end datetimes. Events can be non-recurring or repeat weekly, monthly, or yearly. The plugin expands recurring definitions into individual occurrence rows when you query them.
 
-For recurring queries, provide explicit date constraints whenever possible. A `meta_query` on `_post_event_start` filters the expanded occurrences, and the plugin paginates after expanding recurrence. If you don't provide a date window, the query uses a default one-year occurrence window (upcoming dates).
+For recurring queries, provide explicit date constraints whenever possible. A `meta_query` on `_wp_calendar_event_start` filters the expanded occurrences, and the plugin paginates after expanding recurrence. If you don't provide a date window, the query uses a default one-year occurrence window (upcoming dates).
 
 ### Basic query
 
-Set the query post type to `post_calendar_event`. Pagination, filters, and sorting work as expected. The plugin resolves the query to the source post types and applies the event-source filter. The loop renders the source posts, so their fields, permalinks, excerpts, featured images, and other post data remain available.
+Set the query post type to `wp_calendar_event`. Pagination, filters, and sorting work as expected. The plugin resolves the query to the source post types and applies the event-source filter. The loop renders the source posts, so their fields, permalinks, excerpts, featured images, and other post data remain available.
 
 When the current loop item is an occurrence, you can access virtual metadata for that row:
 
-- `get_post_meta( get_the_ID(), '_post_event_start', true )` — retrieves the occurrence start date
-- `get_post_meta( get_the_ID(), '_post_event_end', true )` — retrieves the occurrence end date
-- `get_post_meta( get_the_ID(), '_post_event_label', true )` — retrieves the event label (falls back to the source post title if the event row has no label)
+- `get_post_meta( get_the_ID(), '_wp_calendar_event_start', true )` — retrieves the occurrence start date
+- `get_post_meta( get_the_ID(), '_wp_calendar_event_end', true )` — retrieves the occurrence end date
+- `get_post_meta( get_the_ID(), '_wp_calendar_event_label', true )` — retrieves the event label (falls back to the source post title if the event row has no label)
 
 The loop post object also exposes: `post_event_id`, `post_event_start`, `post_event_end`, `post_event_label`, `post_event_source_id`, `post_event_source_index`, and `post_event_occurrence_index`.
 
 ```php
 $events = new WP_Query( [
-    'post_type'      => 'post_calendar_event',
+    'post_type'      => 'wp_calendar_event',
     'posts_per_page' => 10,
 ] );
 ```
@@ -106,9 +106,9 @@ Events are ordered by start date in ascending order by default. Override this by
 
 ```php
 $events = new WP_Query( [
-    'post_type'      => 'post_calendar_event',
+    'post_type'      => 'wp_calendar_event',
     'posts_per_page' => -1,
-    'meta_key'       => '_post_event_start',
+    'meta_key'       => '_wp_calendar_event_start',
     'orderby'        => 'meta_value',
     'meta_type'      => 'DATETIME',
     'order'          => 'DESC',
@@ -119,11 +119,11 @@ You can also use a custom `meta_query`. The plugin merges it with the event-enab
 
 ```php
 $events = new WP_Query( [
-    'post_type'      => 'post_calendar_event',
+    'post_type'      => 'wp_calendar_event',
     'posts_per_page' => 10,
     'meta_query'     => [
         [
-            'key'     => '_post_event_start',
+            'key'     => '_wp_calendar_event_start',
             'value'   => date( 'Y-m-d H:i:s' ),
             'compare' => '>=',
             'type'    => 'DATETIME',
@@ -137,7 +137,7 @@ You can also specify explicit occurrence window bounds using the `start` and `en
 
 ```php
 $events = new WP_Query( [
-  'post_type'      => 'post_calendar_event',
+  'post_type'      => 'wp_calendar_event',
   'posts_per_page' => 10,
   'start'          => current_time( 'mysql' ),
   'end'            => gmdate( 'Y-m-d H:i:s', strtotime( '+90 days' ) ),
@@ -149,7 +149,7 @@ $events = new WP_Query( [
 
 ### Query loops
 
-Set the query post type to `post_calendar_event`. The loop receives the source post together with the occurrence-specific event data described above.
+Set the query post type to `wp_calendar_event`. The loop receives the source post together with the occurrence-specific event data described above.
 
 ### Dynamic data tags
 
@@ -184,17 +184,17 @@ The built-in event editor provides a UI for creating event definitions on suppor
 
 **To enable the editor:**
 
-1. Go to **Settings > Post Calendar**
+1. Go to **Settings > WordPress Calendar**
 2. Check the post types where you want to enable the editor
-3. Edit a supported post and add event rows in the **Post Calendar** meta box
+3. Edit a supported post and add event rows in the **Calendar** meta box
 
-The editor writes the `_post_events` array and keeps the derived metadata in sync automatically.
+The editor writes the `_wp_calendar_events` array and keeps the derived metadata in sync automatically.
 
-The editor is optional. You can create event data with Advanced Custom Fields (ACF) or your own PHP code instead. Use the same `_post_events` structure, and keep the derived metadata in sync when you update data outside the normal post save flow.
+The editor is optional. You can create event data with Advanced Custom Fields (ACF) or your own PHP code instead. Use the same `_wp_calendar_events` structure, and keep the derived metadata in sync when you update data outside the normal post save flow.
 
 ## Built-in calendar display (experimental)
 
-Post Calendar provides a built-in calendar visualization with the following views:
+WordPress Calendar provides a built-in calendar visualization with the following views:
 
 <table>
   <tr>
@@ -227,29 +227,29 @@ Post Calendar provides a built-in calendar visualization with the following view
   </tr>
 </table>
 
-### Post Calendar element
+### WordPress Calendar element
 
-You can add the **Post Calendar** element to a Bricks page or template to render the built-in calendar. This feature is considered experimental.
+You can add the **WordPress Calendar** element to a Bricks page or template to render the built-in calendar. This feature is considered experimental.
 
 ## Shortcode (experimental)
 
-You can use the Post Calendar shortcode to render a calendar on any page or post.
+You can use the WordPress Calendar shortcode to render a calendar on any page or post.
 
 **Basic usage:**
 
 ```php
-[post_calendar]
+[wp_calendar]
 ```
 
 **Full example with all attributes:**
 
 ```php
-[post_calendar post_types="post,page" default_view="month" enabled_views="year,month,agenda" show_toolbar="1" agenda_range_mode="upcoming-window" agenda_range_months="12"]
+[wp_calendar post_types="post,page" default_view="month" enabled_views="year,month,agenda" show_toolbar="1" agenda_range_mode="upcoming-window" agenda_range_months="12"]
 ```
 
 **Shortcode attributes:**
 
-- `post_types` — comma-separated list of source post types to include. Leave empty to use the post types enabled in **Settings > Post Calendar**
+- `post_types` — comma-separated list of source post types to include. Leave empty to use the post types enabled in **Settings > WordPress Calendar**
 - `default_view` — the initial view to display: `month`, `week`, `day`, `agenda`, or `year`
 - `enabled_views` — comma-separated list of views users can switch between. Invalid or empty values fall back to all views
 - `show_toolbar` — `1`/`0` (also accepts `true`/`false`, `yes`/`no`, `on`/`off`)
@@ -258,7 +258,7 @@ You can use the Post Calendar shortcode to render a calendar on any page or post
 
 ## Development
 
-To develop Post Calendar locally:
+To develop WordPress Calendar locally:
 
 1. Run `npm run dev` to start a watch build, or `npm run dev:preview` to start a standalone React preview
 2. Run `npm run dev:admin` when working on the post editor bundle

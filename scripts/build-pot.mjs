@@ -2,9 +2,9 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const rootDir = process.cwd();
-const pluginSlug = 'post-calendar';
-const textDomain = 'post-calendar';
-const projectName = 'Post Calendar';
+const pluginSlug = 'wp-calendar';
+const textDomain = 'wp-calendar';
+const projectName = 'WordPress Calendar';
 const languagesDir = path.join(rootDir, 'languages');
 const outputPath = path.join(languagesDir, `${pluginSlug}.pot`);
 
@@ -96,8 +96,8 @@ function extractTranslatorComment(content, matchIndex) {
 
 function collectEntries(filePath, content, entries) {
   const relativePath = path.relative(rootDir, filePath).replace(/\\/g, '/');
-  const simplePattern = /(esc_html__|esc_attr__|__)\(\s*'((?:\\'|[^'])*)'\s*,\s*'post-calendar'\s*\)/gms;
-  const pluralPattern = /_n\(\s*'((?:\\'|[^'])*)'\s*,\s*'((?:\\'|[^'])*)'\s*,[\s\S]*?'post-calendar'\s*\)/gms;
+  const simplePattern = /(esc_html__|esc_attr__|__)\(\s*'((?:\\'|[^'])*)'\s*,\s*'wp-calendar'\s*\)/gms;
+  const pluralPattern = /_n\(\s*'((?:\\'|[^'])*)'\s*,\s*'((?:\\'|[^'])*)'\s*,[\s\S]*?'wp-calendar'\s*\)/gms;
 
   for (const match of content.matchAll(simplePattern)) {
     const functionName = match[1];
@@ -150,7 +150,7 @@ function renderHeader() {
     '"Content-Type: text/plain; charset=UTF-8\\n"',
     '"Content-Transfer-Encoding: 8bit\\n"',
     '"Plural-Forms: nplurals=2; plural=(n != 1);\\n"',
-    '"X-Domain: post-calendar\\n"',
+    '"X-Domain: wp-calendar\\n"',
     '',
   ].join('\n');
 }

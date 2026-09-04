@@ -79,7 +79,7 @@
 
 /* Reserve layout before JS hydration — prevents 0px -> 840px CLS
    52.5rem surface + ~3.25rem toolbar */
-.js-post-calendar-root:not([data-mounted="true"]) {
+.js-wp-calendar-root:not([data-mounted="true"]) {
   display: block;
   min-height: 56rem;
   min-width: min(100%, 52.5rem);
@@ -88,106 +88,106 @@
 
 /* -- React Big Calendar ---------------------------------------- */
 
-.post-calendar-surface .rbc-calendar,
-.post-calendar-surface .rbc-time-view,
-.post-calendar-surface .rbc-month-view,
-.post-calendar-surface .rbc-agenda-view table {
+.wp-calendar-surface .rbc-calendar,
+.wp-calendar-surface .rbc-time-view,
+.wp-calendar-surface .rbc-month-view,
+.wp-calendar-surface .rbc-agenda-view table {
   @apply border-border;
 }
 
-.post-calendar-surface .rbc-time-view,
-.post-calendar-surface .rbc-month-view,
-.post-calendar-surface .rbc-agenda-view {
+.wp-calendar-surface .rbc-time-view,
+.wp-calendar-surface .rbc-month-view,
+.wp-calendar-surface .rbc-agenda-view {
   @apply min-w-[52.5rem];
 }
 
-.post-calendar-surface .rbc-calendar {
+.wp-calendar-surface .rbc-calendar {
   @apply text-foreground h-full;
   font-family: inherit;
 }
 
-.post-calendar-surface.is-year-view .rbc-calendar {
+.wp-calendar-surface.is-year-view .rbc-calendar {
   @apply flex flex-col h-auto min-h-[inherit];
 }
 
-.post-calendar-surface.is-agenda-view .rbc-calendar,
-.post-calendar-surface.is-agenda-view .rbc-agenda-view {
+.wp-calendar-surface.is-agenda-view .rbc-calendar,
+.wp-calendar-surface.is-agenda-view .rbc-agenda-view {
   @apply h-auto flex-none;
 }
 
-.post-calendar-surface .rbc-btn-group {
+.wp-calendar-surface .rbc-btn-group {
   @apply hidden;
 }
 
-.post-calendar-surface :is(.rbc-month-view, .rbc-time-view) .rbc-header {
+.wp-calendar-surface :is(.rbc-month-view, .rbc-time-view) .rbc-header {
   @apply flex items-center bg-card text-foreground text-base font-normal justify-between min-h-10 px-5 py-2.5;
   border-bottom: 1px solid var(--border);
 }
 
-.post-calendar-surface :is(.rbc-month-view, .rbc-time-view) .rbc-header + .rbc-header {
+.wp-calendar-surface :is(.rbc-month-view, .rbc-time-view) .rbc-header + .rbc-header {
   @apply border-l border-border;
 }
 
-.post-calendar-surface .rbc-row-bg {
+.wp-calendar-surface .rbc-row-bg {
   @apply -mr-px;
 }
 
-.post-calendar-surface .rbc-day-bg + .rbc-day-bg,
-.post-calendar-surface .rbc-time-content > * + * > * {
+.wp-calendar-surface .rbc-day-bg + .rbc-day-bg,
+.wp-calendar-surface .rbc-time-content > * + * > * {
   @apply border-l border-border;
 }
 
-.post-calendar-surface .rbc-date-cell {
+.wp-calendar-surface .rbc-date-cell {
   @apply text-muted-foreground text-sm px-5 py-2.5 text-right;
 }
 
-.post-calendar-surface .rbc-date-cell > a {
+.wp-calendar-surface .rbc-date-cell > a {
   @apply text-inherit no-underline;
 }
 
-.post-calendar-surface .rbc-off-range,
-.post-calendar-surface .rbc-off-range-bg {
+.wp-calendar-surface .rbc-off-range,
+.wp-calendar-surface .rbc-off-range-bg {
   @apply text-muted-foreground;
 }
 
-.post-calendar-surface .rbc-off-range-bg {
+.wp-calendar-surface .rbc-off-range-bg {
   @apply bg-muted;
 }
 
-.post-calendar-surface .rbc-today {
+.wp-calendar-surface .rbc-today {
   @apply bg-card;
   background-image: repeating-linear-gradient(-45deg, var(--card) 0 10px, var(--muted) 10px 12px);
 }
 
-.post-calendar-surface .rbc-row-segment {
+.wp-calendar-surface .rbc-row-segment {
   padding: calc(0.25rem / 2) 0.0625rem;
 }
 
-.post-calendar-surface .rbc-event,
-.post-calendar-surface .rbc-background-event {
+.wp-calendar-surface .rbc-event,
+.wp-calendar-surface .rbc-background-event {
   @apply bg-transparent border-0 rounded-none shadow-none p-0;
 }
 
-.post-calendar-surface .rbc-event-label {
+.wp-calendar-surface .rbc-event-label {
   @apply hidden;
 }
 
-.post-calendar-surface .rbc-event {
+.wp-calendar-surface .rbc-event {
   @apply overflow-visible;
 }
 
-.post-calendar-surface .rbc-event-content {
+.wp-calendar-surface .rbc-event-content {
   @apply flex;
 }
 
-.post-calendar-surface .rbc-day-slot .rbc-event,
-.post-calendar-surface .rbc-day-slot .rbc-background-event {
+.wp-calendar-surface .rbc-day-slot .rbc-event,
+.wp-calendar-surface .rbc-day-slot .rbc-background-event {
   @apply box-border;
   padding-block: calc(0.25rem / 2);
 }
 
-.post-calendar-surface .rbc-time-view .rbc-time-gutter,
-.post-calendar-surface .rbc-time-view .rbc-time-header-gutter {
+.wp-calendar-surface .rbc-time-view .rbc-time-gutter,
+.wp-calendar-surface .rbc-time-view .rbc-time-header-gutter {
   @apply flex flex-col items-stretch justify-end bg-card box-border;
   flex: 0 0 7.5rem;
   width: 7.5rem !important;
@@ -195,82 +195,82 @@
   max-width: unset !important;
 }
 
-.post-calendar-surface .rbc-time-header {
+.wp-calendar-surface .rbc-time-header {
   @apply flex flex-0 flex-row items-stretch;
   border-bottom: 1px solid var(--border);
 }
 
-.post-calendar-surface .rbc-time-header-content {
+.wp-calendar-surface .rbc-time-header-content {
   @apply border-l border-border flex flex-col min-h-0;
   flex: 1 1 auto;
 }
 
-.post-calendar-surface .rbc-time-header-content > .rbc-row,
-.post-calendar-surface .rbc-time-header-content > .rbc-allday-cell {
+.wp-calendar-surface .rbc-time-header-content > .rbc-row,
+.wp-calendar-surface .rbc-time-header-content > .rbc-allday-cell {
   @apply flex-none;
 }
 
-.post-calendar-surface .rbc-time-header-content > .rbc-row {
+.wp-calendar-surface .rbc-time-header-content > .rbc-row {
   @apply min-h-10;
 }
 
-.post-calendar-surface .rbc-label {
+.wp-calendar-surface .rbc-label {
   @apply p-0;
 }
 
-.post-calendar-surface .rbc-time-gutter .rbc-timeslot-group,
-.post-calendar-surface .rbc-time-gutter .rbc-time-slot {
+.wp-calendar-surface .rbc-time-gutter .rbc-timeslot-group,
+.wp-calendar-surface .rbc-time-gutter .rbc-time-slot {
   @apply items-start text-muted-foreground text-sm justify-start;
 }
 
-.post-calendar-surface .rbc-time-header-gutter,
-.post-calendar-surface .rbc-time-gutter .rbc-timeslot-group {
+.wp-calendar-surface .rbc-time-header-gutter,
+.wp-calendar-surface .rbc-time-gutter .rbc-timeslot-group {
   @apply p-5;
 }
 
-.post-calendar-surface .rbc-time-gutter .rbc-timeslot-group {
+.wp-calendar-surface .rbc-time-gutter .rbc-timeslot-group {
   @apply pb-0;
 }
 
-.post-calendar-surface .rbc-time-content {
+.wp-calendar-surface .rbc-time-content {
   @apply border-t border-border;
 }
 
-.post-calendar-surface .rbc-allday-cell {
+.wp-calendar-surface .rbc-allday-cell {
   @apply block min-h-20 relative w-full h-auto;
 }
 
-.post-calendar-surface .rbc-timeslot-group {
+.wp-calendar-surface .rbc-timeslot-group {
   @apply min-h-[3.75rem];
 }
 
-.post-calendar-surface .rbc-time-slot {
+.wp-calendar-surface .rbc-time-slot {
   @apply text-transparent;
 }
 
-.post-calendar-surface .rbc-day-slot .rbc-time-slot {
+.wp-calendar-surface .rbc-day-slot .rbc-time-slot {
   @apply border-t-0;
 }
 
-.post-calendar-surface .rbc-current-time-indicator {
+.wp-calendar-surface .rbc-current-time-indicator {
   @apply h-0.5;
   background: var(--pc-surface-indicator);
 }
 
-.post-calendar-surface .rbc-month-view,
-.post-calendar-surface .rbc-time-view {
+.wp-calendar-surface .rbc-month-view,
+.wp-calendar-surface .rbc-time-view {
   @apply border border-border;
 }
 
-.post-calendar-surface .rbc-month-row {
+.wp-calendar-surface .rbc-month-row {
   @apply border-l-0 min-h-[7.875rem];
 }
 
-.post-calendar-surface .rbc-month-header {
+.wp-calendar-surface .rbc-month-header {
   @apply border-b border-border;
 }
 
-.post-calendar-surface .rbc-event.is-outside-current-month .post-calendar-event-pill {
+.wp-calendar-surface .rbc-event.is-outside-current-month .wp-calendar-event-pill {
   @apply opacity-55;
 }
 
@@ -279,43 +279,43 @@
 }
 
 /* -- Loading / Empty common status — deprecated aliases kept for backwards compat */
-.post-calendar-loading,
-.post-calendar-empty {
+.wp-calendar-loading,
+.wp-calendar-empty {
   @apply hidden;
 }
 
 /* -- Toolbar (shortcode context only — bulk moved to CalendarApp.tsx) ---------- */
 
-.post-calendar-shortcode .post-calendar-toolbar {
+.wp-calendar-shortcode .wp-calendar-toolbar {
   @apply items-center grid gap-5 mb-0 pb-3;
   grid-template-columns: minmax(0, auto) 1fr minmax(0, auto);
 }
 
-.post-calendar-shortcode .post-calendar-toolbar-label-wrap {
+.wp-calendar-shortcode .wp-calendar-toolbar-label-wrap {
   @apply items-center flex justify-center;
 }
 
-.post-calendar-shortcode .post-calendar-view-button {
+.wp-calendar-shortcode .wp-calendar-view-button {
   @apply pc-view-btn font-medium min-h-9 px-3;
 }
 
-.post-calendar-shortcode .post-calendar-view-button.is-active {
+.wp-calendar-shortcode .wp-calendar-view-button.is-active {
   @apply pc-view-btn-active;
 }
 
-.post-calendar-shortcode .post-calendar-view-button > *,
-.post-calendar-shortcode .post-calendar-toolbar-label > * {
+.wp-calendar-shortcode .wp-calendar-view-button > *,
+.wp-calendar-shortcode .wp-calendar-toolbar-label > * {
   color: inherit;
   font: inherit;
   line-height: inherit;
   @apply m-0;
 }
 
-.post-calendar-shortcode .post-calendar-view-button:hover {
+.wp-calendar-shortcode .wp-calendar-view-button:hover {
   @apply text-foreground;
 }
 
-.post-calendar-shortcode .post-calendar-view-button:focus-visible {
+.wp-calendar-shortcode .wp-calendar-view-button:focus-visible {
   @apply text-foreground outline-none;
   outline: 2px solid var(--primary);
   outline-offset: 2px;
@@ -323,7 +323,7 @@
 
 /* -- Placeholder ----------------------------------------------- */
 
-.post-calendar-element-placeholder {
+.wp-calendar-element-placeholder {
   @apply bg-slate-50 border border-slate-300 rounded-xl text-slate-600 p-4;
 }
 
@@ -339,8 +339,8 @@
 
 /* react-big-calendar time gutter narrow override (moved views use max-[720px]:* utilities) */
 @media (max-width: 720px) {
-  .post-calendar-surface .rbc-time-view .rbc-time-gutter,
-  .post-calendar-surface .rbc-time-view .rbc-time-header-gutter {
+  .wp-calendar-surface .rbc-time-view .rbc-time-gutter,
+  .wp-calendar-surface .rbc-time-view .rbc-time-header-gutter {
     width: 3.75rem !important;
   }
 }
@@ -348,13 +348,13 @@
 /* -- Container queries ----------------------------------------- */
 
 @container (max-width: 9.5rem) {
-  .post-calendar-month-cell .post-calendar-pill-time,
-  .post-calendar-month-cell .post-calendar-pill-title {
+  .wp-calendar-month-cell .wp-calendar-pill-time,
+  .wp-calendar-month-cell .wp-calendar-pill-title {
     @apply hidden;
   }
 
-  .post-calendar-month-cell .post-calendar-event-link::before,
-  .post-calendar-month-cell .post-calendar-event-pill::before {
+  .wp-calendar-month-cell .wp-calendar-event-link::before,
+  .wp-calendar-month-cell .wp-calendar-event-pill::before {
     @apply bg-current rounded-full inline-block;
     content: "";
     height: 0.4375rem;

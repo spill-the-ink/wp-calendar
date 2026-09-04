@@ -52,7 +52,7 @@ function TimelineDayLabel({
   _strings: Required<CalendarRuntimeStrings>;
 }) {
   return (
-    <span className={cn(timelineDayLabel, "post-calendar-timeline-day-label")}>
+    <span className={cn(timelineDayLabel, "wp-calendar-timeline-day-label")}>
       <span>{moment(day).format("ddd")}</span>
       <span>{moment(day).format("D")}</span>
     </span>
@@ -88,7 +88,7 @@ function TimelineEventBar({
 
   return (
     <span
-      className={cn(timelineBar, "post-calendar-timeline-bar")}
+      className={cn(timelineBar, "wp-calendar-timeline-bar")}
       style={barStyle}
       title={`${timeLabel}${event.name}`}
       role="button"
@@ -118,7 +118,7 @@ function TimelineLaneComponent({
   return (
     <div
       key={`timeline-lane-${laneIndex}`}
-      className={cn(timelineLane, "post-calendar-timeline-lane")}
+      className={cn(timelineLane, "wp-calendar-timeline-lane")}
     >
       {lane.bars.map((bar, barIndex) => (
         <TimelineEventBar
@@ -342,14 +342,14 @@ const AgendaTimelineView = Object.assign(
 
     return (
       <div
-        className={cn(timelineView, "post-calendar-timeline-view")}
+        className={cn(timelineView, "wp-calendar-timeline-view")}
         style={{
           ["--pc-timeline-days" as string]: VIRTUAL_DAYS,
           ["--pc-timeline-day-width" as string]: "6.5rem",
         }}
       >
         <div
-          className={cn(timelineScroll, "post-calendar-timeline-scroll")}
+          className={cn(timelineScroll, "wp-calendar-timeline-scroll")}
           ref={scrollContainerRef}
           style={{ position: "relative" }}
         >
@@ -363,7 +363,7 @@ const AgendaTimelineView = Object.assign(
           <div
             className={cn(
               "pointer-events-none absolute inset-y-0 flex",
-              "post-calendar-timeline-day-columns",
+              "wp-calendar-timeline-day-columns",
             )}
             aria-hidden="true"
             style={{ left: offsetStyle, width: visibleWidthStyle }}
@@ -373,7 +373,7 @@ const AgendaTimelineView = Object.assign(
                 key={`timeline-day-col-${day.format("YYYY-MM-DD")}`}
                 className={cn(
                   timelineDayColumn,
-                  "post-calendar-timeline-day-column",
+                  "wp-calendar-timeline-day-column",
                   (day.day() === 0 || day.day() === 6) && "bg-muted",
                   day.isSame(moment(), "day") && todayStripe,
                 )}
@@ -385,11 +385,11 @@ const AgendaTimelineView = Object.assign(
           <div
             className={cn(
               "absolute top-0 flex h-full min-h-0 flex-col",
-              "post-calendar-timeline-content",
+              "wp-calendar-timeline-content",
             )}
             style={{ left: offsetStyle, width: visibleWidthStyle }}
           >
-            <div className={cn(timelineHeader, "post-calendar-timeline-header")} aria-hidden="true">
+            <div className={cn(timelineHeader, "wp-calendar-timeline-header")} aria-hidden="true">
               {dayHeaders.map((day) => (
                 <TimelineDayLabel
                   key={`timeline-day-${day.format("YYYY-MM-DD")}`}
@@ -403,7 +403,7 @@ const AgendaTimelineView = Object.assign(
               className={cn(
                 "relative min-h-0 flex-1",
                 !hasEvents && "flex flex-col",
-                "post-calendar-timeline-body",
+                "wp-calendar-timeline-body",
               )}
             >
               {isLoading && needsSkeleton ? (

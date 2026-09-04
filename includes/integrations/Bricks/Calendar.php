@@ -1,9 +1,9 @@
 <?php
 
-namespace PostCalendar\Integrations\Bricks;
+namespace WpCalendar\Integrations\Bricks;
 
-use PostCalendar\Events\Event_Config;
-use PostCalendar\Admin\Settings_Page;
+use WpCalendar\Events\Event_Config;
+use WpCalendar\Admin\Settings_Page;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -11,14 +11,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * Flat, settings-driven calendar element. Mounts the React calendar app via
- * the shared `.js-post-calendar-root` root; data is fetched from the plugin's
+ * the shared `.js-wp-calendar-root` root; data is fetched from the plugin's
  * REST endpoint at runtime.
  */
-class Element_Post_Calendar extends \Bricks\Element {
+class Element_Calendar extends \Bricks\Element {
 	public $category     = 'general';
-	public $name         = 'post-calendar';
+	public $name         = 'wp-calendar';
 	public $icon         = 'ti-calendar';
-	public $css_selector = '.post-calendar-element';
+	public $css_selector = '.wp-calendar-element';
 	public $nestable     = false;
 
 	private static function get_supported_query_var_keys(): array {
@@ -79,7 +79,7 @@ class Element_Post_Calendar extends \Bricks\Element {
 	}
 
 	public function get_label() {
-		return esc_html__( 'Post Calendar', 'post-calendar' );
+		return esc_html__( 'WordPress Calendar', 'wp-calendar' );
 	}
 
 	public function get_keywords() {
@@ -88,12 +88,12 @@ class Element_Post_Calendar extends \Bricks\Element {
 
 	public function set_control_groups() {
 		$this->control_groups['layout'] = array(
-			'title' => esc_html__( 'Layout', 'post-calendar' ),
+			'title' => esc_html__( 'Layout', 'wp-calendar' ),
 			'tab'   => 'style',
 		);
 
 		$this->control_groups['colors'] = array(
-			'title' => esc_html__( 'Colors', 'post-calendar' ),
+			'title' => esc_html__( 'Colors', 'wp-calendar' ),
 			'tab'   => 'style',
 		);
 	}
@@ -101,7 +101,7 @@ class Element_Post_Calendar extends \Bricks\Element {
 	public function set_controls() {
 		$this->controls['query'] = array(
 			'tab'     => 'content',
-			'label'   => esc_html__( 'Query', 'post-calendar' ),
+			'label'   => esc_html__( 'Query', 'wp-calendar' ),
 			'type'    => 'query',
 			'popup'   => true,
 			'inline'  => true,
@@ -111,12 +111,12 @@ class Element_Post_Calendar extends \Bricks\Element {
 		$this->controls['queryInfo'] = array(
 			'tab'     => 'content',
 			'type'    => 'info',
-			'content' => esc_html__( 'The query popup is limited to the subset the calendar applies: post type, include/exclude, taxonomy, author include/exclude, search, ordering, and date/meta constraints.', 'post-calendar' ),
+			'content' => esc_html__( 'The query popup is limited to the subset the calendar applies: post type, include/exclude, taxonomy, author include/exclude, search, ordering, and date/meta constraints.', 'wp-calendar' ),
 		);
 
 		$this->controls['defaultView'] = array(
 			'tab'     => 'content',
-			'label'   => esc_html__( 'Default view', 'post-calendar' ),
+			'label'   => esc_html__( 'Default view', 'wp-calendar' ),
 			'type'    => 'select',
 			'options' => $this->get_view_options(),
 			'default' => 'month',
@@ -124,7 +124,7 @@ class Element_Post_Calendar extends \Bricks\Element {
 
 		$this->controls['enabledViews'] = array(
 			'tab'      => 'content',
-			'label'    => esc_html__( 'Enabled views', 'post-calendar' ),
+			'label'    => esc_html__( 'Enabled views', 'wp-calendar' ),
 			'type'     => 'select',
 			'multiple' => true,
 			'options'  => $this->get_view_options(),
@@ -132,14 +132,14 @@ class Element_Post_Calendar extends \Bricks\Element {
 
 		$this->controls['showToolbar'] = array(
 			'tab'     => 'content',
-			'label'   => esc_html__( 'Toolbar', 'post-calendar' ),
+			'label'   => esc_html__( 'Toolbar', 'wp-calendar' ),
 			'type'    => 'checkbox',
 			'default' => true,
 		);
 
 		$this->controls['showToolbarActions'] = array(
 			'tab'      => 'content',
-			'label'    => esc_html__( 'Toolbar: today / back / next', 'post-calendar' ),
+			'label'    => esc_html__( 'Toolbar: today / back / next', 'wp-calendar' ),
 			'type'     => 'checkbox',
 			'default'  => true,
 			'required' => array( 'showToolbar', '=', true ),
@@ -147,7 +147,7 @@ class Element_Post_Calendar extends \Bricks\Element {
 
 		$this->controls['showToolbarLabel'] = array(
 			'tab'      => 'content',
-			'label'    => esc_html__( 'Toolbar: period label', 'post-calendar' ),
+			'label'    => esc_html__( 'Toolbar: period label', 'wp-calendar' ),
 			'type'     => 'checkbox',
 			'default'  => true,
 			'required' => array( 'showToolbar', '=', true ),
@@ -155,7 +155,7 @@ class Element_Post_Calendar extends \Bricks\Element {
 
 		$this->controls['showViewMenu'] = array(
 			'tab'      => 'content',
-			'label'    => esc_html__( 'Toolbar: view menu', 'post-calendar' ),
+			'label'    => esc_html__( 'Toolbar: view menu', 'wp-calendar' ),
 			'type'     => 'checkbox',
 			'default'  => true,
 			'required' => array( 'showToolbar', '=', true ),
@@ -163,18 +163,18 @@ class Element_Post_Calendar extends \Bricks\Element {
 
 		$this->controls['agendaRangeMode'] = array(
 			'tab'     => 'content',
-			'label'   => esc_html__( 'Agenda range', 'post-calendar' ),
+			'label'   => esc_html__( 'Agenda range', 'wp-calendar' ),
 			'type'    => 'select',
 			'options' => array(
-				'visible-range'   => esc_html__( 'Visible range', 'post-calendar' ),
-				'upcoming-window' => esc_html__( 'Upcoming window', 'post-calendar' ),
+				'visible-range'   => esc_html__( 'Visible range', 'wp-calendar' ),
+				'upcoming-window' => esc_html__( 'Upcoming window', 'wp-calendar' ),
 			),
 			'default' => 'visible-range',
 		);
 
 		$this->controls['agendaRangeMonths'] = array(
 			'tab'      => 'content',
-			'label'    => esc_html__( 'Agenda window (months)', 'post-calendar' ),
+			'label'    => esc_html__( 'Agenda window (months)', 'wp-calendar' ),
 			'type'     => 'number',
 			'min'      => 1,
 			'default'  => 3,
@@ -183,54 +183,54 @@ class Element_Post_Calendar extends \Bricks\Element {
 
 		$this->controls['multiWeeksBefore'] = array(
 			'tab'         => 'content',
-			'label'       => esc_html__( 'Two-week view: weeks before', 'post-calendar' ),
+			'label'       => esc_html__( 'Two-week view: weeks before', 'wp-calendar' ),
 			'type'        => 'number',
 			'min'         => 0,
 			'default'     => 0,
-			'description' => esc_html__( 'Weeks shown before the current week in the two-week view. 0 = start at the current week.', 'post-calendar' ),
+			'description' => esc_html__( 'Weeks shown before the current week in the two-week view. 0 = start at the current week.', 'wp-calendar' ),
 		);
 
 		$this->controls['multiWeeksAfter'] = array(
 			'tab'         => 'content',
-			'label'       => esc_html__( 'Two-week view: weeks after', 'post-calendar' ),
+			'label'       => esc_html__( 'Two-week view: weeks after', 'wp-calendar' ),
 			'type'        => 'number',
 			'min'         => 0,
 			'default'     => 1,
-			'description' => esc_html__( 'Weeks shown after the current week. Defaults (0/1) render the current and the following week; 1/1 renders three weeks.', 'post-calendar' ),
+			'description' => esc_html__( 'Weeks shown after the current week. Defaults (0/1) render the current and the following week; 1/1 renders three weeks.', 'wp-calendar' ),
 		);
 
 		$this->controls['timelineDays'] = array(
 			'tab'         => 'content',
-			'label'       => esc_html__( 'Timeline view: days', 'post-calendar' ),
+			'label'       => esc_html__( 'Timeline view: days', 'wp-calendar' ),
 			'type'        => 'number',
 			'min'         => 1,
 			'max'         => 120,
 			'default'     => 14,
-			'description' => esc_html__( 'Number of consecutive days on the timeline axis, starting at the current week.', 'post-calendar' ),
+			'description' => esc_html__( 'Number of consecutive days on the timeline axis, starting at the current week.', 'wp-calendar' ),
 		);
 
 		$this->controls['responsiveBreakpoint'] = array(
 			'tab'         => 'content',
-			'label'       => esc_html__( 'Responsive breakpoint', 'post-calendar' ),
+			'label'       => esc_html__( 'Responsive breakpoint', 'wp-calendar' ),
 			'type'        => 'number',
 			'units'       => array( 'px' ),
 			'min'         => 0,
 			'default'     => 640,
-			'description' => esc_html__( 'Below this container width, wide time-grid views (two weeks, week, timeline) automatically render as agenda. 0 disables auto-switching.', 'post-calendar' ),
+			'description' => esc_html__( 'Below this container width, wide time-grid views (two weeks, week, timeline) automatically render as agenda. 0 disables auto-switching.', 'wp-calendar' ),
 		);
 
 		$this->controls['calendarWidth'] = array(
 			'tab'    => 'style',
 			'group'  => 'layout',
-			'label'  => esc_html__( 'Calendar width', 'post-calendar' ),
+			'label'  => esc_html__( 'Calendar width', 'wp-calendar' ),
 			'type'   => 'number',
 			'units'  => array( 'px', 'rem', '%' ),
 			'min'    => 240,
 			'inline' => true,
 			'css'    => array(
 				array(
-					'property' => '--post-calendar-w',
-					'selector' => '.post-calendar-element',
+					'property' => '--wp-calendar-w',
+					'selector' => '.wp-calendar-element',
 				),
 			),
 		);
@@ -238,15 +238,15 @@ class Element_Post_Calendar extends \Bricks\Element {
 		$this->controls['calendarHeight'] = array(
 			'tab'    => 'style',
 			'group'  => 'layout',
-			'label'  => esc_html__( 'Calendar height', 'post-calendar' ),
+			'label'  => esc_html__( 'Calendar height', 'wp-calendar' ),
 			'type'   => 'number',
 			'units'  => array( 'px', 'rem', 'vh' ),
 			'min'    => 320,
 			'inline' => true,
 			'css'    => array(
 				array(
-					'property' => '--post-calendar-h',
-					'selector' => '.post-calendar-element',
+					'property' => '--wp-calendar-h',
+					'selector' => '.wp-calendar-element',
 				),
 			),
 		);
@@ -254,15 +254,15 @@ class Element_Post_Calendar extends \Bricks\Element {
 		$this->controls['calendarRadius'] = array(
 			'tab'    => 'style',
 			'group'  => 'layout',
-			'label'  => esc_html__( 'Surface radius', 'post-calendar' ),
+			'label'  => esc_html__( 'Surface radius', 'wp-calendar' ),
 			'type'   => 'number',
 			'units'  => array( 'px', 'rem' ),
 			'min'    => 0,
 			'inline' => true,
 			'css'    => array(
 				array(
-					'property' => '--post-calendar-radius-md',
-					'selector' => '.post-calendar-element',
+					'property' => '--wp-calendar-radius-md',
+					'selector' => '.wp-calendar-element',
 				),
 			),
 		);
@@ -270,15 +270,15 @@ class Element_Post_Calendar extends \Bricks\Element {
 		$this->controls['pillRadius'] = array(
 			'tab'    => 'style',
 			'group'  => 'layout',
-			'label'  => esc_html__( 'Button and event radius', 'post-calendar' ),
+			'label'  => esc_html__( 'Button and event radius', 'wp-calendar' ),
 			'type'   => 'number',
 			'units'  => array( 'px', 'rem' ),
 			'min'    => 0,
 			'inline' => true,
 			'css'    => array(
 				array(
-					'property' => '--post-calendar-radius-sm',
-					'selector' => '.post-calendar-element',
+					'property' => '--wp-calendar-radius-sm',
+					'selector' => '.wp-calendar-element',
 				),
 			),
 		);
@@ -286,12 +286,12 @@ class Element_Post_Calendar extends \Bricks\Element {
 		$this->controls['surfaceColor'] = array(
 			'tab'   => 'style',
 			'group' => 'colors',
-			'label' => esc_html__( 'Surface color', 'post-calendar' ),
+			'label' => esc_html__( 'Surface color', 'wp-calendar' ),
 			'type'  => 'color',
 			'css'   => array(
 				array(
-					'property' => '--post-calendar-surface',
-					'selector' => '.post-calendar-element',
+					'property' => '--wp-calendar-surface',
+					'selector' => '.wp-calendar-element',
 				),
 			),
 		);
@@ -299,12 +299,12 @@ class Element_Post_Calendar extends \Bricks\Element {
 		$this->controls['surfaceMutedColor'] = array(
 			'tab'   => 'style',
 			'group' => 'colors',
-			'label' => esc_html__( 'Muted surface color', 'post-calendar' ),
+			'label' => esc_html__( 'Muted surface color', 'wp-calendar' ),
 			'type'  => 'color',
 			'css'   => array(
 				array(
-					'property' => '--post-calendar-surface-muted',
-					'selector' => '.post-calendar-element',
+					'property' => '--wp-calendar-surface-muted',
+					'selector' => '.wp-calendar-element',
 				),
 			),
 		);
@@ -312,12 +312,12 @@ class Element_Post_Calendar extends \Bricks\Element {
 		$this->controls['borderColor'] = array(
 			'tab'   => 'style',
 			'group' => 'colors',
-			'label' => esc_html__( 'Border color', 'post-calendar' ),
+			'label' => esc_html__( 'Border color', 'wp-calendar' ),
 			'type'  => 'color',
 			'css'   => array(
 				array(
-					'property' => '--post-calendar-border',
-					'selector' => '.post-calendar-element',
+					'property' => '--wp-calendar-border',
+					'selector' => '.wp-calendar-element',
 				),
 			),
 		);
@@ -325,12 +325,12 @@ class Element_Post_Calendar extends \Bricks\Element {
 		$this->controls['textColor'] = array(
 			'tab'   => 'style',
 			'group' => 'colors',
-			'label' => esc_html__( 'Body text color', 'post-calendar' ),
+			'label' => esc_html__( 'Body text color', 'wp-calendar' ),
 			'type'  => 'color',
 			'css'   => array(
 				array(
-					'property' => '--post-calendar-text-default',
-					'selector' => '.post-calendar-element',
+					'property' => '--wp-calendar-text-default',
+					'selector' => '.wp-calendar-element',
 				),
 			),
 		);
@@ -338,16 +338,16 @@ class Element_Post_Calendar extends \Bricks\Element {
 		$this->controls['mutedTextColor'] = array(
 			'tab'   => 'style',
 			'group' => 'colors',
-			'label' => esc_html__( 'Muted text color', 'post-calendar' ),
+			'label' => esc_html__( 'Muted text color', 'wp-calendar' ),
 			'type'  => 'color',
 			'css'   => array(
 				array(
-					'property' => '--post-calendar-text-muted',
-					'selector' => '.post-calendar-element',
+					'property' => '--wp-calendar-text-muted',
+					'selector' => '.wp-calendar-element',
 				),
 				array(
-					'property' => '--post-calendar-text-subtle',
-					'selector' => '.post-calendar-element',
+					'property' => '--wp-calendar-text-subtle',
+					'selector' => '.wp-calendar-element',
 				),
 			),
 		);
@@ -355,12 +355,12 @@ class Element_Post_Calendar extends \Bricks\Element {
 		$this->controls['pillColor'] = array(
 			'tab'   => 'style',
 			'group' => 'colors',
-			'label' => esc_html__( 'Event pill color', 'post-calendar' ),
+			'label' => esc_html__( 'Event pill color', 'wp-calendar' ),
 			'type'  => 'color',
 			'css'   => array(
 				array(
-					'property' => '--post-calendar-surface-pill',
-					'selector' => '.post-calendar-element',
+					'property' => '--wp-calendar-surface-pill',
+					'selector' => '.wp-calendar-element',
 				),
 			),
 		);
@@ -368,12 +368,12 @@ class Element_Post_Calendar extends \Bricks\Element {
 		$this->controls['pillTextColor'] = array(
 			'tab'   => 'style',
 			'group' => 'colors',
-			'label' => esc_html__( 'Event pill text color', 'post-calendar' ),
+			'label' => esc_html__( 'Event pill text color', 'wp-calendar' ),
 			'type'  => 'color',
 			'css'   => array(
 				array(
-					'property' => '--post-calendar-text-strong-pill',
-					'selector' => '.post-calendar-element',
+					'property' => '--wp-calendar-text-strong-pill',
+					'selector' => '.wp-calendar-element',
 				),
 			),
 		);
@@ -381,12 +381,12 @@ class Element_Post_Calendar extends \Bricks\Element {
 		$this->controls['accentColor'] = array(
 			'tab'   => 'style',
 			'group' => 'colors',
-			'label' => esc_html__( 'Active button color', 'post-calendar' ),
+			'label' => esc_html__( 'Active button color', 'wp-calendar' ),
 			'type'  => 'color',
 			'css'   => array(
 				array(
-					'property' => '--post-calendar-surface-active',
-					'selector' => '.post-calendar-element',
+					'property' => '--wp-calendar-surface-active',
+					'selector' => '.wp-calendar-element',
 				),
 			),
 		);
@@ -394,12 +394,12 @@ class Element_Post_Calendar extends \Bricks\Element {
 		$this->controls['accentForegroundColor'] = array(
 			'tab'   => 'style',
 			'group' => 'colors',
-			'label' => esc_html__( 'Active button text color', 'post-calendar' ),
+			'label' => esc_html__( 'Active button text color', 'wp-calendar' ),
 			'type'  => 'color',
 			'css'   => array(
 				array(
-					'property' => '--post-calendar-surface-active-foreground',
-					'selector' => '.post-calendar-element',
+					'property' => '--wp-calendar-surface-active-foreground',
+					'selector' => '.wp-calendar-element',
 				),
 			),
 		);
@@ -407,13 +407,13 @@ class Element_Post_Calendar extends \Bricks\Element {
 
 	private function get_view_options(): array {
 		return array(
-			'month'    => esc_html__( 'Month', 'post-calendar' ),
-			'twoweeks' => esc_html__( 'Two weeks', 'post-calendar' ),
-			'week'     => esc_html__( 'Week', 'post-calendar' ),
-			'timeline' => esc_html__( 'Timeline', 'post-calendar' ),
-			'day'      => esc_html__( 'Day', 'post-calendar' ),
-			'agenda'   => esc_html__( 'Agenda', 'post-calendar' ),
-			'year'     => esc_html__( 'Year', 'post-calendar' ),
+			'month'    => esc_html__( 'Month', 'wp-calendar' ),
+			'twoweeks' => esc_html__( 'Two weeks', 'wp-calendar' ),
+			'week'     => esc_html__( 'Week', 'wp-calendar' ),
+			'timeline' => esc_html__( 'Timeline', 'wp-calendar' ),
+			'day'      => esc_html__( 'Day', 'wp-calendar' ),
+			'agenda'   => esc_html__( 'Agenda', 'wp-calendar' ),
+			'year'     => esc_html__( 'Year', 'wp-calendar' ),
 		);
 	}
 
@@ -429,7 +429,7 @@ class Element_Post_Calendar extends \Bricks\Element {
 	}
 
 	public function render() {
-		$plugin = \PostCalendar\Plugin::instance();
+		$plugin = \WpCalendar\Plugin::instance();
 
 		if ( ! $plugin ) {
 			return;
@@ -438,7 +438,7 @@ class Element_Post_Calendar extends \Bricks\Element {
 		$assets = $plugin->assets();
 
 		if ( ! $assets->has_built_assets() ) {
-			echo '<div class="post-calendar-element-placeholder">' . esc_html__( 'The calendar frontend assets are missing. Run the plugin build before using this element.', 'post-calendar' ) . '</div>';
+			echo '<div class="wp-calendar-element-placeholder">' . esc_html__( 'The calendar frontend assets are missing. Run the plugin build before using this element.', 'wp-calendar' ) . '</div>';
 			return;
 		}
 
@@ -474,28 +474,28 @@ class Element_Post_Calendar extends \Bricks\Element {
 			}
 		);
 
-		$this->set_attribute( '_root', 'class', 'post-calendar-element' );
+		$this->set_attribute( '_root', 'class', 'wp-calendar-element' );
 
 		// Inject label CSS variables
 		$label_css = Settings_Page::get_label_colors_css();
 		if ( $label_css ) {
-			printf( '<style>.post-calendar-element{%s}</style>', esc_attr( $label_css ) );
+			printf( '<style>.wp-calendar-element{%s}</style>', esc_attr( $label_css ) );
 		}
 
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Bricks render_attributes() returns pre-built HTML attributes.
 		echo '<div ' . $this->render_attributes( '_root' ) . '>';
 		printf(
-			'<div class="js-post-calendar-root" data-config="%s"><div class="post-calendar-element-placeholder">%s</div></div>',
+			'<div class="js-wp-calendar-root" data-config="%s"><div class="wp-calendar-element-placeholder">%s</div></div>',
 			esc_attr( wp_json_encode( $config ) ),
-			esc_html__( 'Loading calendar…', 'post-calendar' )
+			esc_html__( 'Loading calendar…', 'wp-calendar' )
 		);
 		echo '</div>';
 	}
 
 	public static function render_builder() {
 		?>
-		<script type="text/x-template" id="tmpl-bricks-element-post-calendar">
-													<component :is="tag" class="post-calendar-element"></component>
+		<script type="text/x-template" id="tmpl-bricks-element-wp-calendar">
+													<component :is="tag" class="wp-calendar-element"></component>
 												</script>
 		<?php
 	}

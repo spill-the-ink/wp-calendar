@@ -2,10 +2,10 @@
 /**
  * Fetches, caches, and maps iCal feed events to the unified schema.
  *
- * @package PostCalendar\Integrations
+ * @package WpCalendar\Integrations
  */
 
-namespace PostCalendar\Integrations\ICal;
+namespace WpCalendar\Integrations\ICal;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -21,8 +21,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * expanded for one year do not shadow a different year's data within the TTL.
  */
 class Ical_Aggregator {
-	private const TRANSIENT_PREFIX      = 'post_calendar_ical_events_';
-	private const TRANSIENT_LOCK_PREFIX = 'post_calendar_ical_lock_';
+	private const TRANSIENT_PREFIX      = 'wp_calendar_ical_events_';
+	private const TRANSIENT_LOCK_PREFIX = 'wp_calendar_ical_lock_';
 	private const TTL                   = 300; // 5 minutes.
 	private const LOCK_TTL              = 30;  // 30 seconds.
 

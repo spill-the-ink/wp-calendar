@@ -1,5 +1,5 @@
 {
-  "name": "achtender/post-calendar",
+  "name": "achtender/wp-calendar",
   "description": "Display posts as events in a calendar via Bricks or shortcode.",
   "type": "wordpress-plugin",
   "license": "GPL-2.0-or-later",

@@ -4,7 +4,7 @@ import CalendarApp from "./components/calendar/CalendarApp.tsx";
 import "./styles/global.css";
 import type { CalendarConfig } from "./types.ts";
 
-const CALENDAR_ROOT_SELECTOR = ".js-post-calendar-root";
+const CALENDAR_ROOT_SELECTOR = ".js-wp-calendar-root";
 
 let observer: MutationObserver | null = null;
 
@@ -22,7 +22,7 @@ function parseConfig(element: HTMLElement): CalendarConfig {
   } catch {
     return {
       error:
-        globalThis.PostCalendarRuntime?.strings?.configParseError ??
+        globalThis.WpCalendarRuntime?.strings?.configParseError ??
         "Unable to parse the calendar configuration.",
     };
   }
@@ -38,7 +38,7 @@ function mountCalendar(element: HTMLElement): void {
 
   root.render(
     <StrictMode>
-      <CalendarApp config={config} runtime={globalThis.PostCalendarRuntime ?? {}} />
+      <CalendarApp config={config} runtime={globalThis.WpCalendarRuntime ?? {}} />
     </StrictMode>,
   );
 

@@ -172,7 +172,7 @@ if (!fs.existsSync(languagesDir)) {
 
 const languageFiles = fs.readdirSync(languagesDir)
   .filter((fileName) => fileName.endsWith('.po'))
-  .filter((fileName) => fileName !== 'post-calendar.pot');
+  .filter((fileName) => fileName !== 'wp-calendar.pot');
 
 for (const fileName of languageFiles) {
   compilePoToMo(path.join(languagesDir, fileName));
